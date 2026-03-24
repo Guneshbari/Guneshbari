@@ -12,7 +12,6 @@
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/GITHUB-Guneshbari-E8C848?style=for-the-badge&logo=github&logoColor=060912&labelColor=E8C848)](https://github.com/Guneshbari)&nbsp;
 [![LinkedIn](https://img.shields.io/badge/LINKEDIN-Connect-ffffff?style=for-the-badge&logo=linkedin&logoColor=ffffff&labelColor=0A66C2)](https://linkedin.com/in/gunesh-bari)&nbsp;
 [![Email](https://img.shields.io/badge/EMAIL-guneshbari2005-ffffff?style=for-the-badge&logo=gmail&logoColor=ffffff&labelColor=EA4335)](mailto:guneshbari2005@gmail.com)
 
@@ -26,38 +25,111 @@
 
 ---
 
-## `// PLAYER_PROFILE.json`
-
-```json
-{
-  "name"         : "Gunesh Bari",
-  "handle"       : "@Guneshbari",
-  "location"     : "Mumbai, India",
-  "class"        : "Full-Stack Engineer & Systems Thinker",
-  "joined"       : "2023",
-  "main_quests"  : ["Web Dev", "AI/ML", "Open Source", "Startups"],
-  "side_quests"  : ["Philosophy", "Gaming", "Entrepreneurship"],
-  "active_build" : "SentinelCore_DEV — security platform",
-  "os"           : "Arch Linux (btw)",
-}
-```
-
----
-
 ## ⚔️ TECH ARSENAL
 
-<div align="center">
+<table align="center">
+  <tr>
+    <th align="center"><b>Category</b></th>
+    <th align="center"><b>Technologies</b></th>
+    <th align="center"><b>Proficiency</b></th>
+  </tr>
 
-| ⚡ Category | 🛠️ Technologies | 🎯 Level |
-|:---|:---|---:|
-| **🔤 Languages** | ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white) | ![](https://img.shields.io/badge/●●●●●_EXPERT-E8C848?style=flat-square&labelColor=0d0f2b) |
-| **🖥️ Frontend** | ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) ![Tailwind](https://img.shields.io/badge/Tailwind-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) | ![](https://img.shields.io/badge/●●●●○_ADVANCED-7C3AED?style=flat-square&labelColor=0d0f2b) |
-| **⚙️ Backend** | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white) ![Kafka](https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white) | ![](https://img.shields.io/badge/●●●●○_ADVANCED-7C3AED?style=flat-square&labelColor=0d0f2b) |
-| **🗄️ Databases** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-00758F?style=flat-square&logo=mysql&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white) | ![](https://img.shields.io/badge/●●●○○_PROFICIENT-2EC4B6?style=flat-square&labelColor=0d0f2b) |
-| **🐧 DevOps & Infra** | ![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=arch-linux&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white) ![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black) | ![](https://img.shields.io/badge/●●●○○_PROFICIENT-2EC4B6?style=flat-square&labelColor=0d0f2b) |
-| **🤖 AI/ML** *(leveling)* | ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white) ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=langchain&logoColor=white) ![n8n](https://img.shields.io/badge/n8n-EA4B71?style=flat-square&logo=n8n&logoColor=white) | ![](https://img.shields.io/badge/●●○○○_LEVELING_UP-f4845f?style=flat-square&labelColor=0d0f2b) |
+  <!-- LANGUAGES -->
+  <tr>
+    <td align="center"><b>🔤 Languages</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=ts,js,python,cpp" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Expert-🔥-22c55e?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/TypeScript%20|%20JavaScript-Strong-22c55e?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
 
-</div>
+  <!-- FRONTEND -->
+  <tr>
+    <td align="center"><b>🖥️ Frontend</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=react,next,tailwind,bootstrap,vite" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Advanced-⚡-22c55e?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/React%20|%20Next.js-Proficient-22c55e?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+
+  <!-- BACKEND -->
+  <tr>
+    <td align="center"><b>⚙️ Backend</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=nodejs,express,kafka" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Advanced-⚡-22c55e?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/Event-Driven%20Systems%20|%20Kafka-Strong-22c55e?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+
+  <!-- DATABASES -->
+  <tr>
+    <td align="center"><b>🗄️ Databases</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=postgres,mongodb,mysql,firebase,supabase" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Moderate-⚡-2ec4b6?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/MongoDB%20|%20Supabase%20|%20SQLite-Proficient-2ec4b6?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+
+  <!-- DEVOPS & INFRA -->
+  <tr>
+    <td align="center"><b>☁️ DevOps & Infra</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=linux,git,githubactions,docker,gcp,vercel" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Moderate-⚡-2ec4b6?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/Docker%20|%20GCP%20|%20CI/CD-Proficient-2ec4b6?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+
+  <!-- MONITORING -->
+  <tr>
+    <td align="center"><b>📊 Monitoring</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=prometheus,grafana" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Learning-📈-f59e0b?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/System%20Observability-Basic-f59e0b?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+
+  <!-- AI/ML -->
+  <tr>
+    <td align="center"><b>🤖 AI/ML</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=tensorflow,pytorch,opencv,postman" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Learning-📈-f59e0b?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/OpenCV%20|%20PyTorch-Basic-f59e0b?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+
+  <!-- DEVELOPMENT ENV-->
+  <tr>
+    <td align="center"><b>🛠️ Development Environment</b></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=vim,vscode,neovim,arch" />
+    </td>
+    <td align="center">
+      <img src="https://img.shields.io/badge/Workflow-Optimized-22c55e?style=flat-square&labelColor=000000" /><br/>
+      <img src="https://img.shields.io/badge/Linux%20|%20CLI%20|%20Customization-Strong-22c55e?style=flat-square&labelColor=000000" />
+    </td>
+  </tr>
+</table>
 
 ---
 
