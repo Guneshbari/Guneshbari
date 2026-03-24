@@ -9,8 +9,17 @@
 </div>
 <div align="center">
 
-[![LinkedIn](https://img.shields.io/badge/LINKEDIN-Connect-ffffff?style=for-the-badge&logo=linkedin&logoColor=ffffff&labelColor=0A66C2)](https://linkedin.com/in/gunesh-bari)&nbsp;
-[![Email](https://img.shields.io/badge/EMAIL-guneshbari2005-ffffff?style=for-the-badge&logo=gmail&logoColor=ffffff&labelColor=EA4335)](mailto:guneshbari2005@gmail.com)
+<p align="center">
+
+<a href="https://linkedin.com/in/gunesh-bari">
+  <img src="https://img.shields.io/badge/LinkedIn-Let's%20Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=000000"/>
+</a>
+
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=guneshbari2005@gmail.com">
+  <img src="https://img.shields.io/badge/Email-Drop%20a%20Message-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=000000"/>
+</a>
+
+</p>
 
 </div>
 
@@ -201,9 +210,17 @@ Great software is **philosophy made executable** — every architectural decisio
 <div align="center">
 
 *Open to collabs, side quests, and conversations worth having.*
+<p align="center">
 
-[![LinkedIn](https://img.shields.io/badge/Let's_Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0A66C2)](https://linkedin.com/in/gunesh-bari)&nbsp;
-[![Email](https://img.shields.io/badge/Drop_a_Message-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=EA4335)](mailto:guneshbari2005@gmail.com)
+<a href="https://linkedin.com/in/gunesh-bari">
+  <img src="https://img.shields.io/badge/LinkedIn-Let's%20Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=000000"/>
+</a>
+
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=guneshbari2005@gmail.com">
+  <img src="https://img.shields.io/badge/Email-Drop%20a%20Message-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=000000"/>
+</a>
+
+</p>
 
 <img src="https://komarev.com/ghpvc/?username=Guneshbari&label=PROFILE+VIEWS&color=7C3AED&style=flat-square"/>
 
