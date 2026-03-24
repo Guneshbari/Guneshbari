@@ -1,29 +1,18 @@
 <div align="center">
 
-<!-- ═══════════════════════════════════════════════════════
-     CUSTOM BANNER — store banner.svg in this same repo
-     Reference: https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/banner.svg
-     ═══════════════════════════════════════════════════════ -->
 <img src="banner.svg" alt="Gunesh Bari Banner" width="100%"/>
 
 </div>
 
-<br/>
-
+<div align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Share+Tech+Mono&weight=600&size=19&pause=900&color=09f3aa&center=true&vCenter=true&random=false&width=680&lines=%3E+INITIALIZING...;%3E+Full-Stack+Engineer+%7C+Linux+Devotee;%3E+Currently+shipping%3A+SentinelCore_DEV+%F0%9F%94%90;%3E+STATUS%3A+Always+building%2C+always+leveling+up+%F0%9F%94%A5" alt="Typing SVG" />
+</div>
 <div align="center">
 
 [![LinkedIn](https://img.shields.io/badge/LINKEDIN-Connect-ffffff?style=for-the-badge&logo=linkedin&logoColor=ffffff&labelColor=0A66C2)](https://linkedin.com/in/gunesh-bari)&nbsp;
 [![Email](https://img.shields.io/badge/EMAIL-guneshbari2005-ffffff?style=for-the-badge&logo=gmail&logoColor=ffffff&labelColor=EA4335)](mailto:guneshbari2005@gmail.com)
 
 </div>
-
-<br/>
-
-<div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Share+Tech+Mono&weight=600&size=19&pause=900&color=E8C848&center=true&vCenter=true&random=false&width=680&lines=%3E+INITIALIZING...;%3E+Full-Stack+Engineer+%7C+Linux+Devotee;%3E+Currently+shipping%3A+SentinelCore_DEV+%F0%9F%94%90;%3E+STATUS%3A+Always+building%2C+always+leveling+up+%F0%9F%94%A5" alt="Typing SVG" />
-</div>
-
----
 
 ## ⚔️ TECH ARSENAL
 
