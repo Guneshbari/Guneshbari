@@ -1,0 +1,200 @@
+<svg width="100%" height="260" viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+  <!-- Background -->
+  <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#000000"/>
+    <stop offset="100%" stop-color="#020617"/>
+  </linearGradient>
+
+  <!-- Glow -->
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feMerge>
+      <feMergeNode in="blur"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+
+  <!-- Name Gradient -->
+  <linearGradient id="nameGrad" x1="0%" y1="0%" x2="100%">
+    <stop offset="0%" stop-color="#00ff9c"/>
+    <stop offset="50%" stop-color="#22c55e"/>
+    <stop offset="100%" stop-color="#00f7ff"/>
+  </linearGradient>
+</defs>
+
+<!-- Background -->
+<rect width="100%" height="100%" fill="url(#bg)"/>
+
+
+<!-- ================= MATRIX BACKGROUND ================= -->
+<!-- ================= TRUE RANDOM MATRIX ================= -->
+<g fill="#22c55e" font-size="11" font-family="monospace">
+
+<!-- RANDOM FALL STREAMS (different speeds + offsets) -->
+<text x="37" y="-10" opacity="1">10110101
+  <animate attributeName="y" from="-10" to="280" dur="4.7s" repeatCount="indefinite"/>
+</text>
+
+<text x="143" y="-80" opacity="1">01011101
+  <animate attributeName="y" from="-80" to="300" dur="6.9s" repeatCount="indefinite"/>
+</text>
+
+<text x="289" y="-40" opacity="1">11001010
+  <animate attributeName="y" from="-40" to="290" dur="5.2s" repeatCount="indefinite"/>
+</text>
+
+<text x="417" y="-120" opacity="1">10101101
+  <animate attributeName="y" from="-120" to="300" dur="7.3s" repeatCount="indefinite"/>
+</text>
+
+<text x="566" y="-30" opacity="1">01101011
+  <animate attributeName="y" from="-30" to="300" dur="4.9s" repeatCount="indefinite"/>
+</text>
+
+<text x="712" y="-70" opacity="1">11010100
+  <animate attributeName="y" from="-70" to="300" dur="6.2s" repeatCount="indefinite"/>
+</text>
+
+<text x="843" y="-10" opacity="1">10100111
+  <animate attributeName="y" from="-10" to="300" dur="5.6s" repeatCount="indefinite"/>
+</text>
+
+<text x="1003" y="-140" opacity="1">01010101
+  <animate attributeName="y" from="-140" to="300" dur="8s" repeatCount="indefinite"/>
+</text>
+
+<!-- RISING STREAMS (adds randomness) -->
+<text x="210" y="260" opacity="1">101010
+  <animate attributeName="y" from="260" to="-40" dur="7.2s" repeatCount="indefinite"/>
+</text>
+
+<text x="640" y="260" opacity="1">011011
+  <animate attributeName="y" from="260" to="-50" dur="6.5s" repeatCount="indefinite"/>
+</text>
+
+<!-- DRIFTING BITS -->
+<text x="500" y="100" opacity="1">1010
+  <animate attributeName="x" values="500;540;500" dur="5.5s" repeatCount="indefinite"/>
+</text>
+
+<text x="900" y="60" opacity="1">0110
+  <animate attributeName="y" values="60;90;60" dur="4.8s" repeatCount="indefinite"/>
+</text>
+
+<!-- FLICKER NOISE (feels alive) -->
+<text x="350" y="180" opacity="1">
+  1101
+  <animate attributeName="opacity" values="0;0.3;0" dur="1.2s" repeatCount="indefinite"/>
+</text>
+
+<text x="780" y="140" opacity="1">
+  0011
+  <animate attributeName="opacity" values="0;0.25;0" dur="1.6s" repeatCount="indefinite"/>
+</text>
+
+<!-- MICRO PARTICLES -->
+<circle cx="150" cy="90" r="1" fill="#22c55e">
+  <animate attributeName="cy" values="90;110;90" dur="3s" repeatCount="indefinite"/>
+</circle>
+
+<circle cx="850" cy="200" r="1" fill="#22c55e">
+  <animate attributeName="cx" values="850;870;850" dur="4s" repeatCount="indefinite"/>
+</circle>
+
+  <!-- ================= MULTI-DIRECTIONAL INJECTION ================= -->
+
+<!-- LEFT → RIGHT STREAMS -->
+<text x="-80" y="60" opacity="1">1010110
+  <animate attributeName="x" from="-80" to="1300" dur="6.2s" repeatCount="indefinite"/>
+</text>
+
+<text x="-120" y="180" opacity="1">1101011
+  <animate attributeName="x" from="-120" to="1300" dur="7.5s" repeatCount="indefinite"/>
+</text>
+
+<!-- RIGHT → LEFT STREAMS -->
+<text x="1300" y="100" opacity="1">0101101
+  <animate attributeName="x" from="1300" to="-120" dur="6.8s" repeatCount="indefinite"/>
+</text>
+
+<text x="1400" y="200" opacity="1">1010101
+  <animate attributeName="x" from="1400" to="-150" dur="8.2s" repeatCount="indefinite"/>
+</text>
+
+<!-- DIAGONAL ↓→ -->
+<text x="-50" y="-50" opacity="1">1100110
+  <animate attributeName="x" values="-50;1250" dur="7s" repeatCount="indefinite"/>
+  <animate attributeName="y" values="-50;300" dur="7s" repeatCount="indefinite"/>
+</text>
+
+<!-- DIAGONAL ↑← -->
+<text x="1200" y="260" opacity="1">0011010
+  <animate attributeName="x" values="1200;-100" dur="7.8s" repeatCount="indefinite"/>
+  <animate attributeName="y" values="260;-60" dur="7.8s" repeatCount="indefinite"/>
+</text>
+
+<!-- FAST BURST LINES -->
+<text x="400" y="-20" opacity="1">
+  1010101010
+  <animate attributeName="y" from="-20" to="300" dur="2s" begin="1s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0.4;0" dur="2s" begin="1s" repeatCount="indefinite"/>
+</text>
+
+<text x="800" y="-20" opacity="1">
+  1110001110
+  <animate attributeName="y" from="-20" to="300" dur="1.8s" begin="2.2s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;0.5;0" dur="1.8s" begin="2.2s" repeatCount="indefinite"/>
+</text>
+
+<!-- CHAOTIC JITTER NODES -->
+<text x="250" y="140" opacity="1">01
+  <animate attributeName="x" values="250;270;240;260;250" dur="3s" repeatCount="indefinite"/>
+</text>
+
+<text x="950" y="80" opacity="1">10
+  <animate attributeName="y" values="80;100;70;90;80" dur="2.8s" repeatCount="indefinite"/>
+</text>
+</g>
+
+<!-- ================= NAME ================= -->
+
+<!-- Base -->
+<text x="600" y="135" text-anchor="middle"
+font-size="100" font-weight="900"
+fill="url(#nameGrad)" font-family="monospace"
+filter="url(#glow)">
+Gunesh Bari
+</text>
+
+<!-- Glitch (slow + subtle) -->
+<text x="602" y="133" text-anchor="middle"
+font-size="100" font-weight="900"
+fill="#00ff9c" opacity="0.3" font-family="monospace">
+Gunesh Bari
+<animate attributeName="opacity" values="0;0.3;0" dur="1.5s" repeatCount="indefinite"/>
+</text>
+
+<text x="598" y="137" text-anchor="middle"
+font-size="100" font-weight="900"
+fill="#00f7ff" opacity="0.3" font-family="monospace">
+Gunesh Bari
+<animate attributeName="opacity" values="0;0.25;0" dur="1.8s" repeatCount="indefinite"/>
+</text>
+
+<!-- ================= STATUS ================= -->
+<text x="600" y="165" text-anchor="middle"
+font-size="25"
+fill="#94a3b8" font-family="monospace">
+
+  Building systems...
+
+  <tspan>
+    <animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite"/>
+    _
+  </tspan>
+
+</text>
+
+</svg>
