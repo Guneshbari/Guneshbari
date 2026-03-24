@@ -64,7 +64,7 @@
     </td>
     <td align="center">
       <img src="https://img.shields.io/badge/Advanced-⚡-22c55e?style=flat-square&labelColor=000000" /><br/>
-      <img src="https://img.shields.io/badge/Event-Driven%20Systems%20|%20Kafka-Strong-22c55e?style=flat-square&labelColor=000000" />
+      <img src="https://img.shields.io/badge/Event--Driven%20Systems%20|%20Kafka-Strong-22c55e?style=flat-square&labelColor=000000" />
     </td>
   </tr>
 
