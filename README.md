@@ -154,8 +154,9 @@
 
 <div align="center">
 
-<img height="175em" src="https://github-readme-stats.vercel.app/api?username=Guneshbari&show_icons=true&hide_border=true&bg_color=000000&title_color=22c55e&icon_color=22c55e&text_color=94a3b8&include_all_commits=true&count_private=true"/>
-<img height="175em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Guneshbari&layout=compact&langs_count=8&hide_border=true&bg_color=000000&title_color=22c55e&text_color=94a3b8"/>
+<img height="175em" src="https://github-readme-stats-sigma-five.vercel.app/api?username=Guneshbari&show_icons=true&hide_border=true&bg_color=000000&title_color=22c55e&icon_color=22c55e&text_color=94a3b8&include_all_commits=true&count_private=true"/>
+
+<img height="175em" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=Guneshbari&layout=compact&langs_count=8&hide_border=true&bg_color=000000&title_color=22c55e&text_color=94a3b8"/>
 
 </div>
 
