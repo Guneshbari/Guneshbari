@@ -1,5 +1,8 @@
 name: GitHub-Profile-Summary-Cards
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "0 */24 * * *"
@@ -14,3 +17,4 @@ jobs:
           USERNAME: Guneshbari
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
