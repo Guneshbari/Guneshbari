@@ -1,0 +1,16 @@
+name: GitHub-Profile-Summary-Cards
+
+on:
+  schedule:
+    - cron: "0 */24 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: vn7n24fzkq/github-profile-summary-cards@release
+        with:
+          USERNAME: Guneshbari
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
