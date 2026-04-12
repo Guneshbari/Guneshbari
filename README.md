@@ -139,28 +139,19 @@
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Guneshbari&theme=tokyo-night&hide_border=true&area=true&area_color=7C3AED&line=E8C848&point=10B981&color=8892b0&bg_color=000000" width="100%"/>
 
 </div>
-
 <div align="center">
 
-### 📊 Detailed Analytics
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Guneshbari&theme=vision_friendly_dark" width="100%"/>
+### 📊 Profile Overview
+<img src="https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/profile-summary-card-output/midnight_purple/0-profile-details.svg" width="100%"/>
 
 </div>
-
 <div align="center">
 
-### 🏆 Profile Stats
+### 🧠 Language Focus
+<img src="https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/profile-summary-card-output/midnight_purple/2-most-commit-language.svg" width="49%"/>
+
+<img src="https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/profile-summary-card-output/midnight_purple/3-stats.svg" width="49%"/>
 </div>
-
-<div align="center">
-
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Guneshbari&theme=vision_friendly_dark" />
-<img src="http://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Guneshbari&theme=vision_friendly_dark&utcOffset=5.5" />
-
-</div>
-
-<div align="center">
-<img src="https://streak-stats.demolab.com?user=Guneshbari&hide_border=true&background=000000&ring=22c55e&fire=22c55e&currStreakLabel=22c55e&currStreakNum=22c55e&sideLabels=94a3b8&sideNums=94a3b8&dates=64748b"/>
 
 ---
 
