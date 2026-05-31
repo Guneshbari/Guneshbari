@@ -147,12 +147,6 @@
 </div>
 <div align="center">
 
-### 🧠 Language Focus
-<img src="https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/profile-summary-card-output/midnight_purple/2-most-commit-language.svg" width="49%"/>
-
-<img src="https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/profile-summary-card-output/midnight_purple/3-stats.svg" width="49%"/>
-</div>
-
 ---
 
 ## 🚀 ACTIVE QUEST LOG
