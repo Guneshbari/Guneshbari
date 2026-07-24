@@ -141,9 +141,6 @@
 </div>
 <div align="center">
 
-### 📊 Profile Overview
-<img src="https://raw.githubusercontent.com/Guneshbari/Guneshbari/main/profile-summary-card-output/midnight_purple/0-profile-details.svg" width="100%"/>
-
 </div>
 <div align="center">
 
