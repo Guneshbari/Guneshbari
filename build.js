@@ -22,7 +22,7 @@ import {
   PINKY_PATH,
   INKY_PATH,
   CLYDE_PATH,
-  getPacmanPassFraction
+  getPathPassFractions
 } from './animations.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -109,55 +109,59 @@ function generateWallElements(walls) {
 // ============================================================
 // 4. Pellet Renderer with Synchronized Eating
 // ============================================================
+function getConsumptionAnimation(passFractions) {
+  // A dot reappears shortly before its next visit so the loop can reset.
+  // Both the character and every dot use the same distance fraction.
+  const transition = 0.0015;
+  const events = [];
+
+  for (let index = 0; index < passFractions.length; index++) {
+    const pass = passFractions[index];
+    const previous = passFractions[(index - 1 + passFractions.length) % passFractions.length];
+    const gap = (pass - previous + 1) % 1 || 1;
+    const respawnAt = (pass - Math.min(0.035, gap * 0.14) + 1) % 1;
+
+    events.push({ t: (respawnAt - transition + 1) % 1, value: 0 });
+    events.push({ t: respawnAt, value: 1 });
+    events.push({ t: pass, value: 1 });
+    events.push({ t: (pass + transition) % 1, value: 0 });
+  }
+
+  events.sort((a, b) => a.t - b.t);
+  const merged = [];
+  for (const event of events) {
+    if (merged.length && Math.abs(merged[merged.length - 1].t - event.t) < 0.00001) {
+      merged[merged.length - 1] = event;
+    } else {
+      merged.push(event);
+    }
+  }
+
+  // Carry the final state of the preceding loop across 0 → 1. Without this,
+  // pellets close to Pac-Man's starting position would flash in a frame late.
+  const zeroEvent = merged.find(event => event.t === 0);
+  const startValue = zeroEvent ? zeroEvent.value : merged[merged.length - 1].value;
+  if (!zeroEvent) merged.unshift({ t: 0, value: startValue });
+  merged.push({ t: 1, value: startValue });
+
+  const times = merged.map(event => event.t.toFixed(4)).join(';');
+  const opacity = merged.map(event => event.value.toFixed(2)).join(';');
+  const radius = merged.map(event => (event.value * 3.5).toFixed(2)).join(';');
+  return { times, opacity, radius };
+}
+
 function generatePelletsSvg(pellets, powerPellets) {
   let output = '    <g id="pellet-group">\n';
 
   for (const p of pellets) {
-    const f = getPacmanPassFraction(p.x, p.y, PACMAN_PATH);
+    const passes = getPathPassFractions(p.x, p.y, PACMAN_PATH);
 
-    if (f !== null) {
-      // Synchronized eating animation
-      const eps = 0.005;
-      const fEat = Math.min(0.999, f + eps);
-      const fRespawn = (f + 0.65) % 1.0;
-      const fFull = (f + 0.85) % 1.0;
-
-      const events = [];
-      function addPt(t, v) { events.push({ t: Math.max(0, Math.min(1, t)), v }); }
-      function valAt(t) {
-        let dt = (t - f + 1.0) % 1.0;
-        if (dt < eps) return 1.0;
-        if (dt < 0.65) return 0.0;
-        if (dt < 0.85) return parseFloat(((dt - 0.65) / 0.20).toFixed(2));
-        return 1.0;
-      }
-
-      addPt(0, valAt(0));
-      addPt(Math.max(0, f - 0.002), 1.0);
-      addPt(fEat, 0.0);
-      addPt(fRespawn, 0.0);
-      addPt(fFull, 1.0);
-      addPt(1, valAt(1));
-      events.sort((a, b) => a.t - b.t);
-
-      const clean = [];
-      for (const e of events) {
-        if (clean.length === 0 || Math.abs(clean[clean.length - 1].t - e.t) > 0.005) {
-          clean.push(e);
-        } else {
-          clean[clean.length - 1] = e;
-        }
-      }
-      if (clean[0].t !== 0) clean.unshift({ t: 0, v: clean[0].v });
-      if (clean[clean.length - 1].t !== 1) clean.push({ t: 1, v: clean[clean.length - 1].v });
-
-      const times = clean.map(pt => pt.t.toFixed(3)).join(';');
-      const opacities = clean.map(pt => pt.v.toFixed(2)).join(';');
-      const radii = clean.map(pt => (pt.v * 3.5).toFixed(2)).join(';');
+    if (passes.length) {
+      const { times, opacity, radius } = getConsumptionAnimation(passes);
 
       output += `      <circle cx="${p.x}" cy="${p.y}" r="3.5" class="pellet-dot">\n`;
-      output += `        <animate attributeName="opacity" values="${opacities}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-      output += `        <animate attributeName="r" values="${radii}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+      output += `        <animate attributeName="opacity" values="${opacity}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+      output += `        <animate attributeName="r" values="${radius}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
       output += `      </circle>\n`;
     } else {
       output += `      <circle cx="${p.x}" cy="${p.y}" r="3.5" class="pellet-dot"/>\n`;
@@ -166,7 +170,11 @@ function generatePelletsSvg(pellets, powerPellets) {
   output += '    </g>\n    <g id="power-pellets-group">\n';
 
   for (const pp of powerPellets) {
-    output += `      <use href="#pellet-power" xlink:href="#pellet-power" x="${pp.x}" y="${pp.y}"/>\n`;
+    const { times, opacity } = getConsumptionAnimation(getPathPassFractions(pp.x, pp.y, PACMAN_PATH));
+    output += `      <g class="power-pellet" transform="translate(${pp.x} ${pp.y})">\n`;
+    output += `        <use href="#pellet-power" xlink:href="#pellet-power" x="0" y="0"/>\n`;
+    output += `        <animate attributeName="opacity" values="${opacity}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    output += `      </g>\n`;
   }
   output += '    </g>';
 
@@ -355,23 +363,24 @@ ${svgCells}
   <!-- 8. Characters -->
   <g id="layer-characters">
     <g id="character-pacman">
-      <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0"/>
-      <animateMotion path="${PACMAN_PATH}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" rotate="auto" calcMode="linear"/>
+      <!-- The centre lane between the two name islands is 32px wide. -->
+      <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0" transform="scale(0.70)"/>
+      <animateMotion path="${PACMAN_PATH}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" rotate="auto" calcMode="paced"/>
     </g>
     <g id="character-blinky">
-      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
+      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${BLINKY_PATH}" dur="${ANIMATION_CONFIG.blinkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
     <g id="character-pinky">
-      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
+      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${PINKY_PATH}" dur="${ANIMATION_CONFIG.pinkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
     <g id="character-inky">
-      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
+      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${INKY_PATH}" dur="${ANIMATION_CONFIG.inkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
     <g id="character-clyde">
-      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
+      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${CLYDE_PATH}" dur="${ANIMATION_CONFIG.clydeDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
   </g>

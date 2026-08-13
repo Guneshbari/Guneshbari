@@ -3,6 +3,8 @@
  * Timing configurations, character motion paths, and pellet consumption synchronization.
  */
 
+import { PACMAN_ROUTE } from './maze-data.js';
+
 export const ANIMATION_CONFIG = {
   pacmanDuration: '26s',
   blinkyDuration: '28s',
@@ -17,23 +19,11 @@ export const ANIMATION_CONFIG = {
 };
 
 // ── 1. Strictly Orthogonal Seamless Character Paths ────────────
-export const PACMAN_PATH = `
-  M 735,85
-  L 75,85
-  L 75,200
-  L 735,200
-  L 735,400
-  L 75,400
-  L 75,555
-  L 1205,555
-  L 1205,400
-  L 735,400
-  L 735,200
-  L 1205,200
-  L 1205,85
-  L 735,85
-  Z
-`.replace(/\s+/g, ' ').trim();
+export { PACMAN_ROUTE };
+
+export const PACMAN_PATH = PACMAN_ROUTE
+  .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x},${point.y}`)
+  .join(' ') + ' Z';
 
 export const BLINKY_PATH = `
   M 735,85
@@ -117,11 +107,9 @@ export function getPathSegments(pathStr) {
   return { segments, totalLength };
 }
 
-export function getPacmanPassFraction(x, y, pathStr) {
+export function getPathPassFractions(x, y, pathStr, threshold = 0.1) {
   const { segments, totalLength } = getPathSegments(pathStr);
-  const threshold = 16;
-  let closestDist = Infinity;
-  let passDistance = 0;
+  const passes = [];
 
   for (const seg of segments) {
     const { p1, p2, length, startDistance } = seg;
@@ -134,14 +122,19 @@ export function getPacmanPassFraction(x, y, pathStr) {
     const projY = p1.y + t * dy;
     const dist = Math.sqrt((x - projX) ** 2 + (y - projY) ** 2);
 
-    if (dist < closestDist && dist <= threshold) {
-      closestDist = dist;
-      passDistance = startDistance + t * length;
+    if (dist <= threshold) {
+      passes.push((startDistance + t * length) / totalLength);
     }
   }
 
-  if (closestDist <= threshold && totalLength > 0) {
-    return parseFloat((passDistance / totalLength).toFixed(4));
-  }
-  return null;
+  return [...new Set(passes.map(pass => pass.toFixed(6)))]
+    .map(Number)
+    .sort((a, b) => a - b);
+}
+
+// Kept as a convenient single-pass accessor for callers that need only the
+// first visit. Pellet rendering uses getPathPassFractions so re-traversed
+// corridors remain synchronized in both directions.
+export function getPacmanPassFraction(x, y, pathStr) {
+  return getPathPassFractions(x, y, pathStr)[0] ?? null;
 }

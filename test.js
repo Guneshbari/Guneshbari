@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { MAZE_WALLS, POWER_PELLETS, PELLETS } from './maze-data.js';
-import { PACMAN_PATH, BLINKY_PATH, PINKY_PATH, INKY_PATH, CLYDE_PATH } from './animations.js';
+import { PACMAN_PATH, BLINKY_PATH, PINKY_PATH, INKY_PATH, CLYDE_PATH, getPathPassFractions } from './animations.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -114,10 +114,25 @@ function runTests() {
   // Test 8: Power Pellets Count
   assert(POWER_PELLETS.length === 4, `4 Power Pellets configured (found: ${POWER_PELLETS.length})`);
 
+  // The narrow centre connector is 30px wide, so the 32px character assets
+  // are scaled to a safe 22.4px gameplay footprint before they enter it.
+  assert((svgContent.match(/transform="scale\(0\.70\)"/g) || []).length === 5, 'All moving characters fit the centre maze connector');
+
   // Test 9: Regular Pellets Count
   assert(PELLETS.length >= 80, `Substantial pellet count for full level feel (${PELLETS.length} pellets)`);
 
-  // Test 10: File size within target (< 500 KB)
+  // Test 10: A pellet is only generated on the gameplay route and has at
+  // least one exact consumption moment. This protects movement/eating sync.
+  assert(
+    PELLETS.every(pellet => getPathPassFractions(pellet.x, pellet.y, PACMAN_PATH).length > 0),
+    'Every regular pellet lies on Pac-Man\'s exact route'
+  );
+  assert(
+    POWER_PELLETS.every(pellet => getPathPassFractions(pellet.x, pellet.y, PACMAN_PATH).length > 0),
+    'Every power pellet lies on Pac-Man\'s exact route'
+  );
+
+  // Test 11: File size within target (< 500 KB)
   const sizeKB = fs.statSync(bannerPath).size / 1024;
   assert(sizeKB < 500, `File size is ${sizeKB.toFixed(2)} KB (under 500 KB target)`);
 

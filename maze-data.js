@@ -6,6 +6,29 @@
 
 export const CANVAS = { width: 1280, height: 640 };
 
+// ── Gameplay Route (the source of truth) ────────────────────────
+//
+// Every moving/eatable element is derived from this route.  The walls below
+// intentionally leave a corridor around each of these segments, which keeps
+// the gameplay readable instead of treating animation as an afterthought.
+// Coordinates are character centres, not wall edges.
+export const PACMAN_ROUTE = [
+  { x: 735, y: 85 },
+  { x: 75, y: 85 },
+  { x: 75, y: 200 },
+  { x: 735, y: 200 },
+  { x: 735, y: 400 },
+  { x: 75, y: 400 },
+  { x: 75, y: 555 },
+  { x: 1205, y: 555 },
+  { x: 1205, y: 400 },
+  { x: 735, y: 400 },
+  { x: 735, y: 200 },
+  { x: 1205, y: 200 },
+  { x: 1205, y: 85 },
+  { x: 735, y: 85 }
+];
+
 // ── 7x9 Pixel Font Definition for "GUNESH BARI" ────────────────
 export const PIXEL_FONT = {
   G: [
@@ -252,63 +275,6 @@ function generatePellets() {
   const pellets = [];
   const spacing = 26;
 
-  // Primary horizontal corridor centerlines
-  const hCorridors = [
-    { y: 85, xMin: 65, xMax: 1215 },
-    { y: 200, xMin: 65, xMax: 1215 },
-    { y: 400, xMin: 65, xMax: 1215 },
-    { y: 470, xMin: 65, xMax: 1215 },
-    { y: 555, xMin: 65, xMax: 1215 }
-  ];
-
-  // Primary vertical corridor centerlines
-  const vCorridors = [
-    { x: 75, yMin: 70, yMax: 565 },
-    { x: 190, yMin: 70, yMax: 210 },
-    { x: 190, yMin: 390, yMax: 565 },
-    { x: 370, yMin: 70, yMax: 210 },
-    { x: 370, yMin: 390, yMax: 565 },
-    { x: 735, yMin: 70, yMax: 565 }, // Full height vertical through word gap
-    { x: 910, yMin: 70, yMax: 210 },
-    { x: 910, yMin: 390, yMax: 565 },
-    { x: 1090, yMin: 70, yMax: 210 },
-    { x: 1090, yMin: 390, yMax: 565 },
-    { x: 1205, yMin: 70, yMax: 565 }
-  ];
-
-  function isBlocked(px, py) {
-    // 1. Power pellets proximity
-    for (const pp of POWER_PELLETS) {
-      if (Math.abs(px - pp.x) < 22 && Math.abs(py - pp.y) < 22) return true;
-    }
-
-    // 2. Ghost house area (x: 580 to 700, y: 110 to 180)
-    if (px >= 580 && px <= 700 && py >= 110 && py <= 180) return true;
-
-    // 3. GUNESH island interior (x: 130 to 722, y: 224 to 376)
-    if (px >= 130 && px <= 722 && py >= 224 && py <= 376) return true;
-
-    // 4. BARI island interior (x: 748 to 1150, y: 224 to 376)
-    if (px >= 748 && px <= 1150 && py >= 224 && py <= 376) return true;
-
-    // 5. Maze wall collisions
-    for (const w of MAZE_WALLS) {
-      if (w.type === 'rect') {
-        const pad = 8;
-        if (
-          px >= w.x - pad &&
-          px <= w.x + w.w + pad &&
-          py >= w.y - pad &&
-          py <= w.y + w.h + pad
-        ) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
   const placed = new Set();
 
   function tryPlace(px, py) {
@@ -316,22 +282,27 @@ function generatePellets() {
     const ry = Math.round(py);
     const key = `${rx},${ry}`;
     if (placed.has(key)) return;
-    if (isBlocked(rx, ry)) return;
+    // Power pellets occupy their own position in the route.
+    for (const pp of POWER_PELLETS) {
+      if (Math.hypot(rx - pp.x, ry - pp.y) < 18) return;
+    }
     placed.add(key);
     pellets.push({ x: rx, y: ry });
   }
 
-  // Generate along horizontal corridors
-  for (const hc of hCorridors) {
-    for (let x = hc.xMin; x <= hc.xMax; x += spacing) {
-      tryPlace(x, hc.y);
-    }
-  }
+  // Place dots directly on the valid Pac-Man centreline.  This makes it
+  // impossible to create a decorative pellet that Pac-Man can never collect.
+  for (let i = 0; i < PACMAN_ROUTE.length - 1; i++) {
+    const from = PACMAN_ROUTE[i];
+    const to = PACMAN_ROUTE[i + 1];
+    const dx = to.x - from.x;
+    const dy = to.y - from.y;
+    const length = Math.hypot(dx, dy);
+    const steps = Math.floor(length / spacing);
 
-  // Generate along vertical corridors
-  for (const vc of vCorridors) {
-    for (let y = vc.yMin; y <= vc.yMax; y += spacing) {
-      tryPlace(vc.x, y);
+    for (let step = 1; step < steps; step++) {
+      const progress = (step * spacing) / length;
+      tryPlace(from.x + dx * progress, from.y + dy * progress);
     }
   }
 
