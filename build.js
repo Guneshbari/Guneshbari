@@ -110,39 +110,37 @@ function generateWallElements(walls) {
 // 4. Pellet Renderer with Synchronized Eating
 // ============================================================
 function getConsumptionAnimation(passFractions) {
-  // A dot reappears shortly before its next visit so the loop can reset.
-  // Both the character and every dot use the same distance fraction.
-  const transition = 0.0015;
-  const events = [];
+  if (!passFractions || !passFractions.length) return null;
 
-  for (let index = 0; index < passFractions.length; index++) {
-    const pass = passFractions[index];
-    const previous = passFractions[(index - 1 + passFractions.length) % passFractions.length];
-    const gap = (pass - previous + 1) % 1 || 1;
-    const respawnAt = (pass - Math.min(0.035, gap * 0.14) + 1) % 1;
+  // Pac-Man eats the pellet on the first pass
+  const firstPass = Math.min(...passFractions);
+  const pass = Math.max(0.001, Math.min(0.995, firstPass));
+  const transition = 0.002;
 
-    events.push({ t: (respawnAt - transition + 1) % 1, value: 0 });
-    events.push({ t: respawnAt, value: 1 });
-    events.push({ t: pass, value: 1 });
-    events.push({ t: (pass + transition) % 1, value: 0 });
-  }
+  // All coins are already deployed and visible at t=0 (level start).
+  // Once eaten at t=pass, the coin disappears and stays gone for the
+  // remainder of the board until the whole level loop finishes (t=1).
+  const events = [
+    { t: 0, value: 1 },
+    { t: pass, value: 1 },
+    { t: Math.min(0.998, pass + transition), value: 0 },
+    { t: 0.999, value: 0 },
+    { t: 1.0, value: 1 }
+  ];
 
   events.sort((a, b) => a.t - b.t);
+
   const merged = [];
   for (const event of events) {
-    if (merged.length && Math.abs(merged[merged.length - 1].t - event.t) < 0.00001) {
+    if (merged.length && Math.abs(merged[merged.length - 1].t - event.t) < 0.0005) {
       merged[merged.length - 1] = event;
     } else {
       merged.push(event);
     }
   }
 
-  // Carry the final state of the preceding loop across 0 → 1. Without this,
-  // pellets close to Pac-Man's starting position would flash in a frame late.
-  const zeroEvent = merged.find(event => event.t === 0);
-  const startValue = zeroEvent ? zeroEvent.value : merged[merged.length - 1].value;
-  if (!zeroEvent) merged.unshift({ t: 0, value: startValue });
-  merged.push({ t: 1, value: startValue });
+  merged[0].t = 0;
+  merged[merged.length - 1].t = 1;
 
   const times = merged.map(event => event.t.toFixed(4)).join(';');
   const opacity = merged.map(event => event.value.toFixed(2)).join(';');
