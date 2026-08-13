@@ -455,14 +455,16 @@ ${doors}
     throw new Error('Validation Error: Missing character definitions!');
   }
 
-  // 6. Write final banner.svg
+  // 6. Write final banner.svg and pacman-banner.svg
   const outputPath = path.join(__dirname, 'banner.svg');
+  const pacmanBannerPath = path.join(__dirname, 'pacman-banner.svg');
   fs.writeFileSync(outputPath, svg, 'utf-8');
+  fs.writeFileSync(pacmanBannerPath, svg, 'utf-8');
   
   const stats = fs.statSync(outputPath);
   const fileSizeKB = (stats.size / 1024).toFixed(2);
 
-  console.log(`✅ banner.svg generated successfully!`);
+  console.log(`✅ banner.svg and pacman-banner.svg generated successfully!`);
   console.log(`📊 File size: ${fileSizeKB} KB (Target: under 500 KB)`);
   console.log(`🎯 Dimensions: 1280x640 | Self-contained: YES | Animated: YES`);
 }

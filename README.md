@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="banner.svg" alt="Gunesh Bari Banner" width="100%"/>
+<img src="pacman-banner.svg" alt="Gunesh Bari Animated Pac-Man Banner" width="100%"/>
 
 </div>
 
