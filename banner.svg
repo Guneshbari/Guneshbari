@@ -7,7 +7,7 @@
     <style>
 /**
  * styles.css
- * Styling and animations for the retro arcade Pac-Man GitHub Profile Banner.
+ * Styling and performance-optimized animations for the retro arcade Pac-Man GitHub Profile Banner.
  */
 
 :root {
@@ -26,18 +26,26 @@
   --hud-red: #FF3B30;
 }
 
-/* Base Canvas and CRT Background */
+/* Global SVG Performance Configuration */
+svg {
+  shape-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
+}
+
+/* Base Canvas and Static Maze Performance Containment */
 .arcade-bg {
   fill: #020617;
+  contain: strict;
 }
 
 .arcade-vignette {
   fill: url(#vignette-gradient);
   mix-blend-mode: multiply;
   pointer-events: none;
+  contain: strict;
 }
 
-/* Neon Arcade Maze Walls */
+/* Neon Arcade Maze Walls (Hardware Cached) */
 .wall-back-glow {
   fill: none;
   stroke: #1D4ED8;
@@ -46,6 +54,7 @@
   stroke-linejoin: round;
   opacity: 0.45;
   filter: url(#glow-blur);
+  contain: layout paint;
 }
 
 .wall-outer {
@@ -54,6 +63,7 @@
   stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  contain: layout paint;
 }
 
 .wall-inner {
@@ -63,6 +73,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 0.9;
+  contain: layout paint;
 }
 
 .ghost-house-door {
@@ -72,6 +83,7 @@
   stroke-linecap: round;
   filter: url(#glow-blur-subtle);
   animation: door-glow 2s ease-in-out infinite alternate;
+  will-change: opacity, stroke;
 }
 
 @keyframes door-glow {
@@ -86,6 +98,7 @@
   stroke-linecap: round;
   filter: url(#glow-blur-subtle);
   animation: tunnel-pulse 2s ease-in-out infinite alternate;
+  will-change: opacity, stroke;
 }
 
 @keyframes tunnel-pulse {
@@ -98,12 +111,7 @@
   fill: #FFD54A;
   stroke: #D97706;
   stroke-width: 0.6;
-}
-
-.pixel-text-glow {
-  fill: #FFD54A;
-  opacity: 0.15;
-  filter: url(#glow-blur-subtle);
+  contain: layout paint;
 }
 
 /* CRT Scanlines */
@@ -111,12 +119,14 @@
   fill: url(#scanline-pattern);
   opacity: 0.10;
   pointer-events: none;
+  contain: strict;
 }
 
 /* Star Particles */
 .star-particle {
   fill: #94A3B8;
   animation: star-twinkle 3s ease-in-out infinite alternate;
+  will-change: opacity;
 }
 
 @keyframes star-twinkle {
@@ -160,6 +170,7 @@
 
 .hud-blink {
   animation: hud-blink-anim 1s steps(2, start) infinite;
+  will-change: visibility;
 }
 
 @keyframes hud-blink-anim {
@@ -173,11 +184,6 @@
   fill: #FFD54A;
 }
 
-.pellet-glow {
-  fill: #FFD54A;
-  opacity: 0.25;
-}
-
 /* In-Game Floating Score Popups */
 .score-popup {
   font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
@@ -187,6 +193,7 @@
   text-anchor: middle;
   dominant-baseline: central;
   filter: url(#glow-blur-subtle);
+  will-change: transform, opacity;
 }
 
 .popup-cherry {
@@ -228,10 +235,11 @@
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85"/>
     </radialGradient>
 
-    <!-- Pacman Def for reuse -->
+    <!-- Pacman Def for reuse (Hardware-optimized zero-filter neon halo) -->
     <g id="pacman-character">
-      <!-- Glow aura -->
-      <circle cx="0" cy="0" r="16" fill="#FFE600" opacity="0.15" filter="url(#glow-blur)"/>
+      <!-- Lightweight Neon Aura -->
+      <circle cx="0" cy="0" r="18" fill="#FFE600" opacity="0.12"/>
+      <circle cx="0" cy="0" r="16" fill="#FFE600" opacity="0.22"/>
       
       <!-- Upper Jaw -->
       <path d="M 0,0 L 16,0 A 16 16 0 0,0 -16,0 L 0,0 Z" fill="#FFE600">
@@ -302,9 +310,7 @@
 
     <!-- Blinky (Red Ghost) -->
     <g id="ghost-blinky">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF3B30" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#FF3B30" opacity="0.2"/>
       <path class="ghost-body" fill="#FF3B30" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -321,9 +327,7 @@
 
     <!-- Pinky (Pink Ghost) -->
     <g id="ghost-pinky">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF69B4" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#FF69B4" opacity="0.2"/>
       <path class="ghost-body" fill="#FF69B4" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -334,15 +338,13 @@
           repeatCount="indefinite"
         />
       </path>
-      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FBCFE8" opacity="0.65"/>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FBCFE8" opacity="0.6"/>
       <use href="#ghost-eyes-left" class="ghost-eyes"/>
     </g>
 
     <!-- Inky (Cyan Ghost) -->
     <g id="ghost-inky">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#00D8FF" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#00D8FF" opacity="0.2"/>
       <path class="ghost-body" fill="#00D8FF" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -353,15 +355,13 @@
           repeatCount="indefinite"
         />
       </path>
-      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#A5F3FC" opacity="0.65"/>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#BAE6FD" opacity="0.6"/>
       <use href="#ghost-eyes-right" class="ghost-eyes"/>
     </g>
 
     <!-- Clyde (Orange Ghost) -->
     <g id="ghost-clyde">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF8C42" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#FF8C42" opacity="0.2"/>
       <path class="ghost-body" fill="#FF8C42" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -372,22 +372,14 @@
           repeatCount="indefinite"
         />
       </path>
-      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FED7AA" opacity="0.65"/>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FED7AA" opacity="0.6"/>
       <use href="#ghost-eyes-left" class="ghost-eyes"/>
     </g>
 
-    <!-- Frightened Blue Mode Ghost -->
+    <!-- Frightened Blue Ghost (Power Pellet Mode) -->
     <g id="ghost-frightened">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8" opacity="0.3" filter="url(#glow-blur)"/>
-      </g>
-      <path class="ghost-scared-body" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
-        <animate
-          attributeName="fill"
-          values="#1D4ED8; #1D4ED8; #FFFFFF; #1D4ED8; #FFFFFF; #1D4ED8"
-          dur="2s"
-          repeatCount="indefinite"
-        />
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#1D4ED8" opacity="0.2"/>
+      <path class="ghost-body" fill="#1D4ED8" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
           values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
@@ -396,26 +388,32 @@
           dur="0.32s"
           repeatCount="indefinite"
         />
+        <animate
+          attributeName="fill"
+          values="#1D4ED8;#1D4ED8;#FFFFFF;#1D4ED8;#FFFFFF;#1D4ED8"
+          keyTimes="0;0.70;0.78;0.86;0.94;1"
+          dur="8s"
+          repeatCount="indefinite"
+        />
       </path>
       <use href="#ghost-frightened-face"/>
     </g>
 
-    <!-- Floating Eaten Eyes (Retreating to Ghost House) -->
+    <!-- Eaten Ghost Eyes (Retreating to Ghost House) -->
     <g id="ghost-eaten-eyes">
       <use href="#ghost-eyes-up"/>
     </g>
     <!-- Standard Pellet -->
     <g id="pellet-standard">
-      <circle cx="0" cy="0" r="3.6" fill="#FFD54A"/>
-      <circle cx="0" cy="0" r="5" fill="#FFD54A" opacity="0.25"/>
+      <circle cx="0" cy="0" r="3.5" fill="#FFD54A"/>
     </g>
 
-    <!-- Power Pellet (Energizer) with pulsing animation -->
+    <!-- Power Pellet (Energizer) with lightweight hardware-accelerated pulse -->
     <g id="pellet-power">
-      <!-- Glow Aura -->
-      <circle cx="0" cy="0" r="14" fill="#FFF176" opacity="0.3" filter="url(#glow-blur)">
-        <animate attributeName="r" values="12; 17; 12" dur="0.8s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.2; 0.5; 0.2" dur="0.8s" repeatCount="indefinite"/>
+      <!-- Glow Aura (Layered Opacity instead of GPU Blur Filter) -->
+      <circle cx="0" cy="0" r="16" fill="#FFE600" opacity="0.25">
+        <animate attributeName="r" values="14; 17; 14" dur="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.15; 0.35; 0.15" dur="0.8s" repeatCount="indefinite"/>
       </circle>
       <!-- Core Power Pellet -->
       <circle cx="0" cy="0" r="9" fill="#FFFBEB">
@@ -497,7 +495,7 @@
 
   <!-- 2. HUD -->
   <g id="layer-hud">
-    <!-- Top Center Live Dynamic Score (Replaced Static High Score) -->
+    <!-- Top Center Live Dynamic Score -->
     <text x="640" y="32" text-anchor="middle" class="hud-label-red hud-blink">1UP</text>
     <g id="hud-score">
       <text x="640" y="48" text-anchor="middle" class="hud-value-white" opacity="1">
@@ -615,774 +613,586 @@
   <g id="layer-pellets">
     <g id="pellet-group">
       <circle cx="101" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1161;0.1181;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1161;0.1181;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1161" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="128" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1112;0.1132;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1112;0.1132;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1112" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="154" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1064;0.1084;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1064;0.1084;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1064" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="181" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1015;0.1035;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1015;0.1035;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1015" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="207" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0967;0.0987;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0967;0.0987;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0967" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="233" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0919;0.0939;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0919;0.0939;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0919" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="260" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0870;0.0890;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0870;0.0890;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0870" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="286" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0822;0.0842;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0822;0.0842;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0822" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="313" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0773;0.0793;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0773;0.0793;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0773" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="339" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0725;0.0745;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0725;0.0745;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0725" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="365" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0678;0.0698;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0678;0.0698;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0678" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="392" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0628;0.0648;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0628;0.0648;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0628" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="418" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0581;0.0601;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0581;0.0601;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0581" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="445" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0531;0.0551;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0531;0.0551;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0531" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="471" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0484;0.0504;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0484;0.0504;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0484" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="497" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0436;0.0456;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0436;0.0456;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0436" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="524" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0386;0.0406;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0386;0.0406;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0386" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="550" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0339;0.0359;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0339;0.0359;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0339" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="577" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0289;0.0309;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0289;0.0309;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0289" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="603" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0242;0.0262;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0242;0.0262;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0242" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="629" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0194;0.0214;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0194;0.0214;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0194" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="656" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0145;0.0165;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0145;0.0165;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0145" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="682" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0097;0.0117;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0097;0.0117;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0097" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="709" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.0048;0.0068;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.0048;0.0068;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0048" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="761" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9950;0.9970;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9950;0.9970;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9950" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="787" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9905;0.9925;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9905;0.9925;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9905" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="813" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9857;0.9877;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9857;0.9877;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9857" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="839" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9810;0.9830;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9810;0.9830;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9810" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="866" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9760;0.9780;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9760;0.9780;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9760" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="892" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9712;0.9732;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9712;0.9732;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9712" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="918" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9665;0.9685;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9665;0.9685;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9665" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="944" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9617;0.9637;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9617;0.9637;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9617" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="970" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9570;0.9590;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9570;0.9590;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9570" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="996" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9522;0.9542;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9522;0.9542;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9522" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1022" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9474;0.9494;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9474;0.9494;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9474" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1048" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9427;0.9447;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9427;0.9447;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9427" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1074" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9379;0.9399;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9379;0.9399;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9379" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1101" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9330;0.9350;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9330;0.9350;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9330" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1127" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9282;0.9302;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9282;0.9302;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9282" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1153" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9234;0.9254;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9234;0.9254;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9234" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1179" cy="85" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9187;0.9207;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9187;0.9207;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9187" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="114" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1262;0.1282;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1262;0.1282;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1262" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="143" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1315;0.1335;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1315;0.1335;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1315" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="171" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1366;0.1386;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1366;0.1386;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1366" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="426" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4251;0.4271;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4251;0.4271;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4251" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="452" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4299;0.4319;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4299;0.4319;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4299" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="478" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4346;0.4366;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4346;0.4366;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4346" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="503" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4392;0.4412;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4392;0.4412;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4392" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="75" cy="529" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4440;0.4460;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4440;0.4460;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4440" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="114" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9086;0.9106;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9086;0.9106;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9086" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="143" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9033;0.9053;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.9033;0.9053;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9033" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="171" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8982;0.9002;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8982;0.9002;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8982" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="426" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6793;0.6813;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6793;0.6813;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6793" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="452" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6745;0.6765;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6745;0.6765;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6745" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="478" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6698;0.6718;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6698;0.6718;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6698" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="503" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6652;0.6672;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6652;0.6672;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6652" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1205" cy="529" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6604;0.6624;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6604;0.6624;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6604" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="101" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1467;0.1487;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1467;0.1487;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1467" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="128" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1516;0.1536;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1516;0.1536;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1516" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="154" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1564;0.1584;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1564;0.1584;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1564" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="181" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1614;0.1634;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1614;0.1634;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1614" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="207" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1661;0.1681;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1661;0.1681;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1661" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="233" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1709;0.1729;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1709;0.1729;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1709" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="260" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1758;0.1778;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1758;0.1778;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1758" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="286" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1806;0.1826;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1806;0.1826;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1806" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="313" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1855;0.1875;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1855;0.1875;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1855" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="339" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1903;0.1923;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1903;0.1923;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1903" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="365" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1951;0.1971;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.1951;0.1971;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1951" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="392" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2000;0.2020;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2000;0.2020;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2000" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="418" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2048;0.2068;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2048;0.2068;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2048" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="445" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2097;0.2117;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2097;0.2117;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2097" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="471" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2145;0.2165;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2145;0.2165;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2145" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="497" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2192;0.2212;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2192;0.2212;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2192" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="524" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2242;0.2262;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2242;0.2262;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2242" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="550" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2289;0.2309;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2289;0.2309;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2289" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="577" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2339;0.2359;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2339;0.2359;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2339" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="603" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2386;0.2406;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2386;0.2406;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2386" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="629" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2434;0.2454;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2434;0.2454;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2434" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="656" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2484;0.2504;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2484;0.2504;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2484" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="682" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2531;0.2551;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2531;0.2551;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2531" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="709" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2581;0.2601;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2581;0.2601;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2581" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="761" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8115;0.8135;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8115;0.8135;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8115" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="787" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8163;0.8183;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8163;0.8183;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8163" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="813" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8211;0.8231;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8211;0.8231;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8211" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="839" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8258;0.8278;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8258;0.8278;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8258" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="866" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8308;0.8328;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8308;0.8328;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8308" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="892" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8355;0.8375;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8355;0.8375;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8355" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="918" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8403;0.8423;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8403;0.8423;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8403" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="944" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8451;0.8471;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8451;0.8471;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8451" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="970" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8498;0.8518;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8498;0.8518;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8498" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="996" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8546;0.8566;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8546;0.8566;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8546" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1022" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8593;0.8613;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8593;0.8613;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8593" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1048" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8641;0.8661;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8641;0.8661;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8641" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1074" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8689;0.8709;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8689;0.8709;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8689" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1101" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8738;0.8758;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8738;0.8758;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8738" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1127" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8786;0.8806;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8786;0.8806;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8786" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1153" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8833;0.8853;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8833;0.8853;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8833" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1179" cy="200" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.8881;0.8901;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.8881;0.8901;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8881" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="101" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4156;0.4176;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4156;0.4176;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4156" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="128" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4106;0.4126;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4106;0.4126;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4106" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="154" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4059;0.4079;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4059;0.4079;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4059" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="181" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4009;0.4029;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4009;0.4029;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4009" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="207" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3962;0.3982;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3962;0.3982;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3962" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="233" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3914;0.3934;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3914;0.3934;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3914" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="260" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3864;0.3884;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3864;0.3884;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3864" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="286" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3817;0.3837;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3817;0.3837;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3817" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="313" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3767;0.3787;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3767;0.3787;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3767" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="339" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3720;0.3740;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3720;0.3740;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3720" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="365" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3672;0.3692;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3672;0.3692;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3672" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="392" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3623;0.3643;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3623;0.3643;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3623" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="418" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3575;0.3595;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3575;0.3595;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3575" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="445" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3526;0.3546;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3526;0.3546;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3526" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="471" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3478;0.3498;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3478;0.3498;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3478" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="497" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3430;0.3450;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3430;0.3450;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3430" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="524" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3381;0.3401;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3381;0.3401;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3381" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="550" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3333;0.3353;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3333;0.3353;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="577" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3284;0.3304;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3284;0.3304;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3284" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="603" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3236;0.3256;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3236;0.3256;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3236" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="629" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3189;0.3209;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3189;0.3209;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3189" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="656" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3139;0.3159;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3139;0.3159;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3139" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="682" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3092;0.3112;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3092;0.3112;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3092" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="709" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.3042;0.3062;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.3042;0.3062;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3042" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="761" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7654;0.7674;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7654;0.7674;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7654" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="787" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7606;0.7626;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7606;0.7626;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7606" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="813" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7559;0.7579;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7559;0.7579;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7559" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="839" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7511;0.7531;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7511;0.7531;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7511" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="866" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7462;0.7482;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7462;0.7482;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7462" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="892" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7414;0.7434;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7414;0.7434;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7414" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="918" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7366;0.7386;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7366;0.7386;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7366" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="944" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7319;0.7339;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7319;0.7339;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7319" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="970" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7271;0.7291;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7271;0.7291;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7271" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="996" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7223;0.7243;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7223;0.7243;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7223" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1022" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7176;0.7196;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7176;0.7196;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7176" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1048" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7128;0.7148;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7128;0.7148;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7128" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1074" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7081;0.7101;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7081;0.7101;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7081" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1101" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.7031;0.7051;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.7031;0.7051;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7031" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1127" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6984;0.7004;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6984;0.7004;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6984" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1153" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6936;0.6956;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6936;0.6956;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6936" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1179" cy="400" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6888;0.6908;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6888;0.6908;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6888" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="225" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2674;0.2694;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2674;0.2694;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2674" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="250" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2720;0.2740;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2720;0.2740;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2720" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="275" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2766;0.2786;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2766;0.2786;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2766" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="300" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2811;0.2831;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2811;0.2831;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2811" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="325" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2857;0.2877;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2857;0.2877;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2857" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="350" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2903;0.2923;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2903;0.2923;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2903" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="735" cy="375" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.2949;0.2969;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.2949;0.2969;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2949" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="101" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4535;0.4555;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4535;0.4555;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4535" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="128" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4584;0.4604;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4584;0.4604;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4584" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="154" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4632;0.4652;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4632;0.4652;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4632" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="180" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4679;0.4699;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4679;0.4699;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4679" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="206" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4727;0.4747;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4727;0.4747;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4727" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="233" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4777;0.4797;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4777;0.4797;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4777" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="259" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4824;0.4844;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4824;0.4844;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4824" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="285" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4872;0.4892;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4872;0.4892;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4872" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="312" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4921;0.4941;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4921;0.4941;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4921" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="338" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4969;0.4989;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.4969;0.4989;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4969" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="364" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5016;0.5036;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5016;0.5036;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5016" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="390" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5064;0.5084;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5064;0.5084;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5064" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="417" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5114;0.5134;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5114;0.5134;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5114" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="443" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5161;0.5181;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5161;0.5181;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5161" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="469" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5209;0.5229;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5209;0.5229;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5209" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="495" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5256;0.5276;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5256;0.5276;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5256" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="522" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5306;0.5326;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5306;0.5326;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5306" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="548" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5353;0.5373;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5353;0.5373;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5353" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="574" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5401;0.5421;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5401;0.5421;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5401" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="601" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5451;0.5471;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5451;0.5471;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5451" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="627" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5498;0.5518;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5498;0.5518;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5498" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="653" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5546;0.5566;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5546;0.5566;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5546" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="679" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5593;0.5613;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5593;0.5613;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5593" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="706" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5643;0.5663;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5643;0.5663;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5643" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="732" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5690;0.5710;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5690;0.5710;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5690" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="758" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5738;0.5758;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5738;0.5758;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5738" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="785" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5788;0.5808;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5788;0.5808;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5788" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="811" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5835;0.5855;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5835;0.5855;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5835" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="837" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5883;0.5903;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5883;0.5903;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5883" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="863" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5930;0.5950;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5930;0.5950;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5930" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="890" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.5980;0.6000;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.5980;0.6000;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.5980" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="916" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6027;0.6047;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6027;0.6047;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6027" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="942" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6075;0.6095;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6075;0.6095;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6075" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="968" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6123;0.6143;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6123;0.6143;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6123" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="995" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6172;0.6192;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6172;0.6192;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6172" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1021" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6220;0.6240;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6220;0.6240;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6220" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1047" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6267;0.6287;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6267;0.6287;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6267" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1074" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6317;0.6337;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6317;0.6337;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6317" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1100" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6364;0.6384;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6364;0.6384;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6364" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1126" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6412;0.6432;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6412;0.6432;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6412" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1152" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6460;0.6480;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6460;0.6480;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6460" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
       <circle cx="1179" cy="555" r="3.5" class="pellet-dot">
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6509;0.6529;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="3.50;3.50;0.00;0.00;3.50" keyTimes="0.0000;0.6509;0.6529;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6509" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </circle>
     </g>
     <g id="power-pellets-group">
       <g class="power-pellet" transform="translate(75 85)">
         <use href="#pellet-power" xlink:href="#pellet-power" x="0" y="0"/>
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.1209;0.1229;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.1209" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <g class="power-pellet" transform="translate(1205 85)">
         <use href="#pellet-power" xlink:href="#pellet-power" x="0" y="0"/>
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.9139;0.9159;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.9139" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <g class="power-pellet" transform="translate(75 555)">
         <use href="#pellet-power" xlink:href="#pellet-power" x="0" y="0"/>
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.4487;0.4507;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.4487" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <g class="power-pellet" transform="translate(1205 555)">
         <use href="#pellet-power" xlink:href="#pellet-power" x="0" y="0"/>
-        <animate attributeName="opacity" values="1.00;1.00;0.00;0.00;1.00" keyTimes="0.0000;0.6557;0.6577;0.9990;1.0000" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.6557" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
     </g>
   </g>
@@ -1926,10 +1736,9 @@
   <!-- 7. In-Maze Consumable Fruits and Floating Score Popups -->
   <g id="layer-fruits">
     <g transform="translate(450 200)">
-      <g>
+      <g transform="scale(1.2)">
         <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.2106;0.2126;0.9990;1" dur="26s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.2106;0.2126;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.2106" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <text x="0" y="0" class="score-popup popup-cherry" opacity="0">
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2106;0.2116;0.2456;0.2506;1" dur="26s" repeatCount="indefinite"/>
@@ -1938,10 +1747,9 @@
       </text>
     </g>
     <g transform="translate(450 400)">
-      <g>
+      <g transform="scale(1.2)">
         <use href="#fruit-orange" xlink:href="#fruit-orange" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.3516" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <text x="0" y="0" class="score-popup popup-strawberry" opacity="0">
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
@@ -1950,10 +1758,9 @@
       </text>
     </g>
     <g transform="translate(950 400)">
-      <g>
+      <g transform="scale(1.2)">
         <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.7308" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <text x="0" y="0" class="score-popup popup-cherry" opacity="0">
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
@@ -1962,10 +1769,9 @@
       </text>
     </g>
     <g transform="translate(950 200)">
-      <g>
+      <g transform="scale(1.2)">
         <use href="#fruit-apple" xlink:href="#fruit-apple" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.8462;0.8482;0.9990;1" dur="26s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.8462;0.8482;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.8462" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
       </g>
       <text x="0" y="0" class="score-popup popup-strawberry" opacity="0">
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.8462;0.8472;0.8812;0.8862;1" dur="26s" repeatCount="indefinite"/>

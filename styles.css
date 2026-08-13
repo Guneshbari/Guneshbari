@@ -1,6 +1,6 @@
 /**
  * styles.css
- * Styling and animations for the retro arcade Pac-Man GitHub Profile Banner.
+ * Styling and performance-optimized animations for the retro arcade Pac-Man GitHub Profile Banner.
  */
 
 :root {
@@ -19,18 +19,26 @@
   --hud-red: #FF3B30;
 }
 
-/* Base Canvas and CRT Background */
+/* Global SVG Performance Configuration */
+svg {
+  shape-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
+}
+
+/* Base Canvas and Static Maze Performance Containment */
 .arcade-bg {
   fill: #020617;
+  contain: strict;
 }
 
 .arcade-vignette {
   fill: url(#vignette-gradient);
   mix-blend-mode: multiply;
   pointer-events: none;
+  contain: strict;
 }
 
-/* Neon Arcade Maze Walls */
+/* Neon Arcade Maze Walls (Hardware Cached) */
 .wall-back-glow {
   fill: none;
   stroke: #1D4ED8;
@@ -39,6 +47,7 @@
   stroke-linejoin: round;
   opacity: 0.45;
   filter: url(#glow-blur);
+  contain: layout paint;
 }
 
 .wall-outer {
@@ -47,6 +56,7 @@
   stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  contain: layout paint;
 }
 
 .wall-inner {
@@ -56,6 +66,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 0.9;
+  contain: layout paint;
 }
 
 .ghost-house-door {
@@ -65,6 +76,7 @@
   stroke-linecap: round;
   filter: url(#glow-blur-subtle);
   animation: door-glow 2s ease-in-out infinite alternate;
+  will-change: opacity, stroke;
 }
 
 @keyframes door-glow {
@@ -79,6 +91,7 @@
   stroke-linecap: round;
   filter: url(#glow-blur-subtle);
   animation: tunnel-pulse 2s ease-in-out infinite alternate;
+  will-change: opacity, stroke;
 }
 
 @keyframes tunnel-pulse {
@@ -91,12 +104,7 @@
   fill: #FFD54A;
   stroke: #D97706;
   stroke-width: 0.6;
-}
-
-.pixel-text-glow {
-  fill: #FFD54A;
-  opacity: 0.15;
-  filter: url(#glow-blur-subtle);
+  contain: layout paint;
 }
 
 /* CRT Scanlines */
@@ -104,12 +112,14 @@
   fill: url(#scanline-pattern);
   opacity: 0.10;
   pointer-events: none;
+  contain: strict;
 }
 
 /* Star Particles */
 .star-particle {
   fill: #94A3B8;
   animation: star-twinkle 3s ease-in-out infinite alternate;
+  will-change: opacity;
 }
 
 @keyframes star-twinkle {
@@ -153,6 +163,7 @@
 
 .hud-blink {
   animation: hud-blink-anim 1s steps(2, start) infinite;
+  will-change: visibility;
 }
 
 @keyframes hud-blink-anim {
@@ -166,11 +177,6 @@
   fill: #FFD54A;
 }
 
-.pellet-glow {
-  fill: #FFD54A;
-  opacity: 0.25;
-}
-
 /* In-Game Floating Score Popups */
 .score-popup {
   font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
@@ -180,6 +186,7 @@
   text-anchor: middle;
   dominant-baseline: central;
   filter: url(#glow-blur-subtle);
+  will-change: transform, opacity;
 }
 
 .popup-cherry {

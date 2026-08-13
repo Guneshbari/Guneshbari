@@ -1,6 +1,6 @@
 /**
  * build.js
- * Assembly pipeline for the animated Pac-Man GitHub profile banner.
+ * High-performance assembly pipeline for animated Pac-Man GitHub profile banner.
  * Generates standalone, pure SVG adhering to the reference retro arcade design.
  */
 
@@ -107,41 +107,16 @@ function generateWallElements(walls) {
 }
 
 // ============================================================
-// 4. Pellet Renderer with Synchronized Eating
+// 4. Ultra-Efficient Discrete SMIL Pellet Renderer
 // ============================================================
 function getConsumptionAnimation(passFractions) {
   if (!passFractions || !passFractions.length) return null;
-
   const firstPass = Math.min(...passFractions);
   const pass = Math.max(0.001, Math.min(0.995, firstPass));
-  const transition = 0.002;
-
-  const events = [
-    { t: 0, value: 1 },
-    { t: pass, value: 1 },
-    { t: Math.min(0.998, pass + transition), value: 0 },
-    { t: 0.999, value: 0 },
-    { t: 1.0, value: 1 }
-  ];
-
-  events.sort((a, b) => a.t - b.t);
-
-  const merged = [];
-  for (const event of events) {
-    if (merged.length && Math.abs(merged[merged.length - 1].t - event.t) < 0.0005) {
-      merged[merged.length - 1] = event;
-    } else {
-      merged.push(event);
-    }
-  }
-
-  merged[0].t = 0;
-  merged[merged.length - 1].t = 1;
-
-  const times = merged.map(event => event.t.toFixed(4)).join(';');
-  const opacity = merged.map(event => event.value.toFixed(2)).join(';');
-  const radius = merged.map(event => (event.value * 3.5).toFixed(2)).join(';');
-  return { times, opacity, radius };
+  return {
+    times: `0;${pass.toFixed(4)}`,
+    values: '1;0'
+  };
 }
 
 function generatePelletsSvg(pellets, powerPellets) {
@@ -151,11 +126,9 @@ function generatePelletsSvg(pellets, powerPellets) {
     const passes = getPathPassFractions(p.x, p.y, PACMAN_PATH);
 
     if (passes.length) {
-      const { times, opacity, radius } = getConsumptionAnimation(passes);
-
+      const { times, values } = getConsumptionAnimation(passes);
       output += `      <circle cx="${p.x}" cy="${p.y}" r="3.5" class="pellet-dot">\n`;
-      output += `        <animate attributeName="opacity" values="${opacity}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-      output += `        <animate attributeName="r" values="${radius}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+      output += `        <animate attributeName="opacity" values="${values}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
       output += `      </circle>\n`;
     } else {
       output += `      <circle cx="${p.x}" cy="${p.y}" r="3.5" class="pellet-dot"/>\n`;
@@ -164,10 +137,12 @@ function generatePelletsSvg(pellets, powerPellets) {
   output += '    </g>\n    <g id="power-pellets-group">\n';
 
   for (const pp of powerPellets) {
-    const { times, opacity } = getConsumptionAnimation(getPathPassFractions(pp.x, pp.y, PACMAN_PATH));
+    const anim = getConsumptionAnimation(getPathPassFractions(pp.x, pp.y, PACMAN_PATH));
     output += `      <g class="power-pellet" transform="translate(${pp.x} ${pp.y})">\n`;
     output += `        <use href="#pellet-power" xlink:href="#pellet-power" x="0" y="0"/>\n`;
-    output += `        <animate attributeName="opacity" values="${opacity}" keyTimes="${times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    if (anim) {
+      output += `        <animate attributeName="opacity" values="${anim.values}" keyTimes="${anim.times}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
+    }
     output += `      </g>\n`;
   }
   output += '    </g>';
@@ -191,15 +166,13 @@ function generateFruitsSvg() {
 
   for (const f of fruits) {
     const tEat = f.tEat;
-    const tVanish = Math.min(0.999, tEat + 0.002);
     const tPopupEnd = Math.min(0.999, tEat + 0.040);
 
-    // Fruit group with independent transform and scale animation
+    // Fruit group with independent transform and discrete consumption
     svg += `    <g transform="translate(${f.x} ${f.y})">\n`;
-    svg += `      <g>\n`;
+    svg += `      <g transform="scale(1.2)">\n`;
     svg += `        <use href="#${f.id}" xlink:href="#${f.id}" x="0" y="0"/>\n`;
-    svg += `        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-    svg += `        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `        <animate attributeName="opacity" values="1;0" keyTimes="0;${tEat.toFixed(4)}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
     svg += `      </g>\n`;
     svg += `      <text x="0" y="0" class="score-popup ${f.cls}" opacity="0">\n`;
     svg += `        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
@@ -302,7 +275,7 @@ function generateStars() {
 // 8. Main Assembly
 // ============================================================
 function assembleBanner() {
-  console.log('⚡ Building Retro Pac-Man GitHub Banner...');
+  console.log('⚡ Building High-Performance Retro Pac-Man GitHub Banner...');
 
   const cssContent = fs.readFileSync(path.join(__dirname, 'styles.css'), 'utf-8');
   const pacmanDefs = extractDefs(path.join(__dirname, 'assets', 'pacman.svg'));
@@ -368,7 +341,7 @@ ${starsSvg}
 
   <!-- 2. HUD -->
   <g id="layer-hud">
-    <!-- Top Center Live Dynamic Score (Replaced Static High Score) -->
+    <!-- Top Center Live Dynamic Score -->
     <text x="640" y="32" text-anchor="middle" class="hud-label-red hud-blink">1UP</text>
 ${scoreSvg}
 

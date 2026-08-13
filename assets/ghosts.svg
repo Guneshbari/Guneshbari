@@ -39,9 +39,7 @@
 
     <!-- Blinky (Red Ghost) -->
     <g id="ghost-blinky">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF3B30" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#FF3B30" opacity="0.2"/>
       <path class="ghost-body" fill="#FF3B30" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -58,9 +56,7 @@
 
     <!-- Pinky (Pink Ghost) -->
     <g id="ghost-pinky">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF69B4" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#FF69B4" opacity="0.2"/>
       <path class="ghost-body" fill="#FF69B4" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -71,15 +67,13 @@
           repeatCount="indefinite"
         />
       </path>
-      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FBCFE8" opacity="0.65"/>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FBCFE8" opacity="0.6"/>
       <use href="#ghost-eyes-left" class="ghost-eyes"/>
     </g>
 
     <!-- Inky (Cyan Ghost) -->
     <g id="ghost-inky">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#00D8FF" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#00D8FF" opacity="0.2"/>
       <path class="ghost-body" fill="#00D8FF" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -90,15 +84,13 @@
           repeatCount="indefinite"
         />
       </path>
-      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#A5F3FC" opacity="0.65"/>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#BAE6FD" opacity="0.6"/>
       <use href="#ghost-eyes-right" class="ghost-eyes"/>
     </g>
 
     <!-- Clyde (Orange Ghost) -->
     <g id="ghost-clyde">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF8C42" opacity="0.25" filter="url(#glow-blur)"/>
-      </g>
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#FF8C42" opacity="0.2"/>
       <path class="ghost-body" fill="#FF8C42" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
@@ -109,22 +101,14 @@
           repeatCount="indefinite"
         />
       </path>
-      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FED7AA" opacity="0.65"/>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FED7AA" opacity="0.6"/>
       <use href="#ghost-eyes-left" class="ghost-eyes"/>
     </g>
 
-    <!-- Frightened Blue Mode Ghost -->
+    <!-- Frightened Blue Ghost (Power Pellet Mode) -->
     <g id="ghost-frightened">
-      <g class="ghost-glow">
-        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8" opacity="0.3" filter="url(#glow-blur)"/>
-      </g>
-      <path class="ghost-scared-body" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
-        <animate
-          attributeName="fill"
-          values="#1D4ED8; #1D4ED8; #FFFFFF; #1D4ED8; #FFFFFF; #1D4ED8"
-          dur="2s"
-          repeatCount="indefinite"
-        />
+      <path class="ghost-glow" d="M -17,0 L -17,13 Q -11,17 -5.3,13 Q 0,9 5.3,13 Q 11,17 17,13 L 17,0 A 17 17 0 0,0 -17,0 Z" fill="#1D4ED8" opacity="0.2"/>
+      <path class="ghost-body" fill="#1D4ED8" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
         <animate
           attributeName="d"
           values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
@@ -133,11 +117,18 @@
           dur="0.32s"
           repeatCount="indefinite"
         />
+        <animate
+          attributeName="fill"
+          values="#1D4ED8;#1D4ED8;#FFFFFF;#1D4ED8;#FFFFFF;#1D4ED8"
+          keyTimes="0;0.70;0.78;0.86;0.94;1"
+          dur="8s"
+          repeatCount="indefinite"
+        />
       </path>
       <use href="#ghost-frightened-face"/>
     </g>
 
-    <!-- Floating Eaten Eyes (Retreating to Ghost House) -->
+    <!-- Eaten Ghost Eyes (Retreating to Ghost House) -->
     <g id="ghost-eaten-eyes">
       <use href="#ghost-eyes-up"/>
     </g>

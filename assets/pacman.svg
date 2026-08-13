@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -24 48 48">
   <defs>
-    <!-- Pacman Def for reuse -->
+    <!-- Pacman Def for reuse (Hardware-optimized zero-filter neon halo) -->
     <g id="pacman-character">
-      <!-- Glow aura -->
-      <circle cx="0" cy="0" r="16" fill="#FFE600" opacity="0.15" filter="url(#glow-blur)"/>
+      <!-- Lightweight Neon Aura -->
+      <circle cx="0" cy="0" r="18" fill="#FFE600" opacity="0.12"/>
+      <circle cx="0" cy="0" r="16" fill="#FFE600" opacity="0.22"/>
       
       <!-- Upper Jaw -->
       <path d="M 0,0 L 16,0 A 16 16 0 0,0 -16,0 L 0,0 Z" fill="#FFE600">

@@ -2,16 +2,15 @@
   <defs>
     <!-- Standard Pellet -->
     <g id="pellet-standard">
-      <circle cx="0" cy="0" r="3.6" fill="#FFD54A"/>
-      <circle cx="0" cy="0" r="5" fill="#FFD54A" opacity="0.25"/>
+      <circle cx="0" cy="0" r="3.5" fill="#FFD54A"/>
     </g>
 
-    <!-- Power Pellet (Energizer) with pulsing animation -->
+    <!-- Power Pellet (Energizer) with lightweight hardware-accelerated pulse -->
     <g id="pellet-power">
-      <!-- Glow Aura -->
-      <circle cx="0" cy="0" r="14" fill="#FFF176" opacity="0.3" filter="url(#glow-blur)">
-        <animate attributeName="r" values="12; 17; 12" dur="0.8s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.2; 0.5; 0.2" dur="0.8s" repeatCount="indefinite"/>
+      <!-- Glow Aura (Layered Opacity instead of GPU Blur Filter) -->
+      <circle cx="0" cy="0" r="16" fill="#FFE600" opacity="0.25">
+        <animate attributeName="r" values="14; 17; 14" dur="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.15; 0.35; 0.15" dur="0.8s" repeatCount="indefinite"/>
       </circle>
       <!-- Core Power Pellet -->
       <circle cx="0" cy="0" r="9" fill="#FFFBEB">
