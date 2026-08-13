@@ -7,7 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { GRID_CONFIG, MAZE_WALLS, POWER_PELLETS, PELLETS } from './maze-data.js';
+import { CANVAS, MAZE_WALLS, POWER_PELLETS, PELLETS } from './maze-data.js';
 import { 
   ANIMATION_CONFIG, 
   PACMAN_PATH, 
@@ -56,59 +56,72 @@ function generateWallElements(walls) {
 }
 
 /**
- * Generates pellets with synchronized consumption animations for pellets along Pac-Man's path.
+ * Generates pellets with synchronized consumption animations directly on circle elements.
  */
 function generatePelletsSvg(pellets, powerPellets) {
-  let output = '    <!-- Standard Pellets -->\n    <g id="pellet-group">\n';
+  let output = '    <!-- Standard Pellets with Active Consumption -->\n    <g id="pellet-group">\n';
   
   for (let i = 0; i < pellets.length; i++) {
     const p = pellets[i];
     const passFraction = getPacmanPassFraction(p.x, p.y, PACMAN_PATH);
 
     if (passFraction !== null) {
-      // Pellet is on Pac-Man's path - Add dynamic consumption animation
-      const f = parseFloat(passFraction.toFixed(3));
-      const fEat = Math.min(0.99, f + 0.01);
-      const fRespawnStart = (f + 0.70) % 1.0;
-      const fRespawnEnd = (f + 0.90) % 1.0;
+      // Pellet lies on Pac-Man's path - generate precise eating animation
+      const f = passFraction;
+      const eps = 0.006;
+      const fEat = Math.min(0.999, f + eps);
+      const fRespawn = (f + 0.65) % 1.0;
+      const fFull = (f + 0.85) % 1.0;
 
-      const keyframes = [];
-      keyframes.push({ t: 0, v: (f < fRespawnStart && f > 0.05) ? 1 : 0 });
-      
-      if (fRespawnStart > f) {
-        keyframes.push({ t: Math.max(0, f - 0.01), v: 1 });
-        keyframes.push({ t: fEat, v: 0 });
-        keyframes.push({ t: fRespawnStart, v: 0 });
-        keyframes.push({ t: fRespawnEnd, v: 1 });
-      } else {
-        keyframes.push({ t: fRespawnStart, v: 0 });
-        keyframes.push({ t: fRespawnEnd, v: 1 });
-        keyframes.push({ t: Math.max(0, f - 0.01), v: 1 });
-        keyframes.push({ t: fEat, v: 0 });
+      const events = [];
+      function addPt(t, v) {
+        events.push({ t: Math.max(0, Math.min(1, t)), v });
       }
-      keyframes.push({ t: 1, v: keyframes[0].v });
 
-      keyframes.sort((a, b) => a.t - b.t);
-      const cleanKeys = [];
-      for (const k of keyframes) {
-        const clampedT = Math.max(0, Math.min(1, parseFloat(k.t.toFixed(2))));
-        if (cleanKeys.length === 0 || Math.abs(cleanKeys[cleanKeys.length - 1].t - clampedT) > 0.02) {
-          cleanKeys.push({ t: clampedT, v: k.v });
+      function valAt(t) {
+        let dt = (t - f + 1.0) % 1.0;
+        if (dt < eps) return 1.0;
+        if (dt < 0.65) return 0.0;
+        if (dt < 0.85) return parseFloat(((dt - 0.65) / 0.20).toFixed(2));
+        return 1.0;
+      }
+
+      addPt(0, valAt(0));
+      addPt(Math.max(0, f - 0.002), 1.0);
+      addPt(fEat, 0.0);
+      addPt(fRespawn, 0.0);
+      addPt(fFull, 1.0);
+      addPt(1, valAt(1));
+
+      events.sort((a, b) => a.t - b.t);
+
+      const clean = [];
+      for (const e of events) {
+        if (clean.length === 0) {
+          clean.push(e);
+        } else {
+          const prev = clean[clean.length - 1];
+          if (Math.abs(prev.t - e.t) > 0.005) {
+            clean.push(e);
+          } else {
+            clean[clean.length - 1] = e;
+          }
         }
       }
-      if (cleanKeys[0].t !== 0) cleanKeys.unshift({ t: 0, v: cleanKeys[0].v });
-      if (cleanKeys[cleanKeys.length - 1].t !== 1) cleanKeys.push({ t: 1, v: cleanKeys[cleanKeys.length - 1].v });
+      if (clean[0].t !== 0) clean.unshift({ t: 0, v: clean[0].v });
+      if (clean[clean.length - 1].t !== 1) clean.push({ t: 1, v: clean[clean.length - 1].v });
 
-      const timesStr = cleanKeys.map(k => k.t.toFixed(2)).join(';');
-      const valsStr = cleanKeys.map(k => k.v).join(';');
+      const timesStr = clean.map(pt => pt.t.toFixed(3)).join(';');
+      const opacityStr = clean.map(pt => pt.v.toFixed(2)).join(';');
+      const rStr = clean.map(pt => (pt.v * 3.5).toFixed(2)).join(';');
 
-      output += `      <g transform="translate(${p.x}, ${p.y})">
-        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
-        <animate attributeName="opacity" values="${valsStr}" keyTimes="${timesStr}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
-      </g>\n`;
+      output += `      <circle cx="${p.x}" cy="${p.y}" r="3.5" class="pellet-dot">
+        <animate attributeName="opacity" values="${opacityStr}" keyTimes="${timesStr}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
+        <animate attributeName="r" values="${rStr}" keyTimes="${timesStr}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
+      </circle>\n`;
     } else {
       // Off-path pellet
-      output += `      <use href="#pellet-standard" xlink:href="#pellet-standard" x="${p.x}" y="${p.y}"/>\n`;
+      output += `      <circle cx="${p.x}" cy="${p.y}" r="3.5" class="pellet-dot"/>\n`;
     }
   }
   output += '    </g>\n\n    <!-- Power Pellets -->\n    <g id="power-pellets-group">\n';
@@ -338,15 +351,17 @@ ${doors}
   <!-- ========================================== -->
   <g id="layer-centerpiece" class="nameplate-container">
     <!-- Dark backdrop for nameplate readability -->
-    <rect x="290" y="235" width="700" height="70" rx="6" fill="#020617" opacity="0.88"/>
-    <!-- GUNESH BARI 8-bit Neon Artwork -->
-    <use href="#typography-gunesh-bari" xlink:href="#typography-gunesh-bari" x="345" y="235"/>
+    <rect x="275" y="235" width="730" height="60" rx="8" fill="#020617" opacity="0.92"/>
+    <!-- GUNESH BARI 8-bit Neon Artwork Centered Perfectly at X=640, Y=265 -->
+    <g transform="translate(416, 239) scale(0.76)">
+      <use href="#typography-gunesh-bari" xlink:href="#typography-gunesh-bari" x="0" y="0"/>
+    </g>
   </g>
 
   <!-- ========================================== -->
   <!-- 6. In-Maze Bonus Fruit Item                -->
   <!-- ========================================== -->
-  <g id="layer-bonus-item" transform="translate(640, 460)">
+  <g id="layer-bonus-item" transform="translate(640, 435)">
     <!-- Pulsing Cherry beneath Ghost House -->
     <g transform="scale(0.85)">
       <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
@@ -429,29 +444,24 @@ ${doors}
   // 5. Validation Checks
   console.log('🔍 Running automated validation checks...');
   
-  // Check no forbidden scripts
   if (/<script/i.test(svg)) {
     throw new Error('Validation Error: JavaScript found in SVG output! Final banner must be pure SVG/CSS.');
   }
 
-  // Check no unescaped ampersands (fatal XML error)
   const badAmps = svg.match(/&(?!(amp|lt|gt|quot|apos);)/g);
   if (badAmps) {
     throw new Error(`Validation Error: Found ${badAmps.length} unescaped '&' in XML/SVG! Must use &amp; or escape.`);
   }
 
-  // Check no external network URLs
   const externalUrls = svg.match(/url\s*\(\s*['"]?https?:\/\/[^'")]+/gi) || [];
   if (externalUrls.length > 0) {
     throw new Error(`Validation Error: External URLs found in SVG: ${externalUrls.join(', ')}`);
   }
 
-  // Check name spelling
   if (!svg.includes('GUNESH BARI')) {
     throw new Error('Validation Error: Central subject GUNESH BARI is missing or misspelled!');
   }
 
-  // Check character tags
   if (!svg.includes('character-pacman') || !svg.includes('character-blinky') || 
       !svg.includes('character-pinky') || !svg.includes('character-inky') || 
       !svg.includes('character-clyde')) {

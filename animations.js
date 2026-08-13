@@ -19,113 +19,104 @@ export const ANIMATION_CONFIG = {
 
 /**
  * Valid Orthogonal Motion Paths
- * All segments strictly follow maze corridors.
+ * Strictly mapped to corridor centerlines with 0 wall collisions.
  */
 
-// Pac-Man Route (12s complete loop visiting all 4 quadrants and the GUNESH BARI corridor)
+// Pac-Man Route (12s complete loop covering all 4 quadrants, all 4 power pellets, and nameplate perimeter)
 export const PACMAN_PATH = `
-  M 640,565 
-  L 90,565 
-  L 90,490 
-  L 410,490 
-  L 410,335 
-  L 90,335 
-  L 90,210 
-  L 250,210 
-  L 250,70 
-  L 580,70 
-  L 580,160 
-  L 700,160 
-  L 700,70 
-  L 1030,70 
-  L 1030,210 
-  L 1190,210 
-  L 1190,335 
-  L 1030,335 
-  L 1030,490 
-  L 870,490 
-  L 870,565 
+  M 640,555 
+  L 85,555 
+  L 85,465 
+  L 470,465 
+  L 470,335 
+  L 200,335 
+  L 200,140 
+  L 85,140 
+  L 85,80 
+  L 600,80 
+  L 600,140 
+  L 680,140 
+  L 680,80 
+  L 1195,80 
+  L 1195,140 
+  L 1080,140 
+  L 1080,205 
+  L 470,205 
+  L 470,335 
+  L 810,335 
+  L 1080,335 
+  L 1080,465 
+  L 1195,465 
+  L 1195,555 
+  L 640,555 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Blinky Route (14s direct chase route patrolling outer perimeter and upper corridors)
+// Blinky Route (14s direct chase route patrolling outer perimeter and top corridors)
 export const BLINKY_PATH = `
-  M 640,70 
-  L 1190,70 
-  L 1190,335 
-  L 1030,335 
-  L 1030,490 
-  L 1190,490 
-  L 1190,565 
-  L 680,565 
-  L 680,490 
-  L 490,490 
-  L 490,210 
-  L 250,210 
-  L 250,70 
+  M 640,140 
+  L 1195,140 
+  L 1195,310 
+  L 1080,310 
+  L 1080,465 
+  L 1195,465 
+  L 1195,555 
+  L 810,555 
+  L 810,335 
+  L 200,335 
+  L 200,140 
+  L 640,140 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Pinky Route (17s interception route weaving through center and GUNESH BARI perimeter)
+// Pinky Route (17s interception route weaving through inner maze corridors)
 export const PINKY_PATH = `
-  M 250,210 
-  L 1030,210 
-  L 1030,70 
-  L 870,70 
-  L 870,160 
-  L 530,160 
-  L 530,70 
-  L 90,70 
-  L 90,335 
-  L 250,335 
-  L 250,490 
-  L 90,490 
-  L 90,565 
-  L 410,565 
-  L 410,335 
-  L 250,335 
+  M 200,205 
+  L 1080,205 
+  L 1080,140 
+  L 85,140 
+  L 85,310 
+  L 200,310 
+  L 200,465 
+  L 85,465 
+  L 85,555 
+  L 470,555 
+  L 470,335 
+  L 200,335 
+  L 200,205 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Inky Route (20s lower & side flanking route through lower cross corridors)
+// Inky Route (20s lower and side flanking route through lower cross corridors)
 export const INKY_PATH = `
-  M 1030,490 
-  L 1030,335 
-  L 1190,335 
-  L 1190,565 
-  L 640,565 
-  L 640,490 
-  L 410,490 
-  L 410,565 
-  L 90,565 
-  L 90,410 
-  L 250,410 
-  L 250,210 
-  L 490,210 
-  L 490,335 
-  L 790,335 
-  L 790,210 
-  L 1030,210 
+  M 1080,465 
+  L 810,465 
+  L 810,555 
+  L 85,555 
+  L 85,310 
+  L 200,310 
+  L 200,205 
+  L 810,205 
+  L 810,335 
+  L 1080,335 
+  L 1080,465 
   Z
 `.replace(/\s+/g, ' ').trim();
 
 // Clyde Route (22s wandering route around ghost house and lower right quadrant)
 export const CLYDE_PATH = `
-  M 640,360 
-  L 790,360 
-  L 790,490 
-  L 1190,490 
-  L 1190,565 
-  L 870,565 
-  L 870,410 
-  L 1030,410 
-  L 1030,210 
-  L 870,210 
-  L 870,70 
-  L 700,70 
-  L 700,160 
-  L 490,160 
-  L 490,360 
+  M 640,335 
+  L 810,335 
+  L 810,555 
+  L 1195,555 
+  L 1195,465 
+  L 960,465 
+  L 960,335 
+  L 1080,335 
+  L 1080,140 
+  L 470,140 
+  L 470,335 
+  L 640,335 
   Z
 `.replace(/\s+/g, ' ').trim();
 
@@ -181,7 +172,6 @@ export function getPacmanPassFraction(x, y, pathString) {
   let bestFraction = null;
 
   for (const seg of segments) {
-    // Project (x,y) onto segment (p1 -> p2)
     const dx = seg.p2.x - seg.p1.x;
     const dy = seg.p2.y - seg.p1.y;
     const segLenSq = dx * dx + dy * dy;
@@ -195,8 +185,7 @@ export function getPacmanPassFraction(x, y, pathString) {
     const projY = seg.p1.y + t * dy;
     const distToSeg = Math.hypot(x - projX, y - projY);
 
-    // If within 18px of path, it's consumed!
-    if (distToSeg < 18 && distToSeg < bestDist) {
+    if (distToSeg < 22 && distToSeg < bestDist) {
       bestDist = distToSeg;
       const distAlongPath = seg.startDist + t * seg.length;
       bestFraction = distAlongPath / totalLength;
