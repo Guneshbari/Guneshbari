@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari — Animated Pac-Man GitHub Banner" role="img">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari — Animated Pac-Man GitHub Banner" role="img">
   <title>Gunesh Bari — Animated Pac-Man GitHub Banner</title>
   <desc>An animated neon Pac-Man-inspired maze featuring the name Gunesh Bari, with Pac-Man collecting pellets while four ghosts navigate the maze.</desc>
 
@@ -26,7 +27,7 @@
   --hud-red: #EF4444;
 }
 
-/* Base Canvas & Background */
+/* Base Canvas and Background */
 .arcade-bg {
   fill: #020617;
 }
@@ -583,7 +584,7 @@
   </defs>
 
   <!-- ========================================== -->
-  <!-- 1. Background & Atmosphere                 -->
+  <!-- 1. Background and Atmosphere               -->
   <!-- ========================================== -->
   <g id="layer-background">
     <!-- Solid Dark Arcade Base -->
@@ -593,7 +594,7 @@
     <circle cx="640" cy="320" r="480" fill="#1E3A8A" opacity="0.12" filter="url(#glow-blur-wide)"/>
     <circle cx="640" cy="270" r="280" fill="#2563EB" opacity="0.10" filter="url(#glow-blur-wide)"/>
 
-    <!-- Ambient Retro Stars/Pixels -->
+    <!-- Ambient Retro Stars and Pixels -->
       <circle cx="75" cy="35" r="1.2" class="star-particle" style="animation-delay: 0s;"/>
       <circle cx="220" cy="25" r="1.5" class="star-particle" style="animation-delay: 1.2s;"/>
       <circle cx="380" cy="38" r="1" class="star-particle" style="animation-delay: 0.5s;"/>
@@ -609,12 +610,12 @@
   </g>
 
   <!-- ========================================== -->
-  <!-- 2. Arcade HUD (Top & Bottom)               -->
+  <!-- 2. Arcade HUD (Top and Bottom)             -->
   <!-- ========================================== -->
   <g id="layer-hud">
     <!-- Top HUD: 1UP, Score, High Score, Level -->
-    <!-- 1UP Column -->
     <text x="90" y="32" class="hud-label-red hud-blink">1UP</text>
+    
     <!-- Dynamic Looping Score Animation -->
     <text x="90" y="48" class="hud-value-white">
       <tspan>
@@ -643,7 +644,7 @@
     <text x="560" y="32" class="hud-label-red">HIGH SCORE</text>
     <text x="585" y="48" class="hud-value-white">098420</text>
 
-    <!-- LEVEL / STAGE Column -->
+    <!-- LEVEL STAGE Column -->
     <text x="1120" y="32" class="hud-label-red">STAGE</text>
     <text x="1145" y="48" class="hud-value-yellow">01</text>
 
@@ -661,577 +662,577 @@
       </g>
     </g>
 
-    <!-- Credit / System Status -->
+    <!-- Credit Status -->
     <text x="600" y="622" class="hud-value-yellow" style="font-size: 13px; letter-spacing: 3px;">CREDIT  1</text>
 
     <!-- Level Bonus Fruits -->
     <g id="hud-fruits" transform="translate(1140, 618) scale(0.7)">
-      <use href="#fruit-cherry" x="-35" y="0"/>
-      <use href="#fruit-strawberry" x="0" y="0"/>
+      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="-35" y="0"/>
+      <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
     </g>
   </g>
 
   <!-- ========================================== -->
-  <!-- 3. Pellets & Power Pellets Layer           -->
+  <!-- 3. Pellets and Power Pellets Layer         -->
   <!-- ========================================== -->
   <g id="layer-pellets">
     <!-- Standard Pellets -->
     <g id="pellet-group">
-      <use href="#pellet-standard" x="100" y="70"/>
-      <use href="#pellet-standard" x="132" y="70"/>
-      <use href="#pellet-standard" x="164" y="70"/>
-      <use href="#pellet-standard" x="196" y="70"/>
-      <use href="#pellet-standard" x="228" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="100" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="132" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="164" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="196" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="228" y="70"/>
       <g transform="translate(260, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.16;0.36;0.45;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(292, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.17;0.37;0.46;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(324, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.18;0.38;0.47;0.49;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(356, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.19;0.39;0.48;0.50;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(388, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.19;0.40;0.48;0.51;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(420, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.20;0.40;0.49;0.51;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(452, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.21;0.41;0.50;0.52;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(484, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.22;0.42;0.51;0.53;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(516, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.23;0.43;0.52;0.54;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(548, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.23;0.43;0.52;0.54;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(580, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.24;0.44;0.53;0.55;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(700, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.32;0.52;0.61;0.63;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(732, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.32;0.52;0.61;0.64;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(764, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.33;0.53;0.62;0.64;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(796, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.34;0.54;0.63;0.65;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(828, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.35;0.55;0.64;0.66;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(860, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.36;0.56;0.65;0.67;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(892, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.36;0.56;0.66;0.68;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(924, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.37;0.57;0.66;0.68;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(956, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.38;0.58;0.67;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(988, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.39;0.59;0.68;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1020, 70)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.40;0.60;0.69;0.71;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="1052" y="70"/>
-      <use href="#pellet-standard" x="1084" y="70"/>
-      <use href="#pellet-standard" x="1116" y="70"/>
-      <use href="#pellet-standard" x="1148" y="70"/>
-      <use href="#pellet-standard" x="1180" y="70"/>
-      <use href="#pellet-standard" x="100" y="160"/>
-      <use href="#pellet-standard" x="132" y="160"/>
-      <use href="#pellet-standard" x="164" y="160"/>
-      <use href="#pellet-standard" x="196" y="160"/>
-      <use href="#pellet-standard" x="228" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1052" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1084" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1116" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1148" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1180" y="70"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="100" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="132" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="164" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="196" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="228" y="160"/>
       <g transform="translate(260, 160)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.14;0.34;0.43;0.45;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="292" y="160"/>
-      <use href="#pellet-standard" x="324" y="160"/>
-      <use href="#pellet-standard" x="356" y="160"/>
-      <use href="#pellet-standard" x="388" y="160"/>
-      <use href="#pellet-standard" x="530" y="160"/>
-      <use href="#pellet-standard" x="562" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="292" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="324" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="356" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="388" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="530" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="562" y="160"/>
       <g transform="translate(594, 160)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.27;0.47;0.56;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(626, 160)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.28;0.48;0.57;0.59;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(658, 160)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.28;0.48;0.57;0.59;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(690, 160)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.29;0.49;0.58;0.60;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="722" y="160"/>
-      <use href="#pellet-standard" x="880" y="160"/>
-      <use href="#pellet-standard" x="912" y="160"/>
-      <use href="#pellet-standard" x="944" y="160"/>
-      <use href="#pellet-standard" x="976" y="160"/>
-      <use href="#pellet-standard" x="1008" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="722" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="880" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="912" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="944" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="976" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1008" y="160"/>
       <g transform="translate(1040, 160)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.42;0.62;0.71;0.73;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="1072" y="160"/>
-      <use href="#pellet-standard" x="1104" y="160"/>
-      <use href="#pellet-standard" x="1136" y="160"/>
-      <use href="#pellet-standard" x="1168" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1072" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1104" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1136" y="160"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1168" y="160"/>
       <g transform="translate(250, 210)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.13;0.32;0.41;0.43;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="280" y="210"/>
-      <use href="#pellet-standard" x="310" y="210"/>
-      <use href="#pellet-standard" x="340" y="210"/>
-      <use href="#pellet-standard" x="370" y="210"/>
-      <use href="#pellet-standard" x="400" y="210"/>
-      <use href="#pellet-standard" x="430" y="210"/>
-      <use href="#pellet-standard" x="460" y="210"/>
-      <use href="#pellet-standard" x="490" y="210"/>
-      <use href="#pellet-standard" x="520" y="210"/>
-      <use href="#pellet-standard" x="550" y="210"/>
-      <use href="#pellet-standard" x="580" y="210"/>
-      <use href="#pellet-standard" x="610" y="210"/>
-      <use href="#pellet-standard" x="640" y="210"/>
-      <use href="#pellet-standard" x="670" y="210"/>
-      <use href="#pellet-standard" x="700" y="210"/>
-      <use href="#pellet-standard" x="730" y="210"/>
-      <use href="#pellet-standard" x="760" y="210"/>
-      <use href="#pellet-standard" x="790" y="210"/>
-      <use href="#pellet-standard" x="820" y="210"/>
-      <use href="#pellet-standard" x="850" y="210"/>
-      <use href="#pellet-standard" x="880" y="210"/>
-      <use href="#pellet-standard" x="910" y="210"/>
-      <use href="#pellet-standard" x="940" y="210"/>
-      <use href="#pellet-standard" x="970" y="210"/>
-      <use href="#pellet-standard" x="1000" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="280" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="310" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="340" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="370" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="400" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="430" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="460" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="490" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="520" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="550" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="580" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="610" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="640" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="670" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="700" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="730" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="760" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="790" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="820" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="850" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="880" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="910" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="940" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="970" y="210"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1000" y="210"/>
       <g transform="translate(1030, 210)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.43;0.63;0.72;0.74;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(100, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.05;0.25;0.34;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(130, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.04;0.24;0.33;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(160, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.04;0.24;0.33;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(190, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.03;0.23;0.32;0.34;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(220, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0.00;0.22;0.31;0.33;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1040, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.54;0.74;0.83;0.85;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1070, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.53;0.73;0.82;0.84;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1100, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.53;0.73;0.82;0.84;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1130, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.52;0.72;0.81;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1160, 335)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.51;0.71;0.80;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="100" y="410"/>
-      <use href="#pellet-standard" x="132" y="410"/>
-      <use href="#pellet-standard" x="164" y="410"/>
-      <use href="#pellet-standard" x="196" y="410"/>
-      <use href="#pellet-standard" x="228" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="100" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="132" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="164" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="196" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="228" y="410"/>
       <g transform="translate(1040, 410)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.56;0.76;0.85;0.87;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="1072" y="410"/>
-      <use href="#pellet-standard" x="1104" y="410"/>
-      <use href="#pellet-standard" x="1136" y="410"/>
-      <use href="#pellet-standard" x="1168" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1072" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1104" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1136" y="410"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1168" y="410"/>
       <g transform="translate(100, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.06;0.15;0.17;0.86;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(132, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.07;0.16;0.87;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(164, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.07;0.16;0.87;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(196, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.08;0.17;0.88;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(228, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.09;0.18;0.20;0.89;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(260, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.10;0.19;0.90;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(292, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.11;0.20;0.91;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(324, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.11;0.20;0.91;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(356, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.12;0.21;0.23;0.92;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(388, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.13;0.22;0.93;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(420, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.14;0.23;0.94;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="452" y="490"/>
-      <use href="#pellet-standard" x="484" y="490"/>
-      <use href="#pellet-standard" x="780" y="490"/>
-      <use href="#pellet-standard" x="812" y="490"/>
-      <use href="#pellet-standard" x="844" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="452" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="484" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="780" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="812" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="844" y="490"/>
       <g transform="translate(876, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.62;0.82;0.91;0.93;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(908, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.61;0.81;0.90;0.92;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(940, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.61;0.81;0.90;0.92;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(972, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.60;0.80;0.89;0.91;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1004, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.59;0.79;0.88;0.90;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1036, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.58;0.78;0.87;0.89;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="1068" y="490"/>
-      <use href="#pellet-standard" x="1100" y="490"/>
-      <use href="#pellet-standard" x="1132" y="490"/>
-      <use href="#pellet-standard" x="1164" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1068" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1100" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1132" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1164" y="490"/>
       <g transform="translate(100, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.04;0.13;0.83;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(132, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.03;0.12;0.14;0.83;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(164, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0.00;0.11;0.13;0.82;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(196, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;1" keyTimes="0.00;0.10;0.81;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(228, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0.00;0.09;0.11;0.80;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(260, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;1;1" keyTimes="0.00;0.09;0.79;0.99;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(292, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0.00;0.08;0.10;0.79;0.99;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(324, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;1;1" keyTimes="0.00;0.07;0.78;0.98;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(356, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0.00;0.06;0.08;0.77;0.97;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(388, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0.00;0.05;0.07;0.76;0.96;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(420, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0.00;0.04;0.07;0.76;0.96;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(452, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;1;0;1;0" keyTimes="0.00;0.04;0.75;0.95;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(484, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;1;0;0;1;0" keyTimes="0.00;0.03;0.05;0.74;0.94;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(516, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0.00;0.04;0.73;0.93;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(548, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0.00;0.03;0.72;0.92;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(580, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0.00;0.03;0.71;0.92;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(680, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.69;0.89;0.98;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(712, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.68;0.88;0.97;0.99;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(744, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.67;0.87;0.96;0.98;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(776, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.67;0.87;0.96;0.98;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(808, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.66;0.86;0.95;0.97;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(840, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.65;0.85;0.94;0.96;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(872, 565)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.64;0.84;0.93;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="904" y="565"/>
-      <use href="#pellet-standard" x="936" y="565"/>
-      <use href="#pellet-standard" x="968" y="565"/>
-      <use href="#pellet-standard" x="1000" y="565"/>
-      <use href="#pellet-standard" x="1032" y="565"/>
-      <use href="#pellet-standard" x="1064" y="565"/>
-      <use href="#pellet-standard" x="1096" y="565"/>
-      <use href="#pellet-standard" x="1128" y="565"/>
-      <use href="#pellet-standard" x="1160" y="565"/>
-      <use href="#pellet-standard" x="90" y="150"/>
-      <use href="#pellet-standard" x="90" y="185"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="904" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="936" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="968" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1000" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1032" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1064" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1096" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1128" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1160" y="565"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="90" y="150"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="90" y="185"/>
       <g transform="translate(90, 220)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.08;0.28;0.37;0.39;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="90" y="420"/>
-      <use href="#pellet-standard" x="90" y="455"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="90" y="420"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="90" y="455"/>
       <g transform="translate(90, 490)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.06;0.15;0.17;0.86;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="1190" y="150"/>
-      <use href="#pellet-standard" x="1190" y="185"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1190" y="150"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1190" y="185"/>
       <g transform="translate(1190, 220)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.48;0.68;0.77;0.79;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="1190" y="420"/>
-      <use href="#pellet-standard" x="1190" y="455"/>
-      <use href="#pellet-standard" x="1190" y="490"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1190" y="420"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1190" y="455"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="1190" y="490"/>
       <g transform="translate(250, 80)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0.00;0.16;0.36;0.45;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(250, 110)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.15;0.35;0.44;0.46;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(250, 140)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.14;0.34;0.43;0.45;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(250, 170)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.14;0.33;0.42;0.45;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(250, 200)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.13;0.33;0.42;0.44;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(250, 340)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0.00;0.21;0.30;0.32;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="250" y="370"/>
-      <use href="#pellet-standard" x="250" y="400"/>
-      <use href="#pellet-standard" x="250" y="430"/>
-      <use href="#pellet-standard" x="250" y="460"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="250" y="370"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="250" y="400"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="250" y="430"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="250" y="460"/>
       <g transform="translate(410, 80)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.20;0.40;0.49;0.51;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="410" y="110"/>
-      <use href="#pellet-standard" x="410" y="140"/>
-      <use href="#pellet-standard" x="410" y="170"/>
-      <use href="#pellet-standard" x="410" y="200"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="410" y="110"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="410" y="140"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="410" y="170"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="410" y="200"/>
       <g transform="translate(410, 340)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.17;0.26;0.28;0.97;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(410, 370)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.17;0.26;0.28;0.97;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(410, 400)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.16;0.25;0.27;0.96;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(410, 430)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0.00;0.15;0.24;0.26;0.95;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(410, 460)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0.00;0.14;0.23;0.94;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(870, 80)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.36;0.56;0.65;0.67;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="870" y="110"/>
-      <use href="#pellet-standard" x="870" y="140"/>
-      <use href="#pellet-standard" x="870" y="170"/>
-      <use href="#pellet-standard" x="870" y="200"/>
-      <use href="#pellet-standard" x="870" y="340"/>
-      <use href="#pellet-standard" x="870" y="370"/>
-      <use href="#pellet-standard" x="870" y="400"/>
-      <use href="#pellet-standard" x="870" y="430"/>
-      <use href="#pellet-standard" x="870" y="460"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="110"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="140"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="170"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="200"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="340"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="370"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="400"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="430"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="870" y="460"/>
       <g transform="translate(1030, 80)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.40;0.60;0.69;0.71;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 110)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.41;0.61;0.70;0.72;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 140)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.42;0.62;0.71;0.73;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 170)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.42;0.62;0.71;0.73;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 200)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.43;0.63;0.72;0.74;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 340)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.55;0.75;0.84;0.86;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 370)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.55;0.75;0.84;0.86;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 400)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.56;0.76;0.85;0.87;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 430)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.57;0.77;0.86;0.88;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
       <g transform="translate(1030, 460)">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.00;0.58;0.78;0.87;0.89;1.00" dur="12s" repeatCount="indefinite"/>
       </g>
-      <use href="#pellet-standard" x="490" y="220"/>
-      <use href="#pellet-standard" x="490" y="252"/>
-      <use href="#pellet-standard" x="490" y="284"/>
-      <use href="#pellet-standard" x="490" y="316"/>
-      <use href="#pellet-standard" x="490" y="348"/>
-      <use href="#pellet-standard" x="790" y="220"/>
-      <use href="#pellet-standard" x="790" y="252"/>
-      <use href="#pellet-standard" x="790" y="284"/>
-      <use href="#pellet-standard" x="790" y="316"/>
-      <use href="#pellet-standard" x="790" y="348"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="490" y="220"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="490" y="252"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="490" y="284"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="490" y="316"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="490" y="348"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="790" y="220"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="790" y="252"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="790" y="284"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="790" y="316"/>
+      <use href="#pellet-standard" xlink:href="#pellet-standard" x="790" y="348"/>
     </g>
 
     <!-- Power Pellets -->
     <g id="power-pellets-group">
-      <use href="#pellet-power" x="90" y="120"/>
-      <use href="#pellet-power" x="1190" y="120"/>
-      <use href="#pellet-power" x="90" y="535"/>
-      <use href="#pellet-power" x="1190" y="535"/>
+      <use href="#pellet-power" xlink:href="#pellet-power" x="90" y="120"/>
+      <use href="#pellet-power" xlink:href="#pellet-power" x="1190" y="120"/>
+      <use href="#pellet-power" xlink:href="#pellet-power" x="90" y="535"/>
+      <use href="#pellet-power" xlink:href="#pellet-power" x="1190" y="535"/>
     </g>
 
   </g>
@@ -1356,10 +1357,10 @@
   <!-- 5. Central Centerpiece: GUNESH BARI        -->
   <!-- ========================================== -->
   <g id="layer-centerpiece" class="nameplate-container">
-    <!-- Subtle dark backdrop for nameplate readability -->
+    <!-- Dark backdrop for nameplate readability -->
     <rect x="290" y="235" width="700" height="70" rx="6" fill="#020617" opacity="0.88"/>
     <!-- GUNESH BARI 8-bit Neon Artwork -->
-    <use href="#typography-gunesh-bari" x="345" y="235"/>
+    <use href="#typography-gunesh-bari" xlink:href="#typography-gunesh-bari" x="345" y="235"/>
   </g>
 
   <!-- ========================================== -->
@@ -1368,18 +1369,18 @@
   <g id="layer-bonus-item" transform="translate(640, 460)">
     <!-- Pulsing Cherry beneath Ghost House -->
     <g transform="scale(0.85)">
-      <use href="#fruit-cherry" x="0" y="0"/>
+      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
       <animateTransform attributeName="transform" type="scale" values="0.8; 0.95; 0.8" dur="1.6s" repeatCount="indefinite"/>
     </g>
   </g>
 
   <!-- ========================================== -->
-  <!-- 7. Characters & Autonomous Animations      -->
+  <!-- 7. Characters and Autonomous Animations    -->
   <!-- ========================================== -->
   <g id="layer-characters">
-    <!-- Pac-Man (Continuous 12s Navigation with Chomp & Direction Rotation) -->
+    <!-- Pac-Man (Continuous 12s Navigation with Chomp and Direction Rotation) -->
     <g id="character-pacman">
-      <use href="#pacman-character" x="0" y="0"/>
+      <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0"/>
       <animateMotion
         path="M 640,565 L 90,565 L 90,490 L 410,490 L 410,335 L 90,335 L 90,210 L 250,210 L 250,70 L 580,70 L 580,160 L 700,160 L 700,70 L 1030,70 L 1030,210 L 1190,210 L 1190,335 L 1030,335 L 1030,490 L 870,490 L 870,565 Z"
         dur="12s"
@@ -1391,7 +1392,7 @@
 
     <!-- Blinky (Red Ghost - 14s Direct Chase Route) -->
     <g id="character-blinky">
-      <use href="#ghost-blinky" x="0" y="0"/>
+      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
       <animateMotion
         path="M 640,70 L 1190,70 L 1190,335 L 1030,335 L 1030,490 L 1190,490 L 1190,565 L 680,565 L 680,490 L 490,490 L 490,210 L 250,210 L 250,70 Z"
         dur="14s"
@@ -1402,7 +1403,7 @@
 
     <!-- Pinky (Pink Ghost - 17s Interception Route) -->
     <g id="character-pinky">
-      <use href="#ghost-pinky" x="0" y="0"/>
+      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
       <animateMotion
         path="M 250,210 L 1030,210 L 1030,70 L 870,70 L 870,160 L 530,160 L 530,70 L 90,70 L 90,335 L 250,335 L 250,490 L 90,490 L 90,565 L 410,565 L 410,335 L 250,335 Z"
         dur="17s"
@@ -1413,7 +1414,7 @@
 
     <!-- Inky (Cyan Ghost - 20s Flanking Route) -->
     <g id="character-inky">
-      <use href="#ghost-inky" x="0" y="0"/>
+      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
       <animateMotion
         path="M 1030,490 L 1030,335 L 1190,335 L 1190,565 L 640,565 L 640,490 L 410,490 L 410,565 L 90,565 L 90,410 L 250,410 L 250,210 L 490,210 L 490,335 L 790,335 L 790,210 L 1030,210 Z"
         dur="20s"
@@ -1424,7 +1425,7 @@
 
     <!-- Clyde (Orange Ghost - 22s Wandering Route) -->
     <g id="character-clyde">
-      <use href="#ghost-clyde" x="0" y="0"/>
+      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
       <animateMotion
         path="M 640,360 L 790,360 L 790,490 L 1190,490 L 1190,565 L 870,565 L 870,410 L 1030,410 L 1030,210 L 870,210 L 870,70 L 700,70 L 700,160 L 490,160 L 490,360 Z"
         dur="22s"
@@ -1435,12 +1436,12 @@
   </g>
 
   <!-- ========================================== -->
-  <!-- 8. Arcade CRT Overlays & Vignette          -->
+  <!-- 8. Arcade CRT Overlays and Vignette        -->
   <!-- ========================================== -->
   <g id="layer-overlays">
     <!-- CRT Scanlines -->
     <rect width="1280" height="640" class="scanlines"/>
-    <!-- CRT Vignette & Screen Depth -->
+    <!-- CRT Vignette and Screen Depth -->
     <rect width="1280" height="640" class="arcade-vignette"/>
   </g>
 </svg>

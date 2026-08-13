@@ -66,24 +66,21 @@ function generatePelletsSvg(pellets, powerPellets) {
     const passFraction = getPacmanPassFraction(p.x, p.y, PACMAN_PATH);
 
     if (passFraction !== null) {
-      // Pellet is on Pac-Man's path! Add dynamic consumption animation
+      // Pellet is on Pac-Man's path - Add dynamic consumption animation
       const f = parseFloat(passFraction.toFixed(3));
       const fEat = Math.min(0.99, f + 0.01);
       const fRespawnStart = (f + 0.70) % 1.0;
       const fRespawnEnd = (f + 0.90) % 1.0;
 
-      // Construct ordered keyframes for loop
       const keyframes = [];
       keyframes.push({ t: 0, v: (f < fRespawnStart && f > 0.05) ? 1 : 0 });
       
       if (fRespawnStart > f) {
-        // Simple case: respawn happens later in cycle
         keyframes.push({ t: Math.max(0, f - 0.01), v: 1 });
         keyframes.push({ t: fEat, v: 0 });
         keyframes.push({ t: fRespawnStart, v: 0 });
         keyframes.push({ t: fRespawnEnd, v: 1 });
       } else {
-        // Wrap-around case
         keyframes.push({ t: fRespawnStart, v: 0 });
         keyframes.push({ t: fRespawnEnd, v: 1 });
         keyframes.push({ t: Math.max(0, f - 0.01), v: 1 });
@@ -91,7 +88,6 @@ function generatePelletsSvg(pellets, powerPellets) {
       }
       keyframes.push({ t: 1, v: keyframes[0].v });
 
-      // Sort by t and deduplicate
       keyframes.sort((a, b) => a.t - b.t);
       const cleanKeys = [];
       for (const k of keyframes) {
@@ -107,18 +103,18 @@ function generatePelletsSvg(pellets, powerPellets) {
       const valsStr = cleanKeys.map(k => k.v).join(';');
 
       output += `      <g transform="translate(${p.x}, ${p.y})">
-        <use href="#pellet-standard" x="0" y="0"/>
+        <use href="#pellet-standard" xlink:href="#pellet-standard" x="0" y="0"/>
         <animate attributeName="opacity" values="${valsStr}" keyTimes="${timesStr}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
       </g>\n`;
     } else {
-      // Off-path pellet - standard static/pulsing pellet
-      output += `      <use href="#pellet-standard" x="${p.x}" y="${p.y}"/>\n`;
+      // Off-path pellet
+      output += `      <use href="#pellet-standard" xlink:href="#pellet-standard" x="${p.x}" y="${p.y}"/>\n`;
     }
   }
   output += '    </g>\n\n    <!-- Power Pellets -->\n    <g id="power-pellets-group">\n';
 
   for (const pp of powerPellets) {
-    output += `      <use href="#pellet-power" x="${pp.x}" y="${pp.y}"/>\n`;
+    output += `      <use href="#pellet-power" xlink:href="#pellet-power" x="${pp.x}" y="${pp.y}"/>\n`;
   }
   output += '    </g>\n';
 
@@ -157,13 +153,14 @@ function assembleBanner() {
   const fruitsDefs = extractDefs(path.join(__dirname, 'assets', 'fruits.svg'));
   const typographyDefs = extractDefs(path.join(__dirname, 'assets', 'typography.svg'));
 
-  // 3. Generate Walls & Pellets
+  // 3. Generate Walls and Pellets
   const { backGlow, outerWalls, innerWalls, doors } = generateWallElements(MAZE_WALLS);
   const pelletsSvg = generatePelletsSvg(PELLETS, POWER_PELLETS);
   const starsSvg = generateBackgroundStars();
 
-  // 4. Construct complete SVG Document
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari — Animated Pac-Man GitHub Banner" role="img">
+  // 4. Construct complete SVG Document with strict XML compliance
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari — Animated Pac-Man GitHub Banner" role="img">
   <title>Gunesh Bari — Animated Pac-Man GitHub Banner</title>
   <desc>An animated neon Pac-Man-inspired maze featuring the name Gunesh Bari, with Pac-Man collecting pellets while four ghosts navigate the maze.</desc>
 
@@ -227,7 +224,7 @@ ${cssContent}
   </defs>
 
   <!-- ========================================== -->
-  <!-- 1. Background & Atmosphere                 -->
+  <!-- 1. Background and Atmosphere               -->
   <!-- ========================================== -->
   <g id="layer-background">
     <!-- Solid Dark Arcade Base -->
@@ -237,17 +234,17 @@ ${cssContent}
     <circle cx="640" cy="320" r="480" fill="#1E3A8A" opacity="0.12" filter="url(#glow-blur-wide)"/>
     <circle cx="640" cy="270" r="280" fill="#2563EB" opacity="0.10" filter="url(#glow-blur-wide)"/>
 
-    <!-- Ambient Retro Stars/Pixels -->
+    <!-- Ambient Retro Stars and Pixels -->
 ${starsSvg}
   </g>
 
   <!-- ========================================== -->
-  <!-- 2. Arcade HUD (Top & Bottom)               -->
+  <!-- 2. Arcade HUD (Top and Bottom)             -->
   <!-- ========================================== -->
   <g id="layer-hud">
     <!-- Top HUD: 1UP, Score, High Score, Level -->
-    <!-- 1UP Column -->
     <text x="90" y="32" class="hud-label-red hud-blink">1UP</text>
+    
     <!-- Dynamic Looping Score Animation -->
     <text x="90" y="48" class="hud-value-white">
       <tspan>
@@ -276,7 +273,7 @@ ${starsSvg}
     <text x="560" y="32" class="hud-label-red">HIGH SCORE</text>
     <text x="585" y="48" class="hud-value-white">098420</text>
 
-    <!-- LEVEL / STAGE Column -->
+    <!-- LEVEL STAGE Column -->
     <text x="1120" y="32" class="hud-label-red">STAGE</text>
     <text x="1145" y="48" class="hud-value-yellow">01</text>
 
@@ -294,18 +291,18 @@ ${starsSvg}
       </g>
     </g>
 
-    <!-- Credit / System Status -->
+    <!-- Credit Status -->
     <text x="600" y="622" class="hud-value-yellow" style="font-size: 13px; letter-spacing: 3px;">CREDIT  1</text>
 
     <!-- Level Bonus Fruits -->
     <g id="hud-fruits" transform="translate(1140, 618) scale(0.7)">
-      <use href="#fruit-cherry" x="-35" y="0"/>
-      <use href="#fruit-strawberry" x="0" y="0"/>
+      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="-35" y="0"/>
+      <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
     </g>
   </g>
 
   <!-- ========================================== -->
-  <!-- 3. Pellets & Power Pellets Layer           -->
+  <!-- 3. Pellets and Power Pellets Layer         -->
   <!-- ========================================== -->
   <g id="layer-pellets">
 ${pelletsSvg}
@@ -340,10 +337,10 @@ ${doors}
   <!-- 5. Central Centerpiece: GUNESH BARI        -->
   <!-- ========================================== -->
   <g id="layer-centerpiece" class="nameplate-container">
-    <!-- Subtle dark backdrop for nameplate readability -->
+    <!-- Dark backdrop for nameplate readability -->
     <rect x="290" y="235" width="700" height="70" rx="6" fill="#020617" opacity="0.88"/>
     <!-- GUNESH BARI 8-bit Neon Artwork -->
-    <use href="#typography-gunesh-bari" x="345" y="235"/>
+    <use href="#typography-gunesh-bari" xlink:href="#typography-gunesh-bari" x="345" y="235"/>
   </g>
 
   <!-- ========================================== -->
@@ -352,18 +349,18 @@ ${doors}
   <g id="layer-bonus-item" transform="translate(640, 460)">
     <!-- Pulsing Cherry beneath Ghost House -->
     <g transform="scale(0.85)">
-      <use href="#fruit-cherry" x="0" y="0"/>
+      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
       <animateTransform attributeName="transform" type="scale" values="0.8; 0.95; 0.8" dur="1.6s" repeatCount="indefinite"/>
     </g>
   </g>
 
   <!-- ========================================== -->
-  <!-- 7. Characters & Autonomous Animations      -->
+  <!-- 7. Characters and Autonomous Animations    -->
   <!-- ========================================== -->
   <g id="layer-characters">
-    <!-- Pac-Man (Continuous 12s Navigation with Chomp & Direction Rotation) -->
+    <!-- Pac-Man (Continuous 12s Navigation with Chomp and Direction Rotation) -->
     <g id="character-pacman">
-      <use href="#pacman-character" x="0" y="0"/>
+      <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0"/>
       <animateMotion
         path="${PACMAN_PATH}"
         dur="${ANIMATION_CONFIG.pacmanDuration}"
@@ -375,7 +372,7 @@ ${doors}
 
     <!-- Blinky (Red Ghost - 14s Direct Chase Route) -->
     <g id="character-blinky">
-      <use href="#ghost-blinky" x="0" y="0"/>
+      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
       <animateMotion
         path="${BLINKY_PATH}"
         dur="${ANIMATION_CONFIG.blinkyDuration}"
@@ -386,7 +383,7 @@ ${doors}
 
     <!-- Pinky (Pink Ghost - 17s Interception Route) -->
     <g id="character-pinky">
-      <use href="#ghost-pinky" x="0" y="0"/>
+      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
       <animateMotion
         path="${PINKY_PATH}"
         dur="${ANIMATION_CONFIG.pinkyDuration}"
@@ -397,7 +394,7 @@ ${doors}
 
     <!-- Inky (Cyan Ghost - 20s Flanking Route) -->
     <g id="character-inky">
-      <use href="#ghost-inky" x="0" y="0"/>
+      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
       <animateMotion
         path="${INKY_PATH}"
         dur="${ANIMATION_CONFIG.inkyDuration}"
@@ -408,7 +405,7 @@ ${doors}
 
     <!-- Clyde (Orange Ghost - 22s Wandering Route) -->
     <g id="character-clyde">
-      <use href="#ghost-clyde" x="0" y="0"/>
+      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
       <animateMotion
         path="${CLYDE_PATH}"
         dur="${ANIMATION_CONFIG.clydeDuration}"
@@ -419,12 +416,12 @@ ${doors}
   </g>
 
   <!-- ========================================== -->
-  <!-- 8. Arcade CRT Overlays & Vignette          -->
+  <!-- 8. Arcade CRT Overlays and Vignette        -->
   <!-- ========================================== -->
   <g id="layer-overlays">
     <!-- CRT Scanlines -->
     <rect width="1280" height="640" class="scanlines"/>
-    <!-- CRT Vignette & Screen Depth -->
+    <!-- CRT Vignette and Screen Depth -->
     <rect width="1280" height="640" class="arcade-vignette"/>
   </g>
 </svg>`;
@@ -435,6 +432,12 @@ ${doors}
   // Check no forbidden scripts
   if (/<script/i.test(svg)) {
     throw new Error('Validation Error: JavaScript found in SVG output! Final banner must be pure SVG/CSS.');
+  }
+
+  // Check no unescaped ampersands (fatal XML error)
+  const badAmps = svg.match(/&(?!(amp|lt|gt|quot|apos);)/g);
+  if (badAmps) {
+    throw new Error(`Validation Error: Found ${badAmps.length} unescaped '&' in XML/SVG! Must use &amp; or escape.`);
   }
 
   // Check no external network URLs
@@ -466,7 +469,7 @@ ${doors}
 
   console.log(`✅ banner.svg and pacman-banner.svg generated successfully!`);
   console.log(`📊 File size: ${fileSizeKB} KB (Target: under 500 KB)`);
-  console.log(`🎯 Dimensions: 1280x640 | Self-contained: YES | Animated: YES`);
+  console.log(`🎯 Dimensions: 1280x640 | Strict XML Compliant: YES | Animated: YES`);
 }
 
 assembleBanner();

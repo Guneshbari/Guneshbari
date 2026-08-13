@@ -58,10 +58,12 @@ function runTests() {
   // Test 2: Dimensions and ViewBox
   assert(svgContent.includes('viewBox="0 0 1280 640"'), 'SVG has valid 1280x640 viewBox');
 
-  // Test 3: Standalone & Security (No script, no external links)
+  // Test 3: Standalone & Security (No script, no external links, valid XML entities)
   assert(!/<script/i.test(svgContent), 'No JavaScript <script> tags in SVG');
   assert(!/href=["']http/i.test(svgContent), 'No external HTTP/HTTPS hrefs');
   assert(!/url\(['"]?http/i.test(svgContent), 'No external HTTP/HTTPS url() references');
+  const badAmps = svgContent.match(/&(?!(amp|lt|gt|quot|apos);)/g);
+  assert(!badAmps, 'No unescaped ampersands in XML (100% strict XML validity)');
 
   // Test 4: Subject Name verification
   assert(svgContent.includes('GUNESH BARI'), 'GUNESH BARI is present and spelled correctly');
