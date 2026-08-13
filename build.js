@@ -214,7 +214,7 @@ function generateFruitsSvg() {
 }
 
 // ============================================================
-// 6. Dynamic Score Counter (Synchronized with Coins & Fruits)
+// 6. Dynamic Score Counter (Centered in Top HUD)
 // ============================================================
 function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
   const items = [];
@@ -260,17 +260,17 @@ function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
   let output = '    <g id="hud-score">\n';
   for (const s of steps) {
     if (s.i === 0) {
-      output += `      <text x="75" y="48" class="hud-value-white" opacity="1">\n`;
+      output += `      <text x="640" y="48" text-anchor="middle" class="hud-value-white" opacity="1">\n`;
       output += `        <animate attributeName="opacity" values="1;0" keyTimes="0;${s.tEnd}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
       output += `        ${s.score}\n`;
       output += `      </text>\n`;
     } else if (s.i === numSteps - 1) {
-      output += `      <text x="75" y="48" class="hud-value-white" opacity="0">\n`;
+      output += `      <text x="640" y="48" text-anchor="middle" class="hud-value-white" opacity="0">\n`;
       output += `        <animate attributeName="opacity" values="0;1" keyTimes="0;${s.tStart}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
       output += `        ${s.score}\n`;
       output += `      </text>\n`;
     } else {
-      output += `      <text x="75" y="48" class="hud-value-white" opacity="0">\n`;
+      output += `      <text x="640" y="48" text-anchor="middle" class="hud-value-white" opacity="0">\n`;
       output += `        <animate attributeName="opacity" values="0;1;0" keyTimes="0;${s.tStart};${s.tEnd}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
       output += `        ${s.score}\n`;
       output += `      </text>\n`;
@@ -368,15 +368,11 @@ ${starsSvg}
 
   <!-- 2. HUD -->
   <g id="layer-hud">
-    <!-- 1UP and Score -->
-    <text x="75" y="32" class="hud-label-red hud-blink">1UP</text>
+    <!-- Top Center Live Dynamic Score (Replaced Static High Score) -->
+    <text x="640" y="32" text-anchor="middle" class="hud-label-red hud-blink">1UP</text>
 ${scoreSvg}
 
-    <!-- HIGH SCORE -->
-    <text x="560" y="32" class="hud-label-red">HIGH SCORE</text>
-    <text x="595" y="48" class="hud-value-white">016440</text>
-
-    <!-- LEVEL and Lives -->
+    <!-- LEVEL and Lives (Top Right) -->
     <text x="1150" y="32" class="hud-label-cyan">LEVEL</text>
     <text x="1205" y="32" class="hud-value-yellow">1</text>
     <g id="hud-top-lives" transform="translate(1150, 48) scale(0.6)">
@@ -386,11 +382,7 @@ ${scoreSvg}
     </g>
 
     <!-- Bottom HUD -->
-    <text x="590" y="618" class="hud-value-yellow" style="font-size: 13px; letter-spacing: 3px;">CREDIT  1</text>
-    <g id="hud-fruits" transform="translate(1160, 614) scale(0.7)">
-      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="-35" y="0"/>
-      <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
-    </g>
+    <text x="640" y="618" text-anchor="middle" class="hud-value-yellow" style="font-size: 13px; letter-spacing: 3px;">CREDIT  1</text>
   </g>
 
   <!-- 3. Pellets -->
