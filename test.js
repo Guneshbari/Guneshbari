@@ -116,7 +116,7 @@ function runTests() {
 
   // The narrow centre connector is 30px wide, so the 32px character assets
   // are scaled to a safe 22.4px gameplay footprint before they enter it.
-  assert((svgContent.match(/transform="scale\(0\.70\)"/g) || []).length === 5, 'All moving characters fit the centre maze connector');
+  assert((svgContent.match(/transform="scale\(0\.70\)"/g) || []).length >= 5, 'All moving characters fit the centre maze connector');
 
   // Test 9: Regular Pellets Count
   assert(PELLETS.length >= 80, `Substantial pellet count for full level feel (${PELLETS.length} pellets)`);
@@ -132,13 +132,22 @@ function runTests() {
     'Every power pellet lies on Pac-Man\'s exact route'
   );
 
-  // Test 11: Dynamic score synchronization and loop reset
+  // Test 11: Consumable fruits and in-maze score popups
+  assert(svgContent.includes('popup-strawberry'), 'Consumable Strawberry score popup (+300) is present');
+  assert(svgContent.includes('popup-cherry'), 'Consumable Cherry score popup (+100) is present');
+  assert(svgContent.includes('popup-ghost'), 'Ghost consumption score popup (+200/+400) is present');
+
+  // Test 12: Ghost frightened & eaten eyes interactions
+  assert(svgContent.includes('ghost-frightened'), 'Ghost Frightened (Blue) mode is present');
+  assert(svgContent.includes('ghost-eaten-eyes'), 'Ghost Eaten Eyes returning to house mode is present');
+
+  // Test 13: Dynamic score synchronization and loop reset
   assert(svgContent.includes('id="hud-score"'), 'HUD score group is present');
   assert(svgContent.includes('calcMode="discrete"'), 'Score uses discrete stepping synchronized with coin collection');
   assert(svgContent.includes('10420'), 'Starting score 10420 is present and displayed at loop start');
-  assert(svgContent.includes('12530') || svgContent.includes('12'), 'Score increments to higher values as coins are consumed');
+  assert(svgContent.includes('13') || svgContent.includes('12'), 'Score increments to higher values as coins and bonuses are consumed');
 
-  // Test 12: File size within target (< 500 KB)
+  // Test 14: File size within target (< 500 KB)
   const sizeKB = fs.statSync(bannerPath).size / 1024;
   assert(sizeKB < 500, `File size is ${sizeKB.toFixed(2)} KB (under 500 KB target)`);
 

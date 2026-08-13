@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari - Animated Pac-Man GitHub Banner" role="img">
   <title>Gunesh Bari - Animated Pac-Man GitHub Banner</title>
-  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets while four ghosts patrol the corridors.</desc>
+  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets, eats fruits, and interacts with ghosts.</desc>
 
   <defs>
     <style>
@@ -178,6 +178,29 @@
   opacity: 0.25;
 }
 
+/* In-Game Floating Score Popups */
+.score-popup {
+  font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  filter: url(#glow-blur-subtle);
+}
+
+.popup-cherry {
+  fill: #FF4444;
+}
+
+.popup-strawberry {
+  fill: #22C55E;
+}
+
+.popup-ghost {
+  fill: #00D8FF;
+}
+
     </style>
 
     <filter id="glow-blur" x="-50%" y="-50%" width="200%" height="200%">
@@ -240,7 +263,7 @@
       <circle cx="-3" cy="-7" r="3.5" fill="#FFFBEB" opacity="0.55"/>
       <circle cx="4" cy="-5" r="1.5" fill="#FFFBEB" opacity="0.4"/>
     </g>
-    <!-- Base Ghost Eyes (Facing Right by default) -->
+    <!-- Base Ghost Eyes (Facing Right) -->
     <g id="ghost-eyes-right">
       <ellipse cx="-4" cy="-3" rx="4.5" ry="6" fill="#FFFFFF"/>
       <circle cx="-2" cy="-3" r="2.5" fill="#1E3A8A"/>
@@ -260,176 +283,109 @@
       <circle cx="1" cy="-4.5" r="0.9" fill="#FFFFFF"/>
     </g>
 
+    <!-- Base Ghost Eyes (Facing Up / Returning to House) -->
+    <g id="ghost-eyes-up">
+      <ellipse cx="-5.5" cy="-5" rx="4.5" ry="6" fill="#FFFFFF"/>
+      <circle cx="-5.5" cy="-7.5" r="2.5" fill="#1E3A8A"/>
+      <circle cx="-4.5" cy="-8.5" r="0.9" fill="#FFFFFF"/>
+      <ellipse cx="5.5" cy="-5" rx="4.5" ry="6" fill="#FFFFFF"/>
+      <circle cx="5.5" cy="-7.5" r="2.5" fill="#1E3A8A"/>
+      <circle cx="6.5" cy="-8.5" r="0.9" fill="#FFFFFF"/>
+    </g>
+
     <!-- Frightened Face Overlay -->
     <g id="ghost-frightened-face">
-      <!-- Frightened Eyes -->
       <circle cx="-5" cy="-3" r="2.2" fill="#FEF08A"/>
       <circle cx="5" cy="-3" r="2.2" fill="#FEF08A"/>
-      <!-- Squiggly Mouth -->
       <path d="M -9,5 L -6,2 L -3,5 L 0,2 L 3,5 L 6,2 L 9,5" stroke="#FEF08A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
     </g>
 
-    <!-- Blinky (Red Ghost) with Timed Power Mode Flash -->
+    <!-- Blinky (Red Ghost) -->
     <g id="ghost-blinky">
-      <!-- Normal Mode Group -->
-      <g>
-        <animate attributeName="opacity" values="1; 1; 0; 0; 1; 1; 0; 0; 1" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <g class="ghost-glow">
-          <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#EF4444" opacity="0.25" filter="url(#glow-blur)"/>
-        </g>
-        <path class="ghost-body" fill="#EF4444" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FCA5A5" opacity="0.6"/>
-        <use href="#ghost-eyes-right" class="ghost-eyes"/>
+      <g class="ghost-glow">
+        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF3B30" opacity="0.25" filter="url(#glow-blur)"/>
       </g>
-
-      <!-- Frightened Mode Overlay -->
-      <g>
-        <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0; 1; 1; 0" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <path d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
-          <animate attributeName="fill" values="#1D4ED8;#1D4ED8;#FFFFFF;#1D4ED8;#FFFFFF;#1D4ED8" dur="3s" repeatCount="indefinite"/>
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <use href="#ghost-frightened-face"/>
-      </g>
+      <path class="ghost-body" fill="#FF3B30" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
+        <animate
+          attributeName="d"
+          values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
+          dur="0.32s"
+          repeatCount="indefinite"
+        />
+      </path>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FCA5A5" opacity="0.6"/>
+      <use href="#ghost-eyes-right" class="ghost-eyes"/>
     </g>
 
     <!-- Pinky (Pink Ghost) -->
     <g id="ghost-pinky">
-      <g>
-        <animate attributeName="opacity" values="1; 1; 0; 0; 1; 1; 0; 0; 1" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <g class="ghost-glow">
-          <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#EC4899" opacity="0.25" filter="url(#glow-blur)"/>
-        </g>
-        <path class="ghost-body" fill="#EC4899" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FBCFE8" opacity="0.65"/>
-        <use href="#ghost-eyes-left" class="ghost-eyes"/>
+      <g class="ghost-glow">
+        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF69B4" opacity="0.25" filter="url(#glow-blur)"/>
       </g>
-
-      <g>
-        <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0; 1; 1; 0" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <path d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
-          <animate attributeName="fill" values="#1D4ED8;#1D4ED8;#FFFFFF;#1D4ED8;#FFFFFF;#1D4ED8" dur="3s" repeatCount="indefinite"/>
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <use href="#ghost-frightened-face"/>
-      </g>
+      <path class="ghost-body" fill="#FF69B4" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
+        <animate
+          attributeName="d"
+          values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
+          dur="0.32s"
+          repeatCount="indefinite"
+        />
+      </path>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FBCFE8" opacity="0.65"/>
+      <use href="#ghost-eyes-left" class="ghost-eyes"/>
     </g>
 
     <!-- Inky (Cyan Ghost) -->
     <g id="ghost-inky">
-      <g>
-        <animate attributeName="opacity" values="1; 1; 0; 0; 1; 1; 0; 0; 1" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <g class="ghost-glow">
-          <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#06B6D4" opacity="0.25" filter="url(#glow-blur)"/>
-        </g>
-        <path class="ghost-body" fill="#06B6D4" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#A5F3FC" opacity="0.65"/>
-        <use href="#ghost-eyes-right" class="ghost-eyes"/>
+      <g class="ghost-glow">
+        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#00D8FF" opacity="0.25" filter="url(#glow-blur)"/>
       </g>
-
-      <g>
-        <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0; 1; 1; 0" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <path d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
-          <animate attributeName="fill" values="#1D4ED8;#1D4ED8;#FFFFFF;#1D4ED8;#FFFFFF;#1D4ED8" dur="3s" repeatCount="indefinite"/>
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <use href="#ghost-frightened-face"/>
-      </g>
+      <path class="ghost-body" fill="#00D8FF" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
+        <animate
+          attributeName="d"
+          values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
+          dur="0.32s"
+          repeatCount="indefinite"
+        />
+      </path>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#A5F3FC" opacity="0.65"/>
+      <use href="#ghost-eyes-right" class="ghost-eyes"/>
     </g>
 
     <!-- Clyde (Orange Ghost) -->
     <g id="ghost-clyde">
-      <g>
-        <animate attributeName="opacity" values="1; 1; 0; 0; 1; 1; 0; 0; 1" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <g class="ghost-glow">
-          <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#F97316" opacity="0.25" filter="url(#glow-blur)"/>
-        </g>
-        <path class="ghost-body" fill="#F97316" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FED7AA" opacity="0.65"/>
-        <use href="#ghost-eyes-left" class="ghost-eyes"/>
+      <g class="ghost-glow">
+        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#FF8C42" opacity="0.25" filter="url(#glow-blur)"/>
       </g>
-
-      <g>
-        <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0; 1; 1; 0" keyTimes="0; 0.22; 0.23; 0.48; 0.50; 0.68; 0.69; 0.93; 0.95" dur="12s" repeatCount="indefinite"/>
-        <path d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
-          <animate attributeName="fill" values="#1D4ED8;#1D4ED8;#FFFFFF;#1D4ED8;#FFFFFF;#1D4ED8" dur="3s" repeatCount="indefinite"/>
-          <animate
-            attributeName="d"
-            values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
-                    M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
-            dur="0.32s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <use href="#ghost-frightened-face"/>
-      </g>
+      <path class="ghost-body" fill="#FF8C42" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z">
+        <animate
+          attributeName="d"
+          values="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,14 Q -10.6,10 -5.3,14 Q 0,18 5.3,14 Q 10.6,10 16,14 L 16,0 A 16 16 0 0,0 -16,0 Z;
+                  M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z"
+          dur="0.32s"
+          repeatCount="indefinite"
+        />
+      </path>
+      <path d="M -13,-2 A 13 13 0 0,1 0,-13 L 0,-10 A 10 10 0 0,0 -10,-2 Z" fill="#FED7AA" opacity="0.65"/>
+      <use href="#ghost-eyes-left" class="ghost-eyes"/>
     </g>
 
-    <!-- Standalone Frightened Definition -->
+    <!-- Frightened Blue Mode Ghost -->
     <g id="ghost-frightened">
+      <g class="ghost-glow">
+        <path d="M -16,0 L -16,12 Q -11,16 -5.3,12 Q 0,8 5.3,12 Q 11,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8" opacity="0.3" filter="url(#glow-blur)"/>
+      </g>
       <path class="ghost-scared-body" d="M -16,0 L -16,12 Q -10.6,16 -5.3,12 Q 0,8 5.3,12 Q 10.6,16 16,12 L 16,0 A 16 16 0 0,0 -16,0 Z" fill="#1D4ED8">
         <animate
           attributeName="fill"
           values="#1D4ED8; #1D4ED8; #FFFFFF; #1D4ED8; #FFFFFF; #1D4ED8"
-          dur="3s"
+          dur="2s"
           repeatCount="indefinite"
         />
         <animate
@@ -442,6 +398,11 @@
         />
       </path>
       <use href="#ghost-frightened-face"/>
+    </g>
+
+    <!-- Floating Eaten Eyes (Retreating to Ghost House) -->
+    <g id="ghost-eaten-eyes">
+      <use href="#ghost-eyes-up"/>
     </g>
     <!-- Standard Pellet -->
     <g id="pellet-standard">
@@ -545,75 +506,75 @@
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.25;0.2917" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        10960
+        11260
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.2917;0.3333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11090
+        11590
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.3333;0.375" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11170
+        11670
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.375;0.4167" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11250
+        11850
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.4167;0.4583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11340
+        11940
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.4583;0.5" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11450
+        12050
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5;0.5417" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11530
+        12130
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5417;0.5833" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11620
+        12220
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5833;0.625" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11710
+        12710
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.625;0.6667" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11800
+        12800
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.6667;0.7083" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11920
+        12920
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.7083;0.75" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11990
+        12990
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.75;0.7917" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12070
+        13170
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.7917;0.8333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12110
+        13210
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.8333;0.875" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12160
+        13260
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.875;0.9167" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12250
+        13350
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.9167;0.9583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12360
+        13460
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1" keyTimes="0;0.9583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12450
+        13550
       </text>
     </g>
 
@@ -1962,41 +1923,120 @@
 
   </g>
 
-  <!-- 7. In-Maze Fruits -->
+  <!-- 7. In-Maze Consumable Fruits and Floating Score Popups -->
   <g id="layer-fruits">
-    <g transform="translate(500, 385) scale(0.85)">
-      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
-    </g>
-    <g transform="translate(640, 200) scale(0.9)">
+    <g transform="translate(640 200) scale(0.85)">
       <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
-      <animateTransform attributeName="transform" type="scale" values="0.85;1.0;0.85" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.2454;0.2474;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;0.2454;0.2474;0.9990;1" dur="26s" repeatCount="indefinite"/>
     </g>
-    <g transform="translate(970, 385) scale(0.85)">
+    <text x="640" y="200" class="score-popup popup-strawberry" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2454;0.2464;0.2804;0.2854;1" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="200;200;200;182;182;200" keyTimes="0;0.2454;0.2464;0.2804;0.2854;1" dur="26s" repeatCount="indefinite"/>
+      +300
+    </text>
+    <g transform="translate(450 400) scale(0.85)">
       <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
+      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
     </g>
+    <text x="450" y="400" class="score-popup popup-cherry" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="400;400;400;382;382;400" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
+      +100
+    </text>
+    <g transform="translate(950 400) scale(0.85)">
+      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
+      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
+    </g>
+    <text x="950" y="400" class="score-popup popup-cherry" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="400;400;400;382;382;400" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
+      +100
+    </text>
+    <text x="735" y="300" class="score-popup popup-ghost" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="300;300;300;282;282;300" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="26s" repeatCount="indefinite"/>
+      +200
+    </text>
+    <text x="735" y="555" class="score-popup popup-ghost" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="555;555;555;537;537;555" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="26s" repeatCount="indefinite"/>
+      +400
+    </text>
   </g>
 
-  <!-- 8. Characters -->
+  <!-- 8. Characters with Dynamic Interaction Logic -->
   <g id="layer-characters">
     <g id="character-pacman">
-      <!-- The centre lane between the two name islands is 32px wide. -->
       <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="M 735,85 L 75,85 L 75,200 L 735,200 L 735,400 L 75,400 L 75,555 L 1205,555 L 1205,400 L 735,400 L 735,200 L 1205,200 L 1205,85 L 735,85 Z" dur="26s" repeatCount="indefinite" rotate="auto" calcMode="paced"/>
     </g>
+
+    <!-- Blinky (Red Ghost) with Frightened Mode and Eaten Eyes Interaction -->
     <g id="character-blinky">
-      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0" transform="scale(0.70)"/>
+      <!-- 1. Normal Mode Blinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3490;0.3500;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 2. Frightened Mode Blinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.2890;0.2900;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 3. Eaten Eyes retreating to ghost house -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2899;0.2900;0.3490;0.3500;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="M 735,85 L 1205,85 L 1205,200 L 735,200 L 735,400 L 1205,400 L 1205,555 L 735,555 L 735,85 Z" dur="28s" repeatCount="indefinite" calcMode="linear"/>
     </g>
+
+    <!-- Pinky (Pink Ghost) with Frightened Mode and Eaten Eyes Interaction -->
     <g id="character-pinky">
-      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0" transform="scale(0.70)"/>
+      <!-- 1. Normal Mode Pinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6390;0.6400;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 2. Frightened Mode Pinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.5790;0.5800;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 3. Eaten Eyes retreating to ghost house -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5799;0.5800;0.6390;0.6400;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="M 75,85 L 735,85 L 735,200 L 75,200 L 75,400 L 735,400 L 735,555 L 75,555 L 75,85 Z" dur="32s" repeatCount="indefinite" calcMode="linear"/>
     </g>
+
+    <!-- Inky (Cyan Ghost) -->
     <g id="character-inky">
-      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0" transform="scale(0.70)"/>
+      <g transform="scale(0.70)">
+        <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="M 75,85 L 1205,85 L 1205,555 L 75,555 L 75,85 Z" dur="36s" repeatCount="indefinite" calcMode="linear"/>
     </g>
+
+    <!-- Clyde (Orange Ghost) -->
     <g id="character-clyde">
-      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0" transform="scale(0.70)"/>
+      <g transform="scale(0.70)">
+        <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="M 735,400 L 75,400 L 75,555 L 1205,555 L 1205,400 L 735,400 Z" dur="40s" repeatCount="indefinite" calcMode="linear"/>
     </g>
   </g>

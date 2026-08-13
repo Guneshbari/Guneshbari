@@ -170,3 +170,26 @@
   fill: #FFD54A;
   opacity: 0.25;
 }
+
+/* In-Game Floating Score Popups */
+.score-popup {
+  font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  filter: url(#glow-blur-subtle);
+}
+
+.popup-cherry {
+  fill: #FF4444;
+}
+
+.popup-strawberry {
+  fill: #22C55E;
+}
+
+.popup-ghost {
+  fill: #00D8FF;
+}

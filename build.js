@@ -112,14 +112,10 @@ function generateWallElements(walls) {
 function getConsumptionAnimation(passFractions) {
   if (!passFractions || !passFractions.length) return null;
 
-  // Pac-Man eats the pellet on the first pass
   const firstPass = Math.min(...passFractions);
   const pass = Math.max(0.001, Math.min(0.995, firstPass));
   const transition = 0.002;
 
-  // All coins are already deployed and visible at t=0 (level start).
-  // Once eaten at t=pass, the coin disappears and stays gone for the
-  // remainder of the board until the whole level loop finishes (t=1).
   const events = [
     { t: 0, value: 1 },
     { t: pass, value: 1 },
@@ -180,7 +176,59 @@ function generatePelletsSvg(pellets, powerPellets) {
 }
 
 // ============================================================
-// 5. Dynamic Score Counter (Synchronized with Coin Eating)
+// 5. In-Maze Consumable Fruits and Score Popups
+// ============================================================
+function generateFruitsSvg() {
+  const fruits = [
+    { id: 'fruit-strawberry', name: 'Strawberry', x: 640, y: 200, pts: '+300', cls: 'popup-strawberry', tEat: 0.2454 },
+    { id: 'fruit-cherry', name: 'Cherry Left', x: 450, y: 400, pts: '+100', cls: 'popup-cherry', tEat: 0.3516 },
+    { id: 'fruit-cherry', name: 'Cherry Right', x: 950, y: 400, pts: '+100', cls: 'popup-cherry', tEat: 0.7308 }
+  ];
+
+  let svg = '  <!-- 7. In-Maze Consumable Fruits and Floating Score Popups -->\n';
+  svg += '  <g id="layer-fruits">\n';
+
+  for (const f of fruits) {
+    const tEat = f.tEat;
+    const tVanish = Math.min(0.999, tEat + 0.002);
+    const tPopupEnd = Math.min(0.999, tEat + 0.040);
+
+    // 1. The Fruit itself (scales down and disappears on eat)
+    svg += `    <g transform="translate(${f.x} ${f.y}) scale(0.85)">\n`;
+    svg += `      <use href="#${f.id}" xlink:href="#${f.id}" x="0" y="0"/>\n`;
+    svg += `      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `    </g>\n`;
+
+    // 2. The Floating Arcade Score Popup
+    svg += `    <text x="${f.x}" y="${f.y}" class="score-popup ${f.cls}" opacity="0">\n`;
+    svg += `      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `      <animate attributeName="y" values="${f.y};${f.y};${f.y};${f.y - 18};${f.y - 18};${f.y}" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `      ${f.pts}\n`;
+    svg += `    </text>\n`;
+  }
+
+  // 3. Ghost Eaten Score Popups (+200 Blinky, +400 Pinky)
+  // Blinky eaten at (735, 300) at t = 0.2900
+  svg += `    <text x="735" y="300" class="score-popup popup-ghost" opacity="0">\n`;
+  svg += `      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+  svg += `      <animate attributeName="y" values="300;300;300;282;282;300" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+  svg += `      +200\n`;
+  svg += `    </text>\n`;
+
+  // Pinky eaten at (735, 555) at t = 0.5800
+  svg += `    <text x="735" y="555" class="score-popup popup-ghost" opacity="0">\n`;
+  svg += `      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+  svg += `      <animate attributeName="y" values="555;555;555;537;537;555" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+  svg += `      +400\n`;
+  svg += `    </text>\n`;
+
+  svg += '  </g>';
+  return svg;
+}
+
+// ============================================================
+// 6. Dynamic Score Counter (Synchronized with Coins, Fruits & Ghosts)
 // ============================================================
 function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
   const items = [];
@@ -193,6 +241,15 @@ function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
     const passes = getPathPassFractions(pp.x, pp.y, PACMAN_PATH);
     if (passes.length) items.push({ pass: Math.min(...passes), pts: 50 });
   }
+
+  // Bonus fruits
+  items.push({ pass: 0.2454, pts: 300 }); // Strawberry
+  items.push({ pass: 0.3516, pts: 100 }); // Cherry Left
+  items.push({ pass: 0.7308, pts: 100 }); // Cherry Right
+
+  // Ghost consumption bonuses
+  items.push({ pass: 0.2900, pts: 200 }); // Blinky eaten
+  items.push({ pass: 0.5800, pts: 400 }); // Pinky eaten
 
   items.sort((a, b) => a.pass - b.pass);
 
@@ -242,7 +299,7 @@ function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
 }
 
 // ============================================================
-// 6. Star Particles
+// 7. Star Particles
 // ============================================================
 function generateStars() {
   const stars = [
@@ -259,7 +316,7 @@ function generateStars() {
 }
 
 // ============================================================
-// 7. Main Assembly
+// 8. Main Assembly
 // ============================================================
 function assembleBanner() {
   console.log('⚡ Building Retro Pac-Man GitHub Banner...');
@@ -272,6 +329,7 @@ function assembleBanner() {
 
   const { backGlow, outerWalls, innerWalls, doors } = generateWallElements(MAZE_WALLS);
   const pelletsSvg = generatePelletsSvg(PELLETS, POWER_PELLETS);
+  const fruitsSvg = generateFruitsSvg();
   const scoreSvg = generateDynamicScoreSvg(10420, 24);
   const starsSvg = generateStars();
   const { svgCells } = renderPixelText('GUNESH BARI');
@@ -279,7 +337,7 @@ function assembleBanner() {
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari - Animated Pac-Man GitHub Banner" role="img">
   <title>Gunesh Bari - Animated Pac-Man GitHub Banner</title>
-  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets while four ghosts patrol the corridors.</desc>
+  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets, eats fruits, and interacts with ghosts.</desc>
 
   <defs>
     <style>
@@ -386,41 +444,78 @@ ${doors}
 ${svgCells}
   </g>
 
-  <!-- 7. In-Maze Fruits -->
-  <g id="layer-fruits">
-    <g transform="translate(500, 385) scale(0.85)">
-      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
-    </g>
-    <g transform="translate(640, 200) scale(0.9)">
-      <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
-      <animateTransform attributeName="transform" type="scale" values="0.85;1.0;0.85" dur="1.8s" repeatCount="indefinite"/>
-    </g>
-    <g transform="translate(970, 385) scale(0.85)">
-      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
-    </g>
-  </g>
+${fruitsSvg}
 
-  <!-- 8. Characters -->
+  <!-- 8. Characters with Dynamic Interaction Logic -->
   <g id="layer-characters">
     <g id="character-pacman">
-      <!-- The centre lane between the two name islands is 32px wide. -->
       <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${PACMAN_PATH}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" rotate="auto" calcMode="paced"/>
     </g>
+
+    <!-- Blinky (Red Ghost) with Frightened Mode and Eaten Eyes Interaction -->
     <g id="character-blinky">
-      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0" transform="scale(0.70)"/>
+      <!-- 1. Normal Mode Blinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3490;0.3500;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 2. Frightened Mode Blinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.2890;0.2900;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 3. Eaten Eyes retreating to ghost house -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2899;0.2900;0.3490;0.3500;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="${BLINKY_PATH}" dur="${ANIMATION_CONFIG.blinkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
+
+    <!-- Pinky (Pink Ghost) with Frightened Mode and Eaten Eyes Interaction -->
     <g id="character-pinky">
-      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0" transform="scale(0.70)"/>
+      <!-- 1. Normal Mode Pinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6390;0.6400;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 2. Frightened Mode Pinky -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.5790;0.5800;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <!-- 3. Eaten Eyes retreating to ghost house -->
+      <g transform="scale(0.70)">
+        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5799;0.5800;0.6390;0.6400;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="${PINKY_PATH}" dur="${ANIMATION_CONFIG.pinkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
+
+    <!-- Inky (Cyan Ghost) -->
     <g id="character-inky">
-      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0" transform="scale(0.70)"/>
+      <g transform="scale(0.70)">
+        <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="${INKY_PATH}" dur="${ANIMATION_CONFIG.inkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
+
+    <!-- Clyde (Orange Ghost) -->
     <g id="character-clyde">
-      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0" transform="scale(0.70)"/>
+      <g transform="scale(0.70)">
+        <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
+      <g transform="scale(0.70)">
+        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
+      </g>
       <animateMotion path="${CLYDE_PATH}" dur="${ANIMATION_CONFIG.clydeDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
   </g>
