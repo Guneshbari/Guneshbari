@@ -5,11 +5,11 @@
  */
 
 export const ANIMATION_CONFIG = {
-  pacmanDuration: '12s',
-  blinkyDuration: '14s',
-  pinkyDuration: '17s',
-  inkyDuration: '20s',
-  clydeDuration: '22s',
+  pacmanDuration: '26s',
+  blinkyDuration: '30s',
+  pinkyDuration: '34s',
+  inkyDuration: '38s',
+  clydeDuration: '42s',
   powerPelletPulse: '0.8s',
   pelletPulse: '1.4s',
   mazeGlowPulse: '3.5s',
@@ -22,101 +22,101 @@ export const ANIMATION_CONFIG = {
  * Strictly mapped to corridor centerlines with 0 wall collisions.
  */
 
-// Pac-Man Route (12s complete loop covering all 4 quadrants, all 4 power pellets, and nameplate perimeter)
+// Pac-Man Route (26s calm retro arcade pace covering all 4 quadrants, all 4 power pellets, and GUNESH BARI perimeter)
 export const PACMAN_PATH = `
-  M 640,555 
-  L 85,555 
-  L 85,465 
-  L 470,465 
-  L 470,335 
-  L 200,335 
-  L 200,140 
-  L 85,140 
+  M 640,560 
+  L 85,560 
+  L 85,485 
+  L 490,485 
+  L 490,410 
+  L 200,410 
+  L 200,155 
+  L 85,155 
   L 85,80 
   L 600,80 
-  L 600,140 
-  L 680,140 
+  L 600,155 
+  L 680,155 
   L 680,80 
   L 1195,80 
-  L 1195,140 
-  L 1080,140 
-  L 1080,205 
-  L 470,205 
-  L 470,335 
-  L 810,335 
-  L 1080,335 
-  L 1080,465 
-  L 1195,465 
-  L 1195,555 
-  L 640,555 
+  L 1195,155 
+  L 1080,155 
+  L 1080,230 
+  L 490,230 
+  L 490,410 
+  L 790,410 
+  L 1080,410 
+  L 1080,485 
+  L 1195,485 
+  L 1195,560 
+  L 640,560 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Blinky Route (14s direct chase route patrolling outer perimeter and top corridors)
+// Blinky Route (30s direct chase route patrolling outer perimeter and top corridors)
 export const BLINKY_PATH = `
-  M 640,140 
-  L 1195,140 
-  L 1195,310 
-  L 1080,310 
-  L 1080,465 
-  L 1195,465 
-  L 1195,555 
-  L 810,555 
-  L 810,335 
-  L 200,335 
-  L 200,140 
-  L 640,140 
+  M 640,155 
+  L 1195,155 
+  L 1195,320 
+  L 1080,320 
+  L 1080,485 
+  L 1195,485 
+  L 1195,560 
+  L 790,560 
+  L 790,410 
+  L 200,410 
+  L 200,155 
+  L 640,155 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Pinky Route (17s interception route weaving through inner maze corridors)
+// Pinky Route (34s interception route weaving through inner maze corridors)
 export const PINKY_PATH = `
-  M 200,205 
-  L 1080,205 
-  L 1080,140 
-  L 85,140 
-  L 85,310 
-  L 200,310 
-  L 200,465 
-  L 85,465 
-  L 85,555 
-  L 470,555 
-  L 470,335 
-  L 200,335 
-  L 200,205 
+  M 200,230 
+  L 1080,230 
+  L 1080,155 
+  L 85,155 
+  L 85,320 
+  L 200,320 
+  L 200,485 
+  L 85,485 
+  L 85,560 
+  L 490,560 
+  L 490,410 
+  L 200,410 
+  L 200,230 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Inky Route (20s lower and side flanking route through lower cross corridors)
+// Inky Route (38s lower and side flanking route through lower cross corridors)
 export const INKY_PATH = `
-  M 1080,465 
-  L 810,465 
-  L 810,555 
-  L 85,555 
-  L 85,310 
-  L 200,310 
-  L 200,205 
-  L 810,205 
-  L 810,335 
-  L 1080,335 
-  L 1080,465 
+  M 1080,485 
+  L 790,485 
+  L 790,560 
+  L 85,560 
+  L 85,320 
+  L 200,320 
+  L 200,230 
+  L 790,230 
+  L 790,410 
+  L 1080,410 
+  L 1080,485 
   Z
 `.replace(/\s+/g, ' ').trim();
 
-// Clyde Route (22s wandering route around ghost house and lower right quadrant)
+// Clyde Route (42s wandering route around ghost house and lower right quadrant)
 export const CLYDE_PATH = `
-  M 640,335 
-  L 810,335 
-  L 810,555 
-  L 1195,555 
-  L 1195,465 
-  L 960,465 
-  L 960,335 
-  L 1080,335 
-  L 1080,140 
-  L 470,140 
-  L 470,335 
-  L 640,335 
+  M 640,410 
+  L 790,410 
+  L 790,560 
+  L 1195,560 
+  L 1195,485 
+  L 940,485 
+  L 940,410 
+  L 1080,410 
+  L 1080,155 
+  L 490,155 
+  L 490,410 
+  L 640,410 
   Z
 `.replace(/\s+/g, ' ').trim();
 

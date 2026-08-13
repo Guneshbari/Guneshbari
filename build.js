@@ -68,10 +68,10 @@ function generatePelletsSvg(pellets, powerPellets) {
     if (passFraction !== null) {
       // Pellet lies on Pac-Man's path - generate precise eating animation
       const f = passFraction;
-      const eps = 0.006;
+      const eps = 0.005;
       const fEat = Math.min(0.999, f + eps);
-      const fRespawn = (f + 0.65) % 1.0;
-      const fFull = (f + 0.85) % 1.0;
+      const fRespawn = (f + 0.68) % 1.0;
+      const fFull = (f + 0.88) % 1.0;
 
       const events = [];
       function addPt(t, v) {
@@ -81,8 +81,8 @@ function generatePelletsSvg(pellets, powerPellets) {
       function valAt(t) {
         let dt = (t - f + 1.0) % 1.0;
         if (dt < eps) return 1.0;
-        if (dt < 0.65) return 0.0;
-        if (dt < 0.85) return parseFloat(((dt - 0.65) / 0.20).toFixed(2));
+        if (dt < 0.68) return 0.0;
+        if (dt < 0.88) return parseFloat(((dt - 0.68) / 0.20).toFixed(2));
         return 1.0;
       }
 
@@ -245,7 +245,7 @@ ${cssContent}
 
     <!-- Subtle Deep Radial Glow in Center -->
     <circle cx="640" cy="320" r="480" fill="#1E3A8A" opacity="0.12" filter="url(#glow-blur-wide)"/>
-    <circle cx="640" cy="270" r="280" fill="#2563EB" opacity="0.10" filter="url(#glow-blur-wide)"/>
+    <circle cx="640" cy="320" r="280" fill="#2563EB" opacity="0.10" filter="url(#glow-blur-wide)"/>
 
     <!-- Ambient Retro Stars and Pixels -->
 ${starsSvg}
@@ -255,32 +255,32 @@ ${starsSvg}
   <!-- 2. Arcade HUD (Top and Bottom)             -->
   <!-- ========================================== -->
   <g id="layer-hud">
-    <!-- Top HUD: 1UP, Score, High Score, Level -->
+    <!-- Top HUD: 1UP, Dynamic Score Counter, High Score, Level -->
     <text x="90" y="32" class="hud-label-red hud-blink">1UP</text>
     
-    <!-- Dynamic Looping Score Animation -->
-    <text x="90" y="48" class="hud-value-white">
-      <tspan>
-        <animate attributeName="visibility" values="visible;hidden;hidden;hidden;hidden;visible" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="12s" repeatCount="indefinite"/>
+    <!-- Dynamic Looping Score Animation (5 stepping score levels) -->
+    <g id="hud-score-display">
+      <text x="90" y="48" class="hud-value-white" opacity="1">
+        <animate attributeName="opacity" values="1;1;0;0;0;0;0;0;0;1" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
         24800
-      </tspan>
-      <tspan dx="-55">
-        <animate attributeName="visibility" values="hidden;visible;hidden;hidden;hidden;hidden" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="12s" repeatCount="indefinite"/>
-        24920
-      </tspan>
-      <tspan dx="-55">
-        <animate attributeName="visibility" values="hidden;hidden;visible;hidden;hidden;hidden" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="12s" repeatCount="indefinite"/>
-        25080
-      </tspan>
-      <tspan dx="-55">
-        <animate attributeName="visibility" values="hidden;hidden;hidden;visible;hidden;hidden" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="12s" repeatCount="indefinite"/>
-        25240
-      </tspan>
-      <tspan dx="-55">
-        <animate attributeName="visibility" values="hidden;hidden;hidden;hidden;visible;hidden" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="12s" repeatCount="indefinite"/>
-        25460
-      </tspan>
-    </text>
+      </text>
+      <text x="90" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0;0;0;0;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
+        24960
+      </text>
+      <text x="90" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;0;0;0;1;1;0;0;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
+        25140
+      </text>
+      <text x="90" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;0;0;0;0;0;1;1;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
+        25380
+      </text>
+      <text x="90" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;0;0;0;0;0;0;0;1;1" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
+        25620
+      </text>
+    </g>
 
     <!-- HIGH SCORE Column -->
     <text x="560" y="32" class="hud-label-red">HIGH SCORE</text>
@@ -346,14 +346,14 @@ ${doors}
     </g>
   </g>
 
-  <!-- ========================================== -->
-  <!-- 5. Central Centerpiece: GUNESH BARI        -->
-  <!-- ========================================== -->
+  <!-- ========================================================================= -->
+  <!-- 5. Central Centerpiece: GUNESH BARI (EXACT CENTER AT X=640, Y=320)        -->
+  <!-- ========================================================================= -->
   <g id="layer-centerpiece" class="nameplate-container">
     <!-- Dark backdrop for nameplate readability -->
-    <rect x="275" y="235" width="730" height="60" rx="8" fill="#020617" opacity="0.92"/>
-    <!-- GUNESH BARI 8-bit Neon Artwork Centered Perfectly at X=640, Y=265 -->
-    <g transform="translate(416, 239) scale(0.76)">
+    <rect x="275" y="290" width="730" height="60" rx="8" fill="#020617" opacity="0.94"/>
+    <!-- GUNESH BARI 8-bit Neon Artwork Centered Perfectly at X=640, Y=320 -->
+    <g transform="translate(416, 294) scale(0.76)">
       <use href="#typography-gunesh-bari" xlink:href="#typography-gunesh-bari" x="0" y="0"/>
     </g>
   </g>
@@ -361,7 +361,7 @@ ${doors}
   <!-- ========================================== -->
   <!-- 6. In-Maze Bonus Fruit Item                -->
   <!-- ========================================== -->
-  <g id="layer-bonus-item" transform="translate(640, 435)">
+  <g id="layer-bonus-item" transform="translate(640, 485)">
     <!-- Pulsing Cherry beneath Ghost House -->
     <g transform="scale(0.85)">
       <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
@@ -373,7 +373,7 @@ ${doors}
   <!-- 7. Characters and Autonomous Animations    -->
   <!-- ========================================== -->
   <g id="layer-characters">
-    <!-- Pac-Man (Continuous 12s Navigation with Chomp and Direction Rotation) -->
+    <!-- Pac-Man (Continuous 26s Navigation with Chomp and Direction Rotation) -->
     <g id="character-pacman">
       <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0"/>
       <animateMotion
@@ -385,7 +385,7 @@ ${doors}
       />
     </g>
 
-    <!-- Blinky (Red Ghost - 14s Direct Chase Route) -->
+    <!-- Blinky (Red Ghost - 30s Direct Chase Route) -->
     <g id="character-blinky">
       <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
       <animateMotion
@@ -396,7 +396,7 @@ ${doors}
       />
     </g>
 
-    <!-- Pinky (Pink Ghost - 17s Interception Route) -->
+    <!-- Pinky (Pink Ghost - 34s Interception Route) -->
     <g id="character-pinky">
       <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
       <animateMotion
@@ -407,7 +407,7 @@ ${doors}
       />
     </g>
 
-    <!-- Inky (Cyan Ghost - 20s Flanking Route) -->
+    <!-- Inky (Cyan Ghost - 38s Flanking Route) -->
     <g id="character-inky">
       <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
       <animateMotion
@@ -418,7 +418,7 @@ ${doors}
       />
     </g>
 
-    <!-- Clyde (Orange Ghost - 22s Wandering Route) -->
+    <!-- Clyde (Orange Ghost - 42s Wandering Route) -->
     <g id="character-clyde">
       <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
       <animateMotion
