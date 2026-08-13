@@ -1,0 +1,43 @@
+name: CI Banner Validation & Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-build:
+    name: Build & Validate Pac-Man Banner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Animated Banner
+        run: npm run build
+
+      - name: Run Automated QA Test Suite
+        run: npm test
+
+      - name: Commit & Push updated SVG if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add banner.svg pacman-banner.svg
+          if git diff --staged --quiet; then
+            echo "No changes in generated SVG files."
+          else
+            git commit -m "chore(banner): auto-regenerate banner.svg and pacman-banner.svg [skip ci]"
+            git push
+          fi
