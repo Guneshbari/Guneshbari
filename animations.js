@@ -3,14 +3,12 @@
  * Timing configurations, character motion paths, and pellet consumption synchronization.
  */
 
-import { PACMAN_ROUTE } from './maze-data.js';
-
 export const ANIMATION_CONFIG = {
   pacmanDuration: '26s',
-  blinkyDuration: '28s',
-  pinkyDuration: '32s',
-  inkyDuration: '36s',
-  clydeDuration: '40s',
+  blinkyDuration: '20s',
+  pinkyDuration: '22s',
+  inkyDuration: '24s',
+  clydeDuration: '26s',
   powerPelletPulse: '0.8s',
   pelletPulse: '1.4s',
   mazeGlowPulse: '3.5s',
@@ -18,55 +16,63 @@ export const ANIMATION_CONFIG = {
   scoreTickSpeed: '1.5s'
 };
 
-// ── 1. Strictly Orthogonal Seamless Character Paths ────────────
-export { PACMAN_ROUTE };
-
-export const PACMAN_PATH = PACMAN_ROUTE
-  .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x},${point.y}`)
-  .join(' ') + ' Z';
-
-export const BLINKY_PATH = `
+// ── 1. Character Motion Paths ──────────────────────────────────
+// Pac-Man: Main level circuit sweeping all dots and fruits
+export const PACMAN_PATH = `
   M 735,85
-  L 1205,85
-  L 1205,200
-  L 735,200
-  L 735,400
-  L 1205,400
-  L 1205,555
-  L 735,555
-  L 735,85
-  Z
-`.replace(/\s+/g, ' ').trim();
-
-export const PINKY_PATH = `
-  M 75,85
-  L 735,85
-  L 735,200
+  L 75,85
   L 75,200
-  L 75,400
+  L 735,200
   L 735,400
-  L 735,555
-  L 75,555
-  L 75,85
-  Z
-`.replace(/\s+/g, ' ').trim();
-
-export const INKY_PATH = `
-  M 75,85
-  L 1205,85
-  L 1205,555
-  L 75,555
-  L 75,85
-  Z
-`.replace(/\s+/g, ' ').trim();
-
-export const CLYDE_PATH = `
-  M 735,400
   L 75,400
   L 75,555
   L 1205,555
   L 1205,400
   L 735,400
+  L 735,200
+  L 1205,200
+  L 1205,85
+  L 735,85
+  Z
+`.replace(/\s+/g, ' ').trim();
+
+// Blinky (Red Ghost): Top-Left quadrant patrol (disjoint from Pac-Man)
+export const BLINKY_PATH = `
+  M 190,145
+  L 560,145
+  L 560,175
+  L 190,175
+  L 190,145
+  Z
+`.replace(/\s+/g, ' ').trim();
+
+// Pinky (Pink Ghost): Top-Right quadrant patrol (disjoint from Pac-Man)
+export const PINKY_PATH = `
+  M 910,145
+  L 1090,145
+  L 1090,175
+  L 910,175
+  L 910,145
+  Z
+`.replace(/\s+/g, ' ').trim();
+
+// Inky (Cyan Ghost): Bottom-Left quadrant patrol (disjoint from Pac-Man)
+export const INKY_PATH = `
+  M 190,475
+  L 560,475
+  L 560,510
+  L 190,510
+  L 190,475
+  Z
+`.replace(/\s+/g, ' ').trim();
+
+// Clyde (Orange Ghost): Bottom-Right quadrant patrol (disjoint from Pac-Man)
+export const CLYDE_PATH = `
+  M 910,475
+  L 1090,475
+  L 1090,510
+  L 910,510
+  L 910,475
   Z
 `.replace(/\s+/g, ' ').trim();
 
@@ -107,9 +113,10 @@ export function getPathSegments(pathStr) {
   return { segments, totalLength };
 }
 
-export function getPathPassFractions(x, y, pathStr, threshold = 0.1) {
+export function getPathPassFractions(x, y, pathStr) {
   const { segments, totalLength } = getPathSegments(pathStr);
-  const passes = [];
+  const threshold = 16;
+  const fractions = [];
 
   for (const seg of segments) {
     const { p1, p2, length, startDistance } = seg;
@@ -122,19 +129,16 @@ export function getPathPassFractions(x, y, pathStr, threshold = 0.1) {
     const projY = p1.y + t * dy;
     const dist = Math.sqrt((x - projX) ** 2 + (y - projY) ** 2);
 
-    if (dist <= threshold) {
-      passes.push((startDistance + t * length) / totalLength);
+    if (dist <= threshold && totalLength > 0) {
+      const passDist = startDistance + t * length;
+      fractions.push(parseFloat((passDist / totalLength).toFixed(6)));
     }
   }
 
-  return [...new Set(passes.map(pass => pass.toFixed(6)))]
-    .map(Number)
-    .sort((a, b) => a - b);
+  return fractions.sort((a, b) => a - b);
 }
 
-// Kept as a convenient single-pass accessor for callers that need only the
-// first visit. Pellet rendering uses getPathPassFractions so re-traversed
-// corridors remain synchronized in both directions.
 export function getPacmanPassFraction(x, y, pathStr) {
-  return getPathPassFractions(x, y, pathStr)[0] ?? null;
+  const passes = getPathPassFractions(x, y, pathStr);
+  return passes.length ? passes[0] : null;
 }

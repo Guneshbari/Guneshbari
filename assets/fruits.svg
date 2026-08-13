@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -24 48 48">
   <defs>
-    <!-- Classic Pac-Man Cherry (Level 1 Bonus) -->
+    <!-- Classic Pac-Man Cherry (Level 1 Bonus +100) -->
     <g id="fruit-cherry">
       <!-- Stems -->
-      <path d="M 0,-14 Q 5,-14 9,-7" stroke="#38A169" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M 0,-14 Q -2,-6 -7,-2" stroke="#38A169" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 0,-14 Q 5,-14 9,-7" stroke="#22C55E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M 0,-14 Q -2,-6 -7,-2" stroke="#22C55E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       <rect x="-1.5" y="-16" width="3" height="3" rx="1" fill="#78350F"/>
       <!-- Left Cherry -->
-      <circle cx="-8" cy="4" r="7" fill="#DC2626"/>
-      <circle cx="-10" cy="2" r="2" fill="#FCA5A5"/>
+      <circle cx="-8" cy="4" r="7.5" fill="#EF4444"/>
+      <circle cx="-10" cy="2" r="2.2" fill="#FCA5A5"/>
       <!-- Right Cherry -->
-      <circle cx="8" cy="2" r="7" fill="#DC2626"/>
-      <circle cx="6" cy="0" r="2" fill="#FCA5A5"/>
+      <circle cx="8" cy="2" r="7.5" fill="#EF4444"/>
+      <circle cx="6" cy="0" r="2.2" fill="#FCA5A5"/>
     </g>
 
-    <!-- Classic Strawberry (Level 2 Bonus) -->
+    <!-- Classic Strawberry (Level 2 Bonus +300) -->
     <g id="fruit-strawberry">
       <!-- Leaves -->
       <path d="M 0,-12 C -6,-12 -8,-8 -8,-8 C -4,-6 0,-8 0,-8 C 0,-8 4,-6 8,-8 C 8,-8 6,-12 0,-12 Z" fill="#22C55E"/>
@@ -22,13 +22,33 @@
       <!-- Body -->
       <path d="M -8,-6 C -9,2 -4,11 0,14 C 4,11 9,2 8,-6 Z" fill="#EF4444"/>
       <!-- Seeds -->
-      <circle cx="-3" cy="-2" r="0.9" fill="#FEF08A"/>
-      <circle cx="3" cy="-2" r="0.9" fill="#FEF08A"/>
-      <circle cx="0" cy="3" r="0.9" fill="#FEF08A"/>
-      <circle cx="-3" cy="7" r="0.8" fill="#FEF08A"/>
-      <circle cx="3" cy="7" r="0.8" fill="#FEF08A"/>
+      <circle cx="-3" cy="-2" r="1.0" fill="#FEF08A"/>
+      <circle cx="3" cy="-2" r="1.0" fill="#FEF08A"/>
+      <circle cx="0" cy="3" r="1.0" fill="#FEF08A"/>
+      <circle cx="-3" cy="7" r="0.9" fill="#FEF08A"/>
+      <circle cx="3" cy="7" r="0.9" fill="#FEF08A"/>
+    </g>
+
+    <!-- Classic Orange (Level 3 Bonus +500) -->
+    <g id="fruit-orange">
+      <!-- Stem and Leaf -->
+      <rect x="-1" y="-15" width="2" height="4" rx="0.8" fill="#78350F"/>
+      <path d="M 0,-13 Q 6,-16 8,-10 Q 4,-9 0,-12 Z" fill="#22C55E"/>
+      <!-- Orange Body -->
+      <circle cx="0" cy="0" r="11" fill="#F97316"/>
+      <circle cx="-3.5" cy="-3.5" r="3" fill="#FED7AA" opacity="0.6"/>
+    </g>
+
+    <!-- Classic Apple (Level 5 Bonus +700) -->
+    <g id="fruit-apple">
+      <!-- Stem and Leaf -->
+      <path d="M 0,-11 Q 2,-16 6,-15" stroke="#78350F" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 0,-11 Q -6,-15 -7,-9 Q -3,-8 0,-10 Z" fill="#22C55E"/>
+      <!-- Apple Body -->
+      <path d="M 0,-6 C -7,-8 -12,-3 -12,4 C -12,11 -6,14 0,11 C 6,14 12,11 12,4 C 12,-3 7,-8 0,-6 Z" fill="#DC2626"/>
+      <circle cx="-4" cy="-1" r="3" fill="#FCA5A5" opacity="0.6"/>
     </g>
   </defs>
-  
+
   <use href="#fruit-cherry" x="0" y="0"/>
 </svg>

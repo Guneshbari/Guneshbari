@@ -176,13 +176,14 @@ function generatePelletsSvg(pellets, powerPellets) {
 }
 
 // ============================================================
-// 5. In-Maze Consumable Fruits and Score Popups
+// 5. In-Maze Consumable Fruits & Floating Score Popups
 // ============================================================
 function generateFruitsSvg() {
   const fruits = [
-    { id: 'fruit-strawberry', name: 'Strawberry', x: 640, y: 200, pts: '+300', cls: 'popup-strawberry', tEat: 0.2454 },
-    { id: 'fruit-cherry', name: 'Cherry Left', x: 450, y: 400, pts: '+100', cls: 'popup-cherry', tEat: 0.3516 },
-    { id: 'fruit-cherry', name: 'Cherry Right', x: 950, y: 400, pts: '+100', cls: 'popup-cherry', tEat: 0.7308 }
+    { id: 'fruit-cherry', name: 'Cherry', x: 450, y: 200, pts: '+100', cls: 'popup-cherry', tEat: 0.2106 },
+    { id: 'fruit-orange', name: 'Orange', x: 450, y: 400, pts: '+500', cls: 'popup-strawberry', tEat: 0.3516 },
+    { id: 'fruit-strawberry', name: 'Strawberry', x: 950, y: 400, pts: '+300', cls: 'popup-cherry', tEat: 0.7308 },
+    { id: 'fruit-apple', name: 'Apple', x: 950, y: 200, pts: '+700', cls: 'popup-strawberry', tEat: 0.8462 }
   ];
 
   let svg = '  <!-- 7. In-Maze Consumable Fruits and Floating Score Popups -->\n';
@@ -193,42 +194,27 @@ function generateFruitsSvg() {
     const tVanish = Math.min(0.999, tEat + 0.002);
     const tPopupEnd = Math.min(0.999, tEat + 0.040);
 
-    // 1. The Fruit itself (scales down and disappears on eat)
-    svg += `    <g transform="translate(${f.x} ${f.y}) scale(0.85)">\n`;
-    svg += `      <use href="#${f.id}" xlink:href="#${f.id}" x="0" y="0"/>\n`;
-    svg += `      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-    svg += `      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    // Fruit group with independent transform and scale animation
+    svg += `    <g transform="translate(${f.x} ${f.y})">\n`;
+    svg += `      <g>\n`;
+    svg += `        <use href="#${f.id}" xlink:href="#${f.id}" x="0" y="0"/>\n`;
+    svg += `        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;${tEat.toFixed(4)};${tVanish.toFixed(4)};0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `      </g>\n`;
+    svg += `      <text x="0" y="0" class="score-popup ${f.cls}" opacity="0">\n`;
+    svg += `        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `        <animate attributeName="y" values="0;0;0;-18;-18;0" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
+    svg += `        ${f.pts}\n`;
+    svg += `      </text>\n`;
     svg += `    </g>\n`;
-
-    // 2. The Floating Arcade Score Popup
-    svg += `    <text x="${f.x}" y="${f.y}" class="score-popup ${f.cls}" opacity="0">\n`;
-    svg += `      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-    svg += `      <animate attributeName="y" values="${f.y};${f.y};${f.y};${f.y - 18};${f.y - 18};${f.y}" keyTimes="0;${tEat.toFixed(4)};${(tEat + 0.001).toFixed(4)};${(tEat + 0.035).toFixed(4)};${tPopupEnd.toFixed(4)};1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-    svg += `      ${f.pts}\n`;
-    svg += `    </text>\n`;
   }
-
-  // 3. Ghost Eaten Score Popups (+200 Blinky, +400 Pinky)
-  // Blinky eaten at (735, 300) at t = 0.2900
-  svg += `    <text x="735" y="300" class="score-popup popup-ghost" opacity="0">\n`;
-  svg += `      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-  svg += `      <animate attributeName="y" values="300;300;300;282;282;300" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-  svg += `      +200\n`;
-  svg += `    </text>\n`;
-
-  // Pinky eaten at (735, 555) at t = 0.5800
-  svg += `    <text x="735" y="555" class="score-popup popup-ghost" opacity="0">\n`;
-  svg += `      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-  svg += `      <animate attributeName="y" values="555;555;555;537;537;555" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>\n`;
-  svg += `      +400\n`;
-  svg += `    </text>\n`;
 
   svg += '  </g>';
   return svg;
 }
 
 // ============================================================
-// 6. Dynamic Score Counter (Synchronized with Coins, Fruits & Ghosts)
+// 6. Dynamic Score Counter (Synchronized with Coins & Fruits)
 // ============================================================
 function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
   const items = [];
@@ -242,14 +228,11 @@ function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
     if (passes.length) items.push({ pass: Math.min(...passes), pts: 50 });
   }
 
-  // Bonus fruits
-  items.push({ pass: 0.2454, pts: 300 }); // Strawberry
-  items.push({ pass: 0.3516, pts: 100 }); // Cherry Left
-  items.push({ pass: 0.7308, pts: 100 }); // Cherry Right
-
-  // Ghost consumption bonuses
-  items.push({ pass: 0.2900, pts: 200 }); // Blinky eaten
-  items.push({ pass: 0.5800, pts: 400 }); // Pinky eaten
+  // 4 in-maze bonus fruits
+  items.push({ pass: 0.2106, pts: 100 }); // Cherry
+  items.push({ pass: 0.3516, pts: 500 }); // Orange
+  items.push({ pass: 0.7308, pts: 300 }); // Strawberry
+  items.push({ pass: 0.8462, pts: 700 }); // Apple
 
   items.sort((a, b) => a.pass - b.pass);
 
@@ -337,7 +320,7 @@ function assembleBanner() {
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari - Animated Pac-Man GitHub Banner" role="img">
   <title>Gunesh Bari - Animated Pac-Man GitHub Banner</title>
-  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets, eats fruits, and interacts with ghosts.</desc>
+  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets and fruits while ghosts patrol separate sectors.</desc>
 
   <defs>
     <style>
@@ -446,76 +429,34 @@ ${svgCells}
 
 ${fruitsSvg}
 
-  <!-- 8. Characters with Dynamic Interaction Logic -->
+  <!-- 8. Characters with Non-Overlapping Sector Patrol Routes -->
   <g id="layer-characters">
     <g id="character-pacman">
       <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${PACMAN_PATH}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" rotate="auto" calcMode="paced"/>
     </g>
 
-    <!-- Blinky (Red Ghost) with Frightened Mode and Eaten Eyes Interaction -->
+    <!-- Blinky (Red Ghost) - Top-Left Sector Patrol -->
     <g id="character-blinky">
-      <!-- 1. Normal Mode Blinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3490;0.3500;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 2. Frightened Mode Blinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.2890;0.2900;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 3. Eaten Eyes retreating to ghost house -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2899;0.2900;0.3490;0.3500;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
+      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${BLINKY_PATH}" dur="${ANIMATION_CONFIG.blinkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
 
-    <!-- Pinky (Pink Ghost) with Frightened Mode and Eaten Eyes Interaction -->
+    <!-- Pinky (Pink Ghost) - Top-Right Sector Patrol -->
     <g id="character-pinky">
-      <!-- 1. Normal Mode Pinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6390;0.6400;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 2. Frightened Mode Pinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.5790;0.5800;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 3. Eaten Eyes retreating to ghost house -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5799;0.5800;0.6390;0.6400;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
+      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${PINKY_PATH}" dur="${ANIMATION_CONFIG.pinkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
 
-    <!-- Inky (Cyan Ghost) -->
+    <!-- Inky (Cyan Ghost) - Bottom-Left Sector Patrol -->
     <g id="character-inky">
-      <g transform="scale(0.70)">
-        <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
+      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${INKY_PATH}" dur="${ANIMATION_CONFIG.inkyDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
 
-    <!-- Clyde (Orange Ghost) -->
+    <!-- Clyde (Orange Ghost) - Bottom-Right Sector Patrol -->
     <g id="character-clyde">
-      <g transform="scale(0.70)">
-        <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
+      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="${CLYDE_PATH}" dur="${ANIMATION_CONFIG.clydeDuration}" repeatCount="indefinite" calcMode="linear"/>
     </g>
   </g>

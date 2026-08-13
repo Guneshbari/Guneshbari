@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="100%" height="100%" aria-label="Gunesh Bari - Animated Pac-Man GitHub Banner" role="img">
   <title>Gunesh Bari - Animated Pac-Man GitHub Banner</title>
-  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets, eats fruits, and interacts with ghosts.</desc>
+  <desc>An authentic retro neon Pac-Man arcade maze with giant pixel-art GUNESH BARI typography. Pac-Man collects pellets and fruits while ghosts patrol separate sectors.</desc>
 
   <defs>
     <style>
@@ -426,21 +426,21 @@
       </circle>
       <circle cx="-2.5" cy="-2.5" r="2" fill="#FFFFFF"/>
     </g>
-    <!-- Classic Pac-Man Cherry (Level 1 Bonus) -->
+    <!-- Classic Pac-Man Cherry (Level 1 Bonus +100) -->
     <g id="fruit-cherry">
       <!-- Stems -->
-      <path d="M 0,-14 Q 5,-14 9,-7" stroke="#38A169" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M 0,-14 Q -2,-6 -7,-2" stroke="#38A169" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 0,-14 Q 5,-14 9,-7" stroke="#22C55E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M 0,-14 Q -2,-6 -7,-2" stroke="#22C55E" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       <rect x="-1.5" y="-16" width="3" height="3" rx="1" fill="#78350F"/>
       <!-- Left Cherry -->
-      <circle cx="-8" cy="4" r="7" fill="#DC2626"/>
-      <circle cx="-10" cy="2" r="2" fill="#FCA5A5"/>
+      <circle cx="-8" cy="4" r="7.5" fill="#EF4444"/>
+      <circle cx="-10" cy="2" r="2.2" fill="#FCA5A5"/>
       <!-- Right Cherry -->
-      <circle cx="8" cy="2" r="7" fill="#DC2626"/>
-      <circle cx="6" cy="0" r="2" fill="#FCA5A5"/>
+      <circle cx="8" cy="2" r="7.5" fill="#EF4444"/>
+      <circle cx="6" cy="0" r="2.2" fill="#FCA5A5"/>
     </g>
 
-    <!-- Classic Strawberry (Level 2 Bonus) -->
+    <!-- Classic Strawberry (Level 2 Bonus +300) -->
     <g id="fruit-strawberry">
       <!-- Leaves -->
       <path d="M 0,-12 C -6,-12 -8,-8 -8,-8 C -4,-6 0,-8 0,-8 C 0,-8 4,-6 8,-8 C 8,-8 6,-12 0,-12 Z" fill="#22C55E"/>
@@ -448,11 +448,31 @@
       <!-- Body -->
       <path d="M -8,-6 C -9,2 -4,11 0,14 C 4,11 9,2 8,-6 Z" fill="#EF4444"/>
       <!-- Seeds -->
-      <circle cx="-3" cy="-2" r="0.9" fill="#FEF08A"/>
-      <circle cx="3" cy="-2" r="0.9" fill="#FEF08A"/>
-      <circle cx="0" cy="3" r="0.9" fill="#FEF08A"/>
-      <circle cx="-3" cy="7" r="0.8" fill="#FEF08A"/>
-      <circle cx="3" cy="7" r="0.8" fill="#FEF08A"/>
+      <circle cx="-3" cy="-2" r="1.0" fill="#FEF08A"/>
+      <circle cx="3" cy="-2" r="1.0" fill="#FEF08A"/>
+      <circle cx="0" cy="3" r="1.0" fill="#FEF08A"/>
+      <circle cx="-3" cy="7" r="0.9" fill="#FEF08A"/>
+      <circle cx="3" cy="7" r="0.9" fill="#FEF08A"/>
+    </g>
+
+    <!-- Classic Orange (Level 3 Bonus +500) -->
+    <g id="fruit-orange">
+      <!-- Stem and Leaf -->
+      <rect x="-1" y="-15" width="2" height="4" rx="0.8" fill="#78350F"/>
+      <path d="M 0,-13 Q 6,-16 8,-10 Q 4,-9 0,-12 Z" fill="#22C55E"/>
+      <!-- Orange Body -->
+      <circle cx="0" cy="0" r="11" fill="#F97316"/>
+      <circle cx="-3.5" cy="-3.5" r="3" fill="#FED7AA" opacity="0.6"/>
+    </g>
+
+    <!-- Classic Apple (Level 5 Bonus +700) -->
+    <g id="fruit-apple">
+      <!-- Stem and Leaf -->
+      <path d="M 0,-11 Q 2,-16 6,-15" stroke="#78350F" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 0,-11 Q -6,-15 -7,-9 Q -3,-8 0,-10 Z" fill="#22C55E"/>
+      <!-- Apple Body -->
+      <path d="M 0,-6 C -7,-8 -12,-3 -12,4 C -12,11 -6,14 0,11 C 6,14 12,11 12,4 C 12,-3 7,-8 0,-6 Z" fill="#DC2626"/>
+      <circle cx="-4" cy="-1" r="3" fill="#FCA5A5" opacity="0.6"/>
     </g>
   </defs>
 
@@ -506,15 +526,15 @@
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.25;0.2917" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11260
+        11060
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.2917;0.3333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11590
+        11190
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.3333;0.375" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        11670
+        11270
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.375;0.4167" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
@@ -538,43 +558,43 @@
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5833;0.625" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12710
+        12310
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.625;0.6667" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12800
+        12400
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.6667;0.7083" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12920
+        12520
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.7083;0.75" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        12990
+        12590
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.75;0.7917" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        13170
+        12970
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.7917;0.8333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        13210
+        13010
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.8333;0.875" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        13260
+        13060
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.875;0.9167" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        13350
+        13850
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.9167;0.9583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        13460
+        13960
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
         <animate attributeName="opacity" values="0;1" keyTimes="0;0.9583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-        13550
+        14050
       </text>
     </g>
 
@@ -1925,119 +1945,85 @@
 
   <!-- 7. In-Maze Consumable Fruits and Floating Score Popups -->
   <g id="layer-fruits">
-    <g transform="translate(640 200) scale(0.85)">
-      <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
-      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.2454;0.2474;0.9990;1" dur="26s" repeatCount="indefinite"/>
-      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;0.2454;0.2474;0.9990;1" dur="26s" repeatCount="indefinite"/>
+    <g transform="translate(450 200)">
+      <g>
+        <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.2106;0.2126;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.2106;0.2126;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      </g>
+      <text x="0" y="0" class="score-popup popup-cherry" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2106;0.2116;0.2456;0.2506;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="0;0;0;-18;-18;0" keyTimes="0;0.2106;0.2116;0.2456;0.2506;1" dur="26s" repeatCount="indefinite"/>
+        +100
+      </text>
     </g>
-    <text x="640" y="200" class="score-popup popup-strawberry" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2454;0.2464;0.2804;0.2854;1" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="200;200;200;182;182;200" keyTimes="0;0.2454;0.2464;0.2804;0.2854;1" dur="26s" repeatCount="indefinite"/>
-      +300
-    </text>
-    <g transform="translate(450 400) scale(0.85)">
-      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
-      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
-      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
+    <g transform="translate(450 400)">
+      <g>
+        <use href="#fruit-orange" xlink:href="#fruit-orange" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.3516;0.3536;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      </g>
+      <text x="0" y="0" class="score-popup popup-strawberry" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="0;0;0;-18;-18;0" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
+        +500
+      </text>
     </g>
-    <text x="450" y="400" class="score-popup popup-cherry" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="400;400;400;382;382;400" keyTimes="0;0.3516;0.3526;0.3866;0.3916;1" dur="26s" repeatCount="indefinite"/>
-      +100
-    </text>
-    <g transform="translate(950 400) scale(0.85)">
-      <use href="#fruit-cherry" xlink:href="#fruit-cherry" x="0" y="0"/>
-      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
-      <animateTransform attributeName="transform" type="scale" values="0.85;0.85;0.00;0.00;0.85" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
+    <g transform="translate(950 400)">
+      <g>
+        <use href="#fruit-strawberry" xlink:href="#fruit-strawberry" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.7308;0.7328;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      </g>
+      <text x="0" y="0" class="score-popup popup-cherry" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="0;0;0;-18;-18;0" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
+        +300
+      </text>
     </g>
-    <text x="950" y="400" class="score-popup popup-cherry" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="400;400;400;382;382;400" keyTimes="0;0.7308;0.7318;0.7658;0.7708;1" dur="26s" repeatCount="indefinite"/>
-      +100
-    </text>
-    <text x="735" y="300" class="score-popup popup-ghost" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="300;300;300;282;282;300" keyTimes="0;0.2900;0.2910;0.3250;0.3300;1" dur="26s" repeatCount="indefinite"/>
-      +200
-    </text>
-    <text x="735" y="555" class="score-popup popup-ghost" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="y" values="555;555;555;537;537;555" keyTimes="0;0.5800;0.5810;0.6150;0.6200;1" dur="26s" repeatCount="indefinite"/>
-      +400
-    </text>
+    <g transform="translate(950 200)">
+      <g>
+        <use href="#fruit-apple" xlink:href="#fruit-apple" x="0" y="0"/>
+        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.8462;0.8482;0.9990;1" dur="26s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" values="1.2;1.2;0.00;0.00;1.2" keyTimes="0;0.8462;0.8482;0.9990;1" dur="26s" repeatCount="indefinite"/>
+      </g>
+      <text x="0" y="0" class="score-popup popup-strawberry" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.8462;0.8472;0.8812;0.8862;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="0;0;0;-18;-18;0" keyTimes="0;0.8462;0.8472;0.8812;0.8862;1" dur="26s" repeatCount="indefinite"/>
+        +700
+      </text>
+    </g>
   </g>
 
-  <!-- 8. Characters with Dynamic Interaction Logic -->
+  <!-- 8. Characters with Non-Overlapping Sector Patrol Routes -->
   <g id="layer-characters">
     <g id="character-pacman">
       <use href="#pacman-character" xlink:href="#pacman-character" x="0" y="0" transform="scale(0.70)"/>
       <animateMotion path="M 735,85 L 75,85 L 75,200 L 735,200 L 735,400 L 75,400 L 75,555 L 1205,555 L 1205,400 L 735,400 L 735,200 L 1205,200 L 1205,85 L 735,85 Z" dur="26s" repeatCount="indefinite" rotate="auto" calcMode="paced"/>
     </g>
 
-    <!-- Blinky (Red Ghost) with Frightened Mode and Eaten Eyes Interaction -->
+    <!-- Blinky (Red Ghost) - Top-Left Sector Patrol -->
     <g id="character-blinky">
-      <!-- 1. Normal Mode Blinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3490;0.3500;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 2. Frightened Mode Blinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.2890;0.2900;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 3. Eaten Eyes retreating to ghost house -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2899;0.2900;0.3490;0.3500;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <animateMotion path="M 735,85 L 1205,85 L 1205,200 L 735,200 L 735,400 L 1205,400 L 1205,555 L 735,555 L 735,85 Z" dur="28s" repeatCount="indefinite" calcMode="linear"/>
+      <use href="#ghost-blinky" xlink:href="#ghost-blinky" x="0" y="0" transform="scale(0.70)"/>
+      <animateMotion path="M 190,145 L 560,145 L 560,175 L 190,175 L 190,145 Z" dur="20s" repeatCount="indefinite" calcMode="linear"/>
     </g>
 
-    <!-- Pinky (Pink Ghost) with Frightened Mode and Eaten Eyes Interaction -->
+    <!-- Pinky (Pink Ghost) - Top-Right Sector Patrol -->
     <g id="character-pinky">
-      <!-- 1. Normal Mode Pinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6390;0.6400;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 2. Frightened Mode Pinky -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.5790;0.5800;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <!-- 3. Eaten Eyes retreating to ghost house -->
-      <g transform="scale(0.70)">
-        <use href="#ghost-eaten-eyes" xlink:href="#ghost-eaten-eyes" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5799;0.5800;0.6390;0.6400;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <animateMotion path="M 75,85 L 735,85 L 735,200 L 75,200 L 75,400 L 735,400 L 735,555 L 75,555 L 75,85 Z" dur="32s" repeatCount="indefinite" calcMode="linear"/>
+      <use href="#ghost-pinky" xlink:href="#ghost-pinky" x="0" y="0" transform="scale(0.70)"/>
+      <animateMotion path="M 910,145 L 1090,145 L 1090,175 L 910,175 L 910,145 Z" dur="22s" repeatCount="indefinite" calcMode="linear"/>
     </g>
 
-    <!-- Inky (Cyan Ghost) -->
+    <!-- Inky (Cyan Ghost) - Bottom-Left Sector Patrol -->
     <g id="character-inky">
-      <g transform="scale(0.70)">
-        <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <animateMotion path="M 75,85 L 1205,85 L 1205,555 L 75,555 L 75,85 Z" dur="36s" repeatCount="indefinite" calcMode="linear"/>
+      <use href="#ghost-inky" xlink:href="#ghost-inky" x="0" y="0" transform="scale(0.70)"/>
+      <animateMotion path="M 190,475 L 560,475 L 560,510 L 190,510 L 190,475 Z" dur="24s" repeatCount="indefinite" calcMode="linear"/>
     </g>
 
-    <!-- Clyde (Orange Ghost) -->
+    <!-- Clyde (Orange Ghost) - Bottom-Right Sector Patrol -->
     <g id="character-clyde">
-      <g transform="scale(0.70)">
-        <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0"/>
-        <animate attributeName="opacity" values="1;1;0;0;1;1;0;0;1;1;0;0;1" keyTimes="0;0.1200;0.1209;0.3190;0.3200;0.4480;0.4487;0.6190;0.6200;0.9130;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <g transform="scale(0.70)">
-        <use href="#ghost-frightened" xlink:href="#ghost-frightened" x="0" y="0"/>
-        <animate attributeName="opacity" values="0;0;1;1;0;0;1;1;0;0;1;1" keyTimes="0;0.1208;0.1209;0.3190;0.3200;0.4487;0.6190;0.6200;0.9139;0.9990;1" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
-      </g>
-      <animateMotion path="M 735,400 L 75,400 L 75,555 L 1205,555 L 1205,400 L 735,400 Z" dur="40s" repeatCount="indefinite" calcMode="linear"/>
+      <use href="#ghost-clyde" xlink:href="#ghost-clyde" x="0" y="0" transform="scale(0.70)"/>
+      <animateMotion path="M 910,475 L 1090,475 L 1090,510 L 910,510 L 910,475 Z" dur="26s" repeatCount="indefinite" calcMode="linear"/>
     </g>
   </g>
 

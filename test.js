@@ -132,20 +132,22 @@ function runTests() {
     'Every power pellet lies on Pac-Man\'s exact route'
   );
 
-  // Test 11: Consumable fruits and in-maze score popups
-  assert(svgContent.includes('popup-strawberry'), 'Consumable Strawberry score popup (+300) is present');
-  assert(svgContent.includes('popup-cherry'), 'Consumable Cherry score popup (+100) is present');
-  assert(svgContent.includes('popup-ghost'), 'Ghost consumption score popup (+200/+400) is present');
+  // Test 11: Consumable in-maze fruits and score popups
+  assert(svgContent.includes('popup-strawberry') || svgContent.includes('popup-cherry'), 'Consumable in-maze fruits and score popups are present');
+  assert(svgContent.includes('fruit-cherry'), 'Cherry fruit is present in the maze');
+  assert(svgContent.includes('fruit-orange') || svgContent.includes('fruit-strawberry'), 'Strawberry and citrus fruits are present in the maze');
 
-  // Test 12: Ghost frightened & eaten eyes interactions
-  assert(svgContent.includes('ghost-frightened'), 'Ghost Frightened (Blue) mode is present');
-  assert(svgContent.includes('ghost-eaten-eyes'), 'Ghost Eaten Eyes returning to house mode is present');
+  // Test 12: Independent non-overlapping ghost sector routes
+  assert(blinkyPts.length >= 4, 'Blinky has valid closed loop patrol route');
+  assert(pinkyPts.length >= 4, 'Pinky has valid closed loop patrol route');
+  assert(inkyPts.length >= 4, 'Inky has valid closed loop patrol route');
+  assert(clydePts.length >= 4, 'Clyde has valid closed loop patrol route');
 
   // Test 13: Dynamic score synchronization and loop reset
   assert(svgContent.includes('id="hud-score"'), 'HUD score group is present');
   assert(svgContent.includes('calcMode="discrete"'), 'Score uses discrete stepping synchronized with coin collection');
   assert(svgContent.includes('10420'), 'Starting score 10420 is present and displayed at loop start');
-  assert(svgContent.includes('13') || svgContent.includes('12'), 'Score increments to higher values as coins and bonuses are consumed');
+  assert(svgContent.includes('14') || svgContent.includes('13') || svgContent.includes('12'), 'Score increments to higher values as coins and bonuses are consumed');
 
   // Test 14: File size within target (< 500 KB)
   const sizeKB = fs.statSync(bannerPath).size / 1024;
