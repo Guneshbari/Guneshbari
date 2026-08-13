@@ -270,11 +270,35 @@ export const POWER_PELLETS = [
   { x: 1205, y: 555 }
 ];
 
+// ── Canonical Maze Corridors for Uniform Pellet Placement ────────
+const CANONICAL_CORRIDORS = [
+  // Top Outer
+  { x1: 75, y1: 85, x2: 735, y2: 85 },
+  { x1: 735, y1: 85, x2: 1205, y2: 85 },
+
+  // Left & Right Perimeters
+  { x1: 75, y1: 85, x2: 75, y2: 200 },
+  { x1: 75, y1: 400, x2: 75, y2: 555 },
+  { x1: 1205, y1: 85, x2: 1205, y2: 200 },
+  { x1: 1205, y1: 400, x2: 1205, y2: 555 },
+
+  // Text Zone Corridors (Top & Bottom)
+  { x1: 75, y1: 200, x2: 735, y2: 200 },
+  { x1: 735, y1: 200, x2: 1205, y2: 200 },
+  { x1: 75, y1: 400, x2: 735, y2: 400 },
+  { x1: 735, y1: 400, x2: 1205, y2: 400 },
+
+  // Center Word Gap (between GUNESH and BARI)
+  { x1: 735, y1: 200, x2: 735, y2: 400 },
+
+  // Bottom Outer
+  { x1: 75, y1: 555, x2: 1205, y2: 555 }
+];
+
 // ── Regular Pellets Generator ──────────────────────────────────
 function generatePellets() {
   const pellets = [];
-  const spacing = 26;
-
+  const targetSpacing = 26;
   const placed = new Set();
 
   function tryPlace(px, py) {
@@ -282,27 +306,31 @@ function generatePellets() {
     const ry = Math.round(py);
     const key = `${rx},${ry}`;
     if (placed.has(key)) return;
-    // Power pellets occupy their own position in the route.
+
+    // Keep clear of Power Pellets
     for (const pp of POWER_PELLETS) {
       if (Math.hypot(rx - pp.x, ry - pp.y) < 18) return;
     }
+
+    // Keep uniform spacing between adjacent pellets
+    for (const p of pellets) {
+      if (Math.hypot(rx - p.x, ry - p.y) < 18) return;
+    }
+
     placed.add(key);
     pellets.push({ x: rx, y: ry });
   }
 
-  // Place dots directly on the valid Pac-Man centreline.  This makes it
-  // impossible to create a decorative pellet that Pac-Man can never collect.
-  for (let i = 0; i < PACMAN_ROUTE.length - 1; i++) {
-    const from = PACMAN_ROUTE[i];
-    const to = PACMAN_ROUTE[i + 1];
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
+  // Generate evenly-spaced pellets across all canonical corridors
+  for (const c of CANONICAL_CORRIDORS) {
+    const dx = c.x2 - c.x1;
+    const dy = c.y2 - c.y1;
     const length = Math.hypot(dx, dy);
-    const steps = Math.floor(length / spacing);
+    const steps = Math.round(length / targetSpacing);
 
     for (let step = 1; step < steps; step++) {
-      const progress = (step * spacing) / length;
-      tryPlace(from.x + dx * progress, from.y + dy * progress);
+      const progress = step / steps;
+      tryPlace(c.x1 + dx * progress, c.y1 + dy * progress);
     }
   }
 
