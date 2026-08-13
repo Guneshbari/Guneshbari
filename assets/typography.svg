@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 100">
+  <defs>
+    <!-- Pixel Block Definition for 8-bit text -->
+    <!-- GUNESH BARI 8-bit arcade typography symbol -->
+    <g id="typography-gunesh-bari">
+      <!-- Glow Underlay -->
+      <g filter="url(#glow-blur)" opacity="0.4">
+        <!-- Letter G -->
+        <path d="M 10,0 H 45 V 10 H 10 V 60 H 45 V 35 H 28 V 25 H 55 V 70 H 0 V 0 Z" fill="#FFE600"/>
+        <!-- Letter U -->
+        <path d="M 68,0 H 78 V 60 H 103 V 0 H 113 V 70 H 68 Z" fill="#FFE600"/>
+        <!-- Letter N -->
+        <path d="M 126,0 H 136 L 161,50 V 0 H 171 V 70 H 161 L 136,20 V 70 H 126 Z" fill="#FFE600"/>
+        <!-- Letter E -->
+        <path d="M 184,0 H 229 V 10 H 194 V 30 H 224 V 40 H 194 V 60 H 229 V 70 H 184 Z" fill="#FFE600"/>
+        <!-- Letter S -->
+        <path d="M 242,0 H 287 V 10 H 252 V 30 H 287 V 70 H 242 V 60 H 277 V 40 H 242 Z" fill="#FFE600"/>
+        <!-- Letter H -->
+        <path d="M 300,0 H 310 V 30 H 335 V 0 H 345 V 70 H 335 V 40 H 310 V 70 H 300 Z" fill="#FFE600"/>
+        
+        <!-- Letter B -->
+        <path d="M 380,0 H 415 Q 425,0 425,17.5 Q 425,32 415,35 Q 425,38 425,52.5 Q 425,70 415,70 H 380 Z M 390,10 V 30 H 410 Q 415,30 415,20 Q 415,10 410,10 Z M 390,40 V 60 H 410 Q 415,60 415,50 Q 415,40 410,40 Z" fill="#FFE600"/>
+        <!-- Letter A -->
+        <path d="M 438,0 H 483 V 70 H 473 V 40 H 448 V 70 H 438 Z M 448,10 V 30 H 473 V 10 Z" fill="#FFE600"/>
+        <!-- Letter R -->
+        <path d="M 496,0 H 531 Q 541,0 541,20 Q 541,35 526,38 L 541,70 H 528 L 515,40 H 506 V 70 H 496 Z M 506,10 V 30 H 526 Q 531,30 531,20 Q 531,10 526,10 Z" fill="#FFE600"/>
+        <!-- Letter I -->
+        <path d="M 554,0 H 584 V 10 H 574 V 60 H 584 V 70 H 554 V 60 H 564 V 10 H 554 Z" fill="#FFE600"/>
+      </g>
+
+      <!-- 3D Shadow Layer (Extrusion) -->
+      <g fill="#92400E" transform="translate(4, 4)">
+        <!-- G -->
+        <path d="M 10,0 H 45 V 10 H 10 V 60 H 45 V 35 H 28 V 25 H 55 V 70 H 0 V 0 Z"/>
+        <!-- U -->
+        <path d="M 68,0 H 78 V 60 H 103 V 0 H 113 V 70 H 68 Z"/>
+        <!-- N -->
+        <path d="M 126,0 H 136 L 161,50 V 0 H 171 V 70 H 161 L 136,20 V 70 H 126 Z"/>
+        <!-- E -->
+        <path d="M 184,0 H 229 V 10 H 194 V 30 H 224 V 40 H 194 V 60 H 229 V 70 H 184 Z"/>
+        <!-- S -->
+        <path d="M 242,0 H 287 V 10 H 252 V 30 H 287 V 70 H 242 V 60 H 277 V 40 H 242 Z"/>
+        <!-- H -->
+        <path d="M 300,0 H 310 V 30 H 335 V 0 H 345 V 70 H 335 V 40 H 310 V 70 H 300 Z"/>
+        
+        <!-- B -->
+        <path d="M 380,0 H 415 Q 425,0 425,17.5 Q 425,32 415,35 Q 425,38 425,52.5 Q 425,70 415,70 H 380 Z M 390,10 V 30 H 410 Q 415,30 415,20 Q 415,10 410,10 Z M 390,40 V 60 H 410 Q 415,60 415,50 Q 415,40 410,40 Z"/>
+        <!-- A -->
+        <path d="M 438,0 H 483 V 70 H 473 V 40 H 448 V 70 H 438 Z M 448,10 V 30 H 473 V 10 Z"/>
+        <!-- R -->
+        <path d="M 496,0 H 531 Q 541,0 541,20 Q 541,35 526,38 L 541,70 H 528 L 515,40 H 506 V 70 H 496 Z M 506,10 V 30 H 526 Q 531,30 531,20 Q 531,10 526,10 Z"/>
+        <!-- I -->
+        <path d="M 554,0 H 584 V 10 H 574 V 60 H 584 V 70 H 554 V 60 H 564 V 10 H 554 Z"/>
+      </g>
+
+      <!-- Main Face Layer (Vibrant Arcade Yellow) -->
+      <g fill="#FFE600" stroke="#0B1B4A" stroke-width="2" stroke-linejoin="round">
+        <!-- G -->
+        <path d="M 10,0 H 45 V 10 H 10 V 60 H 45 V 35 H 28 V 25 H 55 V 70 H 0 V 0 Z"/>
+        <!-- U -->
+        <path d="M 68,0 H 78 V 60 H 103 V 0 H 113 V 70 H 68 Z"/>
+        <!-- N -->
+        <path d="M 126,0 H 136 L 161,50 V 0 H 171 V 70 H 161 L 136,20 V 70 H 126 Z"/>
+        <!-- E -->
+        <path d="M 184,0 H 229 V 10 H 194 V 30 H 224 V 40 H 194 V 60 H 229 V 70 H 184 Z"/>
+        <!-- S -->
+        <path d="M 242,0 H 287 V 10 H 252 V 30 H 287 V 70 H 242 V 60 H 277 V 40 H 242 Z"/>
+        <!-- H -->
+        <path d="M 300,0 H 310 V 30 H 335 V 0 H 345 V 70 H 335 V 40 H 310 V 70 H 300 Z"/>
+        
+        <!-- B -->
+        <path d="M 380,0 H 415 Q 425,0 425,17.5 Q 425,32 415,35 Q 425,38 425,52.5 Q 425,70 415,70 H 380 Z M 390,10 V 30 H 410 Q 415,30 415,20 Q 415,10 410,10 Z M 390,40 V 60 H 410 Q 415,60 415,50 Q 415,40 410,40 Z"/>
+        <!-- A -->
+        <path d="M 438,0 H 483 V 70 H 473 V 40 H 448 V 70 H 438 Z M 448,10 V 30 H 473 V 10 Z"/>
+        <!-- R -->
+        <path d="M 496,0 H 531 Q 541,0 541,20 Q 541,35 526,38 L 541,70 H 528 L 515,40 H 506 V 70 H 496 Z M 506,10 V 30 H 526 Q 531,30 531,20 Q 531,10 526,10 Z"/>
+        <!-- I -->
+        <path d="M 554,0 H 584 V 10 H 574 V 60 H 584 V 70 H 554 V 60 H 564 V 10 H 554 Z"/>
+      </g>
+
+      <!-- Glossy / Highlight Accents on top edges -->
+      <g fill="#FFFDEB" opacity="0.8">
+        <rect x="12" y="2" width="31" height="3"/>
+        <rect x="70" y="2" width="6" height="3"/>
+        <rect x="105" y="2" width="6" height="3"/>
+        <rect x="128" y="2" width="6" height="3"/>
+        <rect x="163" y="2" width="6" height="3"/>
+        <rect x="186" y="2" width="41" height="3"/>
+        <rect x="244" y="2" width="41" height="3"/>
+        <rect x="302" y="2" width="6" height="3"/>
+        <rect x="337" y="2" width="6" height="3"/>
+        <rect x="382" y="2" width="30" height="3"/>
+        <rect x="440" y="2" width="41" height="3"/>
+        <rect x="498" y="2" width="30" height="3"/>
+        <rect x="556" y="2" width="26" height="3"/>
+      </g>
+    </g>
+  </defs>
+
+  <use href="#typography-gunesh-bari" x="50" y="15"/>
+</svg>

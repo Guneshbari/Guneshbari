@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 40 40">
+  <defs>
+    <!-- Standard Pellet -->
+    <g id="pellet-standard">
+      <circle cx="0" cy="0" r="3.6" fill="#FFD54A"/>
+      <circle cx="0" cy="0" r="5" fill="#FFD54A" opacity="0.25"/>
+    </g>
+
+    <!-- Power Pellet (Energizer) with pulsing animation -->
+    <g id="pellet-power">
+      <!-- Glow Aura -->
+      <circle cx="0" cy="0" r="14" fill="#FFF176" opacity="0.3" filter="url(#glow-blur)">
+        <animate attributeName="r" values="12; 17; 12" dur="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.2; 0.5; 0.2" dur="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Core Power Pellet -->
+      <circle cx="0" cy="0" r="9" fill="#FFFBEB">
+        <animate attributeName="r" values="8; 10; 8" dur="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="0" cy="0" r="7" fill="#FFE600">
+        <animate attributeName="r" values="6.5; 8; 6.5" dur="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-2.5" cy="-2.5" r="2" fill="#FFFFFF"/>
+    </g>
+  </defs>
+  
+  <use href="#pellet-power" x="0" y="0"/>
+</svg>

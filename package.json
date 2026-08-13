@@ -1,0 +1,21 @@
+{
+  "name": "github-pacman-banner",
+  "version": "1.0.0",
+  "description": "Animated Pac-Man GitHub profile banner featuring GUNESH BARI",
+  "main": "build.js",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "github",
+    "banner",
+    "pacman",
+    "svg",
+    "animation",
+    "retro-arcade"
+  ],
+  "author": "Gunesh Bari",
+  "license": "MIT"
+}

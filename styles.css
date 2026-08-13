@@ -1,0 +1,143 @@
+/**
+ * styles.css
+ * Development-time styling for Pac-Man GitHub Profile Banner
+ */
+
+:root {
+  --bg-color: #020617;
+  --maze-wall: #2563EB;
+  --maze-glow: #60A5FA;
+  --maze-inner: #93C5FD;
+  --pacman-yellow: #FFE600;
+  --blinky-red: #EF4444;
+  --pinky-pink: #EC4899;
+  --inky-cyan: #06B6D4;
+  --clyde-orange: #F97316;
+  --pellet-color: #FFD54A;
+  --power-pellet-color: #FFF176;
+  --hud-white: #F8FAFC;
+  --hud-red: #EF4444;
+}
+
+/* Base Canvas & Background */
+.arcade-bg {
+  fill: #020617;
+}
+
+.arcade-vignette {
+  fill: url(#vignette-gradient);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Neon Arcade Maze Walls */
+.wall-back-glow {
+  fill: none;
+  stroke: #1D4ED8;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.4;
+  filter: url(#glow-blur);
+}
+
+.wall-outer {
+  fill: none;
+  stroke: #2563EB;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wall-inner {
+  fill: none;
+  stroke: #93C5FD;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+
+.ghost-house-door {
+  fill: none;
+  stroke: #F472B6;
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: url(#glow-blur-subtle);
+  animation: door-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes door-glow {
+  0% { opacity: 0.7; stroke: #F472B6; }
+  100% { opacity: 1; stroke: #FBCFE8; }
+}
+
+/* CRT Scanlines Overlay */
+.scanlines {
+  fill: url(#scanline-pattern);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* Background Star Particles */
+.star-particle {
+  fill: #94A3B8;
+  animation: star-twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes star-twinkle {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.2; }
+}
+
+/* HUD Text Styles */
+.hud-label-red {
+  font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2px;
+  fill: #EF4444;
+}
+
+.hud-value-white {
+  font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 2px;
+  fill: #F8FAFC;
+}
+
+.hud-value-yellow {
+  font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 2px;
+  fill: #FFE600;
+}
+
+.hud-blink {
+  animation: hud-blink-anim 1s steps(2, start) infinite;
+}
+
+@keyframes hud-blink-anim {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Pellets and Power Pellets */
+.pellet-dot {
+  fill: #FFD54A;
+  transition: opacity 0.2s ease;
+}
+
+.pellet-glow {
+  fill: #FFD54A;
+  opacity: 0.25;
+}
+
+/* Arcade Name Plate */
+.nameplate-container {
+  filter: drop-shadow(0 0 16px rgba(37, 99, 235, 0.5));
+}
