@@ -1,180 +1,339 @@
 /**
  * maze-data.js
- * Symmetrical, centered arcade maze architecture for GitHub Profile Banner (1280x640).
- * 
- * Central Subject: "GUNESH BARI" is placed in the exact center at (X=640, Y=320).
- * 
- * Grid Corridor Centerlines (Strictly Orthogonal):
- * - Horizontal Corridors:
- *   - Y1 (Top Outer): y = 80
- *   - Y2 (Top Inner): y = 155
- *   - Y3 (Above GUNESH BARI): y = 230
- *   - Y4 (Middle Tunnel Level): y = 320 (x=0..200 and x=1080..1280)
- *   - Y5 (Below GUNESH BARI): y = 410
- *   - Y6 (Lower Inner): y = 485
- *   - Y7 (Bottom Outer): y = 560
- * 
- * - Vertical Corridors:
- *   - X1 (Left Outer): x = 85
- *   - X2 (Left Mid): x = 200
- *   - X3 (Left Inner): x = 340
- *   - X4 (Center-Left Flank): x = 490
- *   - X5 (Center-Right Flank): x = 790
- *   - X6 (Right Inner): x = 940
- *   - X7 (Right Mid): x = 1080
- *   - X8 (Right Outer): x = 1195
+ * Comprehensive arcade layout definition for Pac-Man GitHub Profile Banner.
+ * Designed to match the reference retro-arcade visual specification (1280x640).
  */
 
-export const CANVAS = {
-  width: 1280,
-  height: 640
+export const CANVAS = { width: 1280, height: 640 };
+
+// ── 7x9 Pixel Font Definition for "GUNESH BARI" ────────────────
+export const PIXEL_FONT = {
+  G: [
+    '.XXXXX.',
+    'XX...XX',
+    'XX.....',
+    'XX.....',
+    'XX..XXX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    '.XXXXX.'
+  ],
+  U: [
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    '.XXXXX.'
+  ],
+  N: [
+    'XX...XX',
+    'XXX..XX',
+    'XXX..XX',
+    'XXXX.XX',
+    'XX.XXXX',
+    'XX..XXX',
+    'XX..XXX',
+    'XX...XX',
+    'XX...XX'
+  ],
+  E: [
+    'XXXXXXX',
+    'XX.....',
+    'XX.....',
+    'XX.....',
+    'XXXXX..',
+    'XX.....',
+    'XX.....',
+    'XX.....',
+    'XXXXXXX'
+  ],
+  S: [
+    '.XXXXX.',
+    'XX...XX',
+    'XX.....',
+    '.XXXX..',
+    '...XXX.',
+    '.....XX',
+    'XX...XX',
+    'XX...XX',
+    '.XXXXX.'
+  ],
+  H: [
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XXXXXXX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX'
+  ],
+  B: [
+    'XXXXXX.',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XXXXXX.',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XXXXXX.'
+  ],
+  A: [
+    '..XXX..',
+    '.XX.XX.',
+    'XX...XX',
+    'XX...XX',
+    'XXXXXXX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX'
+  ],
+  R: [
+    'XXXXXX.',
+    'XX...XX',
+    'XX...XX',
+    'XX...XX',
+    'XXXXXX.',
+    'XX.XX..',
+    'XX..XX.',
+    'XX...XX',
+    'XX...XX'
+  ],
+  I: [
+    'XXXXXXX',
+    '..XXX..',
+    '..XXX..',
+    '..XXX..',
+    '..XXX..',
+    '..XXX..',
+    '..XXX..',
+    '..XXX..',
+    'XXXXXXX'
+  ]
 };
 
+// Text bounding constants
+export const TEXT_CONFIG = {
+  cellSize: 12,
+  cellGap: 1,
+  letterGap: 6,
+  wordGap: 40,
+  textCenterY: 300
+};
+
+export function getTextLayout(text = 'GUNESH BARI') {
+  const pitch = TEXT_CONFIG.cellSize + TEXT_CONFIG.cellGap;
+  let totalWidth = 0;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === ' ') {
+      totalWidth += TEXT_CONFIG.wordGap;
+    } else if (PIXEL_FONT[ch]) {
+      totalWidth += PIXEL_FONT[ch][0].length * pitch - TEXT_CONFIG.cellGap;
+      if (i < text.length - 1 && text[i + 1] !== ' ') {
+        totalWidth += TEXT_CONFIG.letterGap;
+      }
+    }
+  }
+
+  const startX = Math.round((CANVAS.width - totalWidth) / 2);
+  const textHeight = 9 * pitch - TEXT_CONFIG.cellGap;
+  const startY = Math.round(TEXT_CONFIG.textCenterY - textHeight / 2);
+
+  return { startX, startY, totalWidth, textHeight, pitch };
+}
+
+// ── Maze Walls Geometry (Neon Blue Double-Lines) ───────────────
 export const MAZE_WALLS = [
-  // 1. Outer Perimeter Border (with Left & Right Tunnel openings at y=295..345)
-  // Top Outer Wall
-  { type: 'path', d: 'M 50,295 L 50,60 Q 50,50 60,50 L 1220,50 Q 1230,50 1230,60 L 1230,295' },
-  // Bottom Outer Wall
-  { type: 'path', d: 'M 50,345 L 50,580 Q 50,590 60,590 L 1220,590 Q 1230,590 1230,580 L 1230,345' },
-  
-  // Left Tunnel Flanges
-  { type: 'path', d: 'M 0,295 L 50,295' },
-  { type: 'path', d: 'M 0,345 L 50,345' },
-  // Right Tunnel Flanges
-  { type: 'path', d: 'M 1230,295 L 1280,295' },
-  { type: 'path', d: 'M 1230,345 L 1280,345' },
+  // 1. Outer Border with Left & Right Teleport Tunnel Insets
+  // Top Outer
+  { type: 'rect', x: 45, y: 60, w: 1190, h: 6, rx: 3 },
+  // Bottom Outer
+  { type: 'rect', x: 45, y: 580, w: 1190, h: 6, rx: 3 },
+  // Left Upper (60 to 240)
+  { type: 'rect', x: 45, y: 60, w: 6, h: 180, rx: 3 },
+  // Left Lower (280 to 580)
+  { type: 'rect', x: 45, y: 280, w: 6, h: 300, rx: 3 },
+  // Right Upper (60 to 240)
+  { type: 'rect', x: 1229, y: 60, w: 6, h: 180, rx: 3 },
+  // Right Lower (280 to 580)
+  { type: 'rect', x: 1229, y: 280, w: 6, h: 300, rx: 3 },
 
-  // Top Center T-Stem Divider
-  { type: 'path', d: 'M 625,50 V 110 Q 625,116 631,116 H 649 Q 655,116 655,110 V 50 Z' },
+  // 2. Neon Enclosing Chamfered Islands around "GUNESH" and "BARI"
+  // Island for GUNESH (x: 132 to 720, y: 226 to 374)
+  {
+    type: 'path',
+    d: 'M 152,226 L 700,226 L 720,246 L 720,354 L 700,374 L 152,374 L 132,354 L 132,246 Z'
+  },
+  // Island for BARI (x: 750 to 1148, y: 226 to 374)
+  {
+    type: 'path',
+    d: 'M 770,226 L 1128,226 L 1148,246 L 1148,354 L 1128,374 L 770,374 L 750,354 L 750,246 Z'
+  },
 
-  // Top Horizontal Blocks (between y=80 and y=155)
-  { type: 'rect', x: 120, y: 105, w: 50, h: 25, rx: 6 },
-  { type: 'rect', x: 235, y: 105, w: 75, h: 25, rx: 6 },
-  { type: 'rect', x: 375, y: 105, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 525, y: 105, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 670, y: 105, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 820, y: 105, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 970, y: 105, w: 75, h: 25, rx: 6 },
-  { type: 'rect', x: 1110, y: 105, w: 50, h: 25, rx: 6 },
+  // 3. Top Section Maze Walls (between y=85 and y=200)
+  // Left Corner Block
+  { type: 'rect', x: 105, y: 110, w: 65, h: 60, rx: 6 },
+  // Left-Mid T-Block
+  { type: 'rect', x: 215, y: 110, w: 135, h: 22, rx: 6 },
+  { type: 'rect', x: 270, y: 132, w: 25, h: 42, rx: 5 },
+  // Left-Center Block
+  { type: 'rect', x: 395, y: 110, w: 145, h: 22, rx: 6 },
+  { type: 'rect', x: 455, y: 132, w: 25, h: 42, rx: 5 },
 
-  // Side Wall T-Wings (Left & Right)
-  { type: 'rect', x: 120, y: 180, w: 50, h: 90, rx: 6 },
-  { type: 'rect', x: 1110, y: 180, w: 50, h: 90, rx: 6 },
+  // Ghost House (Top Center, exactly like Reference Image)
+  // House walls: x: 585 to 695, y: 115 to 175
+  { type: 'rect', x: 585, y: 115, w: 40, h: 5, rx: 2 },
+  { type: 'rect', x: 655, y: 115, w: 40, h: 5, rx: 2 },
+  { type: 'door', x: 625, y: 115, w: 30, h: 4 }, // Ghost door
+  { type: 'rect', x: 585, y: 115, w: 5, h: 60, rx: 2 },
+  { type: 'rect', x: 690, y: 115, w: 5, h: 60, rx: 2 },
+  { type: 'rect', x: 585, y: 170, w: 110, h: 5, rx: 2 },
 
-  // Upper Mid Separators (between y=155 and y=230)
-  { type: 'rect', x: 235, y: 180, w: 225, h: 25, rx: 6 },
-  { type: 'rect', x: 820, y: 180, w: 225, h: 25, rx: 6 },
-  { type: 'rect', x: 525, y: 180, w: 230, h: 25, rx: 6 },
+  // Right-Center Block
+  { type: 'rect', x: 740, y: 110, w: 145, h: 22, rx: 6 },
+  { type: 'rect', x: 800, y: 132, w: 25, h: 42, rx: 5 },
+  // Right-Mid T-Block
+  { type: 'rect', x: 930, y: 110, w: 135, h: 22, rx: 6 },
+  { type: 'rect', x: 985, y: 132, w: 25, h: 42, rx: 5 },
+  // Right Corner Block
+  { type: 'rect', x: 1110, y: 110, w: 65, h: 60, rx: 6 },
 
-  // =========================================================================
-  // GUNESH BARI Architectural Frame
-  // EXACT CENTER at X=640, Y=320. Dimensions: 740 x 70 (y=285..355).
-  // Corridors around it: Top Y=230, Bottom Y=410, Left X=200, Right X=1080.
-  // =========================================================================
-  { type: 'rect', x: 270, y: 285, w: 740, h: 70, rx: 12 },
+  // 4. Side Corridor Guides in Text Zone (y: 226 to 374)
+  { type: 'rect', x: 85, y: 226, w: 20, h: 65, rx: 4 },
+  { type: 'rect', x: 85, y: 310, w: 20, h: 64, rx: 4 },
+  { type: 'rect', x: 1175, y: 226, w: 20, h: 65, rx: 4 },
+  { type: 'rect', x: 1175, y: 310, w: 20, h: 64, rx: 4 },
 
-  // Lower Side Wall T-Wings (Left & Right)
-  { type: 'rect', x: 120, y: 370, w: 50, h: 90, rx: 6 },
-  { type: 'rect', x: 1110, y: 370, w: 50, h: 90, rx: 6 },
+  // 5. Bottom Section Maze Walls (between y=400 and y=555)
+  // Row 1 (y: 425 to 455)
+  { type: 'rect', x: 105, y: 425, w: 65, h: 30, rx: 6 },
+  { type: 'rect', x: 215, y: 425, w: 135, h: 30, rx: 6 },
+  { type: 'rect', x: 395, y: 425, w: 145, h: 30, rx: 6 },
+  { type: 'rect', x: 585, y: 425, w: 110, h: 30, rx: 6 }, // Center bottom block
+  { type: 'rect', x: 740, y: 425, w: 145, h: 30, rx: 6 },
+  { type: 'rect', x: 930, y: 425, w: 135, h: 30, rx: 6 },
+  { type: 'rect', x: 1110, y: 425, w: 65, h: 30, rx: 6 },
 
-  // Lower Mid Separators (between y=355 and y=410 / y=485)
-  { type: 'rect', x: 235, y: 435, w: 225, h: 25, rx: 6 },
-  { type: 'rect', x: 820, y: 435, w: 225, h: 25, rx: 6 },
+  // Row 2 & Very Bottom (y: 485 to 545)
+  { type: 'rect', x: 105, y: 485, w: 65, h: 60, rx: 6 },
+  { type: 'rect', x: 215, y: 485, w: 25, h: 60, rx: 5 },
+  { type: 'rect', x: 265, y: 510, w: 180, h: 35, rx: 6 },
+  { type: 'rect', x: 485, y: 485, w: 55, h: 60, rx: 6 },
 
-  // Ghost House (Symmetrically in Lower-Center: X=525..755, Y=435..485)
-  { type: 'path', d: 'M 525,435 H 585 V 440 H 530 Q 525,440 525,445 V 480 Q 525,485 530,485 H 750 Q 755,485 755,480 V 445 Q 755,440 750,440 H 695 V 435 H 755 Q 760,435 760,440 V 485 Q 760,490 755,490 H 525 Q 520,490 520,485 V 440 Q 520,435 525,435 Z' },
-  // Ghost House Door (Pink glowing gate at Y=435, X=585..695)
-  { type: 'door', x: 585, y: 435, w: 110, h: 4 },
+  // Center bottom T-anchor
+  { type: 'rect', x: 585, y: 485, w: 110, h: 22, rx: 5 },
+  { type: 'rect', x: 628, y: 507, w: 24, h: 38, rx: 5 },
 
-  // Bottom Center T-Divider
-  { type: 'path', d: 'M 625,510 V 580 Q 625,586 631,586 H 649 Q 655,586 655,580 V 510 Z' },
-
-  // Bottom Horizontal Blocks (between y=485 and y=560)
-  { type: 'rect', x: 120, y: 510, w: 50, h: 25, rx: 6 },
-  { type: 'rect', x: 235, y: 510, w: 75, h: 25, rx: 6 },
-  { type: 'rect', x: 375, y: 510, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 525, y: 510, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 670, y: 510, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 820, y: 510, w: 85, h: 25, rx: 6 },
-  { type: 'rect', x: 970, y: 510, w: 75, h: 25, rx: 6 },
-  { type: 'rect', x: 1110, y: 510, w: 50, h: 25, rx: 6 }
+  { type: 'rect', x: 740, y: 485, w: 55, h: 60, rx: 6 },
+  { type: 'rect', x: 835, y: 510, w: 180, h: 35, rx: 6 },
+  { type: 'rect', x: 1040, y: 485, w: 25, h: 60, rx: 5 },
+  { type: 'rect', x: 1110, y: 485, w: 65, h: 60, rx: 6 }
 ];
 
-/**
- * 4 Power Pellets in the 4 Outer Corners
- */
+// ── Power Pellets (4 Strategic Corners) ─────────────────────────
 export const POWER_PELLETS = [
-  { id: 'pp-top-left', x: 85, y: 80 },
-  { id: 'pp-top-right', x: 1195, y: 80 },
-  { id: 'pp-bottom-left', x: 85, y: 560 },
-  { id: 'pp-bottom-right', x: 1195, y: 560 }
+  { x: 75, y: 85 },
+  { x: 1205, y: 85 },
+  { x: 75, y: 555 },
+  { x: 1205, y: 555 }
 ];
 
-/**
- * Generate standard pellets along all walkable corridor lines.
- */
-export function generatePellets() {
+// ── Regular Pellets Generator ──────────────────────────────────
+function generatePellets() {
   const pellets = [];
-  let id = 0;
+  const spacing = 26;
 
-  function addHLine(y, xStart, xEnd, step = 30) {
-    for (let x = xStart; x <= xEnd; x += step) {
-      const nearPower = POWER_PELLETS.some(p => Math.hypot(p.x - x, p.y - y) < 24);
-      if (!nearPower) {
-        pellets.push({ id: `pellet-${id++}`, x: Math.round(x), y: Math.round(y) });
+  // Primary horizontal corridor centerlines
+  const hCorridors = [
+    { y: 85, xMin: 65, xMax: 1215 },
+    { y: 200, xMin: 65, xMax: 1215 },
+    { y: 400, xMin: 65, xMax: 1215 },
+    { y: 470, xMin: 65, xMax: 1215 },
+    { y: 555, xMin: 65, xMax: 1215 }
+  ];
+
+  // Primary vertical corridor centerlines
+  const vCorridors = [
+    { x: 75, yMin: 70, yMax: 565 },
+    { x: 190, yMin: 70, yMax: 210 },
+    { x: 190, yMin: 390, yMax: 565 },
+    { x: 370, yMin: 70, yMax: 210 },
+    { x: 370, yMin: 390, yMax: 565 },
+    { x: 735, yMin: 70, yMax: 565 }, // Full height vertical through word gap
+    { x: 910, yMin: 70, yMax: 210 },
+    { x: 910, yMin: 390, yMax: 565 },
+    { x: 1090, yMin: 70, yMax: 210 },
+    { x: 1090, yMin: 390, yMax: 565 },
+    { x: 1205, yMin: 70, yMax: 565 }
+  ];
+
+  function isBlocked(px, py) {
+    // 1. Power pellets proximity
+    for (const pp of POWER_PELLETS) {
+      if (Math.abs(px - pp.x) < 22 && Math.abs(py - pp.y) < 22) return true;
+    }
+
+    // 2. Ghost house area (x: 580 to 700, y: 110 to 180)
+    if (px >= 580 && px <= 700 && py >= 110 && py <= 180) return true;
+
+    // 3. GUNESH island interior (x: 130 to 722, y: 224 to 376)
+    if (px >= 130 && px <= 722 && py >= 224 && py <= 376) return true;
+
+    // 4. BARI island interior (x: 748 to 1150, y: 224 to 376)
+    if (px >= 748 && px <= 1150 && py >= 224 && py <= 376) return true;
+
+    // 5. Maze wall collisions
+    for (const w of MAZE_WALLS) {
+      if (w.type === 'rect') {
+        const pad = 8;
+        if (
+          px >= w.x - pad &&
+          px <= w.x + w.w + pad &&
+          py >= w.y - pad &&
+          py <= w.y + w.h + pad
+        ) {
+          return true;
+        }
       }
+    }
+
+    return false;
+  }
+
+  const placed = new Set();
+
+  function tryPlace(px, py) {
+    const rx = Math.round(px);
+    const ry = Math.round(py);
+    const key = `${rx},${ry}`;
+    if (placed.has(key)) return;
+    if (isBlocked(rx, ry)) return;
+    placed.add(key);
+    pellets.push({ x: rx, y: ry });
+  }
+
+  // Generate along horizontal corridors
+  for (const hc of hCorridors) {
+    for (let x = hc.xMin; x <= hc.xMax; x += spacing) {
+      tryPlace(x, hc.y);
     }
   }
 
-  function addVLine(x, yStart, yEnd, step = 30) {
-    for (let y = yStart; y <= yEnd; y += step) {
-      const nearPower = POWER_PELLETS.some(p => Math.hypot(p.x - x, p.y - y) < 24);
-      if (!nearPower) {
-        pellets.push({ id: `pellet-${id++}`, x: Math.round(x), y: Math.round(y) });
-      }
+  // Generate along vertical corridors
+  for (const vc of vCorridors) {
+    for (let y = vc.yMin; y <= vc.yMax; y += spacing) {
+      tryPlace(vc.x, y);
     }
   }
-
-  // Horizontal Lines
-  // Top Outer (Y = 80)
-  addHLine(80, 115, 600, 30);
-  addHLine(80, 680, 1165, 30);
-
-  // Top Inner (Y = 155)
-  addHLine(155, 85, 1195, 30);
-
-  // Above GUNESH BARI (Y = 230)
-  addHLine(230, 200, 1080, 28);
-
-  // Middle Tunnel Level (Y = 320)
-  addHLine(320, 85, 200, 28);
-  addHLine(320, 1080, 1195, 28);
-
-  // Below GUNESH BARI (Y = 410)
-  addHLine(410, 200, 1080, 28);
-
-  // Lower Inner (Y = 485)
-  addHLine(485, 85, 490, 30);
-  addHLine(485, 790, 1195, 30);
-
-  // Bottom Outer (Y = 560)
-  addHLine(560, 115, 600, 30);
-  addHLine(560, 680, 1165, 30);
-
-  // Vertical Lines
-  // Outer Left & Right
-  addVLine(85, 110, 290, 30);
-  addVLine(85, 350, 530, 30);
-  addVLine(1195, 110, 290, 30);
-  addVLine(1195, 350, 530, 30);
-
-  // Mid Columns (X = 200 & X = 1080)
-  addVLine(200, 155, 485, 30);
-  addVLine(1080, 155, 485, 30);
-
-  // Center Flank Columns (X = 490 & X = 790)
-  addVLine(490, 230, 485, 30);
-  addVLine(790, 230, 485, 30);
 
   return pellets;
 }

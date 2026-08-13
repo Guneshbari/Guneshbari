@@ -1,6 +1,6 @@
 /**
  * styles.css
- * Development-time styling for Pac-Man GitHub Profile Banner
+ * Styling and animations for the retro arcade Pac-Man GitHub Profile Banner.
  */
 
 :root {
@@ -9,17 +9,17 @@
   --maze-glow: #60A5FA;
   --maze-inner: #93C5FD;
   --pacman-yellow: #FFE600;
-  --blinky-red: #EF4444;
-  --pinky-pink: #EC4899;
-  --inky-cyan: #06B6D4;
-  --clyde-orange: #F97316;
+  --blinky-red: #FF3B30;
+  --pinky-pink: #FF69B4;
+  --inky-cyan: #00D8FF;
+  --clyde-orange: #FF8C42;
   --pellet-color: #FFD54A;
   --power-pellet-color: #FFF176;
   --hud-white: #F8FAFC;
-  --hud-red: #EF4444;
+  --hud-red: #FF3B30;
 }
 
-/* Base Canvas and Background */
+/* Base Canvas and CRT Background */
 .arcade-bg {
   fill: #020617;
 }
@@ -34,17 +34,17 @@
 .wall-back-glow {
   fill: none;
   stroke: #1D4ED8;
-  stroke-width: 8;
+  stroke-width: 9;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.4;
+  opacity: 0.45;
   filter: url(#glow-blur);
 }
 
 .wall-outer {
   fill: none;
   stroke: #2563EB;
-  stroke-width: 5.5;
+  stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -52,10 +52,10 @@
 .wall-inner {
   fill: none;
   stroke: #93C5FD;
-  stroke-width: 1.5;
+  stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .ghost-house-door {
@@ -68,18 +68,45 @@
 }
 
 @keyframes door-glow {
-  0% { opacity: 0.7; stroke: #F472B6; }
+  0% { opacity: 0.65; stroke: #F472B6; }
   100% { opacity: 1; stroke: #FBCFE8; }
 }
 
-/* CRT Scanlines Overlay */
+/* Teleport Tunnels (Neon Magenta/Pink) */
+.teleport-tunnel {
+  stroke: #FF3B8F;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  filter: url(#glow-blur-subtle);
+  animation: tunnel-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes tunnel-pulse {
+  0% { opacity: 0.6; stroke: #D946EF; }
+  100% { opacity: 1.0; stroke: #FF3B8F; }
+}
+
+/* Giant Pixel Text Cells (Arcade Dot-Matrix) */
+.pixel-text-cell {
+  fill: #FFD54A;
+  stroke: #D97706;
+  stroke-width: 0.6;
+}
+
+.pixel-text-glow {
+  fill: #FFD54A;
+  opacity: 0.15;
+  filter: url(#glow-blur-subtle);
+}
+
+/* CRT Scanlines */
 .scanlines {
   fill: url(#scanline-pattern);
-  opacity: 0.12;
+  opacity: 0.10;
   pointer-events: none;
 }
 
-/* Background Star Particles */
+/* Star Particles */
 .star-particle {
   fill: #94A3B8;
   animation: star-twinkle 3s ease-in-out infinite alternate;
@@ -95,15 +122,23 @@
 .hud-label-red {
   font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
   font-weight: 900;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 2px;
-  fill: #EF4444;
+  fill: #FF3B30;
+}
+
+.hud-label-cyan {
+  font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 2px;
+  fill: #00D8FF;
 }
 
 .hud-value-white {
   font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 2px;
   fill: #F8FAFC;
 }
@@ -111,7 +146,7 @@
 .hud-value-yellow {
   font-family: 'Courier New', Courier, monospace, 'Press Start 2P', system-ui, sans-serif;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 2px;
   fill: #FFE600;
 }
@@ -126,18 +161,12 @@
   }
 }
 
-/* Pellets and Power Pellets */
+/* Pellets */
 .pellet-dot {
   fill: #FFD54A;
-  transition: opacity 0.2s ease;
 }
 
 .pellet-glow {
   fill: #FFD54A;
   opacity: 0.25;
-}
-
-/* Arcade Name Plate */
-.nameplate-container {
-  filter: drop-shadow(0 0 16px rgba(37, 99, 235, 0.5));
 }
