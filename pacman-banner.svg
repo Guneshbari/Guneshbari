@@ -520,24 +520,100 @@
     <text x="75" y="32" class="hud-label-red hud-blink">1UP</text>
     <g id="hud-score">
       <text x="75" y="48" class="hud-value-white" opacity="1">
-        <animate attributeName="opacity" values="1;1;0;0;0;0;0;0;0;1" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="26s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0" keyTimes="0;0.0417" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
         10420
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;1;1;0;0;0;0;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="26s" repeatCount="indefinite"/>
-        10580
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.0417;0.0833" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        10500
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;0;0;1;1;0;0;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="26s" repeatCount="indefinite"/>
-        10760
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.0833;0.125" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        10590
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;0;0;0;0;1;1;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="26s" repeatCount="indefinite"/>
-        10940
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.125;0.1667" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        10710
       </text>
       <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;0;0;0;0;0;0;1;1" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="26s" repeatCount="indefinite"/>
-        11120
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.1667;0.2083" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        10790
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.2083;0.25" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        10870
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.25;0.2917" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        10960
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.2917;0.3333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11090
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.3333;0.375" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11170
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.375;0.4167" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11250
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.4167;0.4583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11340
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.4583;0.5" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11450
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5;0.5417" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11530
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5417;0.5833" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11620
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5833;0.625" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11710
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.625;0.6667" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11800
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.6667;0.7083" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11920
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.7083;0.75" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        11990
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.75;0.7917" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        12070
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.7917;0.8333" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        12110
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.8333;0.875" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        12160
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.875;0.9167" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        12250
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.9167;0.9583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        12360
+      </text>
+      <text x="75" y="48" class="hud-value-white" opacity="0">
+        <animate attributeName="opacity" values="0;1" keyTimes="0;0.9583" dur="26s" repeatCount="indefinite" calcMode="discrete"/>
+        12450
       </text>
     </g>
 

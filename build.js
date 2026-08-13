@@ -180,7 +180,69 @@ function generatePelletsSvg(pellets, powerPellets) {
 }
 
 // ============================================================
-// 5. Star Particles
+// 5. Dynamic Score Counter (Synchronized with Coin Eating)
+// ============================================================
+function generateDynamicScoreSvg(baseScore = 10420, numSteps = 24) {
+  const items = [];
+
+  for (const p of PELLETS) {
+    const passes = getPathPassFractions(p.x, p.y, PACMAN_PATH);
+    if (passes.length) items.push({ pass: Math.min(...passes), pts: 10 });
+  }
+  for (const pp of POWER_PELLETS) {
+    const passes = getPathPassFractions(pp.x, pp.y, PACMAN_PATH);
+    if (passes.length) items.push({ pass: Math.min(...passes), pts: 50 });
+  }
+
+  items.sort((a, b) => a.pass - b.pass);
+
+  const steps = [];
+  let curPts = 0;
+  let itemIdx = 0;
+
+  for (let i = 0; i < numSteps; i++) {
+    const tStart = parseFloat((i / numSteps).toFixed(4));
+    const tEnd = parseFloat(((i + 1) / numSteps).toFixed(4));
+
+    while (itemIdx < items.length && items[itemIdx].pass <= tStart) {
+      curPts += items[itemIdx].pts;
+      itemIdx++;
+    }
+
+    steps.push({
+      i,
+      tStart: Math.max(0, Math.min(1, tStart)),
+      tEnd: Math.max(0, Math.min(1, tEnd)),
+      score: baseScore + curPts
+    });
+  }
+
+  let output = '    <g id="hud-score">\n';
+  for (const s of steps) {
+    if (s.i === 0) {
+      output += `      <text x="75" y="48" class="hud-value-white" opacity="1">\n`;
+      output += `        <animate attributeName="opacity" values="1;0" keyTimes="0;${s.tEnd}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
+      output += `        ${s.score}\n`;
+      output += `      </text>\n`;
+    } else if (s.i === numSteps - 1) {
+      output += `      <text x="75" y="48" class="hud-value-white" opacity="0">\n`;
+      output += `        <animate attributeName="opacity" values="0;1" keyTimes="0;${s.tStart}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
+      output += `        ${s.score}\n`;
+      output += `      </text>\n`;
+    } else {
+      output += `      <text x="75" y="48" class="hud-value-white" opacity="0">\n`;
+      output += `        <animate attributeName="opacity" values="0;1;0" keyTimes="0;${s.tStart};${s.tEnd}" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite" calcMode="discrete"/>\n`;
+      output += `        ${s.score}\n`;
+      output += `      </text>\n`;
+    }
+  }
+  output += '    </g>';
+
+  return output;
+}
+
+// ============================================================
+// 6. Star Particles
 // ============================================================
 function generateStars() {
   const stars = [
@@ -197,7 +259,7 @@ function generateStars() {
 }
 
 // ============================================================
-// 6. Main Assembly
+// 7. Main Assembly
 // ============================================================
 function assembleBanner() {
   console.log('⚡ Building Retro Pac-Man GitHub Banner...');
@@ -210,6 +272,7 @@ function assembleBanner() {
 
   const { backGlow, outerWalls, innerWalls, doors } = generateWallElements(MAZE_WALLS);
   const pelletsSvg = generatePelletsSvg(PELLETS, POWER_PELLETS);
+  const scoreSvg = generateDynamicScoreSvg(10420, 24);
   const starsSvg = generateStars();
   const { svgCells } = renderPixelText('GUNESH BARI');
 
@@ -266,28 +329,7 @@ ${starsSvg}
   <g id="layer-hud">
     <!-- 1UP and Score -->
     <text x="75" y="32" class="hud-label-red hud-blink">1UP</text>
-    <g id="hud-score">
-      <text x="75" y="48" class="hud-value-white" opacity="1">
-        <animate attributeName="opacity" values="1;1;0;0;0;0;0;0;0;1" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
-        10420
-      </text>
-      <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;1;1;0;0;0;0;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
-        10580
-      </text>
-      <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;0;0;1;1;0;0;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
-        10760
-      </text>
-      <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;0;0;0;0;1;1;0;0" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
-        10940
-      </text>
-      <text x="75" y="48" class="hud-value-white" opacity="0">
-        <animate attributeName="opacity" values="0;0;0;0;0;0;0;0;1;1" keyTimes="0;0.18;0.20;0.38;0.40;0.58;0.60;0.78;0.80;1" dur="${ANIMATION_CONFIG.pacmanDuration}" repeatCount="indefinite"/>
-        11120
-      </text>
-    </g>
+${scoreSvg}
 
     <!-- HIGH SCORE -->
     <text x="560" y="32" class="hud-label-red">HIGH SCORE</text>

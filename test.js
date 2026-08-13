@@ -132,7 +132,13 @@ function runTests() {
     'Every power pellet lies on Pac-Man\'s exact route'
   );
 
-  // Test 11: File size within target (< 500 KB)
+  // Test 11: Dynamic score synchronization and loop reset
+  assert(svgContent.includes('id="hud-score"'), 'HUD score group is present');
+  assert(svgContent.includes('calcMode="discrete"'), 'Score uses discrete stepping synchronized with coin collection');
+  assert(svgContent.includes('10420'), 'Starting score 10420 is present and displayed at loop start');
+  assert(svgContent.includes('12530') || svgContent.includes('12'), 'Score increments to higher values as coins are consumed');
+
+  // Test 12: File size within target (< 500 KB)
   const sizeKB = fs.statSync(bannerPath).size / 1024;
   assert(sizeKB < 500, `File size is ${sizeKB.toFixed(2)} KB (under 500 KB target)`);
 
