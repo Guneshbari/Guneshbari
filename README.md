@@ -136,13 +136,9 @@
 <div align="center">
 
 ### 📈 Contribution Graph
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Guneshbari&theme=tokyo-night&hide_border=true&area=true&area_color=7C3AED&line=E8C848&point=10B981&color=8892b0&bg_color=000000" width="100%"/>
+<img src="https://ghchart.rshah.org/7C3AED/Guneshbari" alt="Gunesh Bari's Contribution Graph" width="100%"/>
 
 </div>
-<div align="center">
-
-</div>
-<div align="center">
 
 ---
 
